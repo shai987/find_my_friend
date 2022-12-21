@@ -13,6 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
+import './NavBar.css'
+
 const pages = ['אזור אישי', 'מי אנחנו'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -36,7 +38,7 @@ const NavBar = () => {
         };
 
         return (
-                <AppBar position="static">
+                <AppBar className='appBar' position="static">
                         <Container maxWidth="xl">
                                 <Toolbar disableGutters>
                                         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
