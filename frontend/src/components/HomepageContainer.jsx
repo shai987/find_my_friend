@@ -8,8 +8,8 @@ const HomepageContainer = () => {
                 <div className="HomepageContainer">
                         <Fragment>
                                 < NavBar />
-                                {/* <Welcome />
-                                <Footer /> */}
+                                <Welcome />
+                                <Footer />
                         </Fragment >
                 </div>
         );
