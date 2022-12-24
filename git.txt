@@ -17,7 +17,7 @@ del multi files from stage:
 git rm --cached <file_name> <file_name>
 
 commit file/s:
-git commit -m "<your message>"כיע
+git commit -m "<your message>"
 
 push repo to github:
 git push -u origin <branc_name>
