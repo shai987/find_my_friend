@@ -22,6 +22,9 @@ git commit -m "<your message>"
 push repo to github:
 git push -u origin <branc_name>
 
+pull repo to my projecy from github:
+git pull origin <branc_name>
+
 create new branch:
 git branch <name_of_the_branch>
 
