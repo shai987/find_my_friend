@@ -1,7 +1,7 @@
 const Welcome = () => {
         return (
                 <div className="Welcome" >
-                        <img src='/assets/images/dog_cat.jpeg' alt="img"></img>
+                        <img src='/assets/images/dog_cat.jpeg' alt="dog&cat_image"></img>
                         <article className="textttt">
                                 <p>החבר שלך אבד? תן למודל הפסיכי לעזור לך</p>
                         </article>
