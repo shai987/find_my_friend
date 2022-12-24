@@ -20,10 +20,10 @@ commit file/s:
 git commit -m "<your message>"
 
 push repo to github:
-git push -u origin <branc_name>
+git push -u origin <branch_name>
 
-pull repo to my projecy from github:
-git pull origin <branc_name>
+pull repo to my project from github:
+git pull origin <branch_name>
 
 create new branch:
 git branch <name_of_the_branch>
