@@ -1,6 +1,7 @@
+import './FinderOfTheMonth.css';
 const FindOfTheMonth = () => {
         return (
-                <div>
+                <div className='div1'>
                         <h1>מוצא החודש🏆</h1>
                 </div>
         )
