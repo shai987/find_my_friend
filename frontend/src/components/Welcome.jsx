@@ -1,4 +1,4 @@
-// import './Welcome.css';
+// import '../css/Welcome.css';
 
 const Welcome = () => {
         return (

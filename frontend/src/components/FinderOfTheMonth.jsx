@@ -1,4 +1,5 @@
-import './FinderOfTheMonth.css';
+import '../css/FinderOfTheMonth.css';
+
 const FindOfTheMonth = () => {
         return (
                 <div className='div1'>

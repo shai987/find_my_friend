@@ -11,7 +11,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import "./NavBar.css";
+import '../css/NavBar.css';
+
 
 const pages = ["אזור אישי", "מי אנחנו?"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
