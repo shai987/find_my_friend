@@ -1,25 +1,52 @@
-import { useState } from 'react';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
 
-const Footer = () => {
-        const [value, setValue] = useState(0);
-
+function Copyright() {
         return (
-                <BottomNavigation
-                        showLabels
-                        value={value}
-                        onChange={(event, newValue) => {
-                                setValue(newValue);
-                        }}
-                >
-                        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-                        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-                        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
-                </BottomNavigation>
+                <Typography variant="body2" color="text.secondary">
+                        {'Copyright © '}
+                        <Link color="inherit" href="https://mui.com/">
+                                Your Website
+                        </Link>{' '}
+                        {new Date().getFullYear()}
+                        {'.'}
+                </Typography>
         );
 }
-export default Footer;
+
+export default function Footer() {
+        return (
+                <Box
+                        sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                minHeight: '100vh',
+                        }}
+                >
+                        <CssBaseline />
+                        <Box
+                                component="footer"
+                                sx={{
+                                        py: 3,
+                                        px: 2,
+                                        mt: 'auto',
+                                        backgroundColor: (theme) =>
+                                                theme.palette.mode === 'light'
+                                                        ? theme.palette.grey[200]
+                                                        : theme.palette.grey[800],
+                                }}
+                        >
+                                <Container maxWidth="sm">
+                                        <Typography variant="body1">
+                                                My sticky footer can be found here.
+                                        </Typography>
+                                        <Copyright />
+                                </Container>
+                        </Box>
+                </Box>
+        );
+}
