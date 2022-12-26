@@ -11,6 +11,7 @@ const ScrollToTop = () => {
 
         useEffect(() => {
                 window.addEventListener("scroll", () => {
+                        // scrollY = the number of pixels that the document is currently scrolled vertically
                         if (window.scrollY > 100) {
                                 setShowScrollTopButton(true);
                         } else {
@@ -20,6 +21,7 @@ const ScrollToTop = () => {
         }, []);
 
         const scrollTop = () => {
+                // scrollTo = scrolls the document to right location
                 window.scrollTo({
                         top: 0,
                         behavior: "smooth",
