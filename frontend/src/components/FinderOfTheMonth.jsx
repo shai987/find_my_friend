@@ -1,4 +1,4 @@
-import '../css/FinderOfTheMonth.css';
+import '../assets/css/FinderOfTheMonth.css';
 
 const FindOfTheMonth = () => {
         return (

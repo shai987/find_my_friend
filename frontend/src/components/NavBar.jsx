@@ -11,8 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import '../css/NavBar.css';
-
+import '../assets/css/NavBar.css';
 
 const pages = ["אזור אישי", "מי אנחנו?"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -50,7 +49,7 @@ const NavBar = () => {
                                                 }}
                                         >
                                                 {/*img = add the icon */}
-                                                <img className="dog" src="/assets/images/dog.jpg" alt="dog.jpg" />
+                                                <img className="dog" src={require('../assets/images/dog.jpg')} alt="dog_image" />
                                         </Typography>
 
                                         {/* zoom in menu burger */}
@@ -107,7 +106,7 @@ const NavBar = () => {
                                                 }}
                                         >
                                                 {/*img = add the icon */}
-                                                <img className="dog" src="/assets/images/dog.jpg" alt="dog.jpg" />
+                                                <img className="dog" src={require('../assets/images/dog.jpg')} alt="dog_image" />
                                         </Typography>
 
                                         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
