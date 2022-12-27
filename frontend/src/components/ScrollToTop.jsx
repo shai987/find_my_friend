@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaAngleDoubleUp } from "react-icons/fa";
-import './ScrollToTop.css';
+import '../assets/css/ScrollToTop.css';
 
 // if someone want to see how to do it
 // https://www.youtube.com/watch?v=oszUqCqTGHo
@@ -11,6 +11,7 @@ const ScrollToTop = () => {
 
         useEffect(() => {
                 window.addEventListener("scroll", () => {
+                        // scrollY = the number of pixels that the document is currently scrolled vertically
                         if (window.scrollY > 100) {
                                 setShowScrollTopButton(true);
                         } else {
@@ -20,6 +21,7 @@ const ScrollToTop = () => {
         }, []);
 
         const scrollTop = () => {
+                // scrollTo = scrolls the document to right location
                 window.scrollTo({
                         top: 0,
                         behavior: "smooth",
@@ -30,7 +32,7 @@ const ScrollToTop = () => {
                 <div>
                         {showScrollTopButton && (
                                 <FaAngleDoubleUp
-                                        className="top-btn-position top-btn-style"
+                                        className="btn-position btn-style"
                                         onClick={scrollTop}
                                 />
                         )}
