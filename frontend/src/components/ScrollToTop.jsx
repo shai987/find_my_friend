@@ -32,7 +32,7 @@ const ScrollToTop = () => {
                 <div>
                         {showScrollTopButton && (
                                 <FaAngleDoubleUp
-                                        className="top-btn-position top-btn-style"
+                                        className="btn-position btn-style"
                                         onClick={scrollTop}
                                 />
                         )}
