@@ -3,7 +3,7 @@
 // import HomepageContainer from "./components/HomepageContainer";
 import MyRouter from "./routes/MyRouter";
 
-function App() {
+const App = () => {
   return (
     <div className="App" >
       <header className="App-header">
