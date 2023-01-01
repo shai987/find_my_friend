@@ -1,0 +1,15 @@
+.he {
+       direction: rtl;
+       text-align: center;
+       color: #3E5060;
+}
+
+.bold {
+       color: #3E5060;
+}
+
+.copyright {
+       direction: ltr;
+       text-align: center;
+       color: #3E5060;
+}
