@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import sliderData from '../assets/data/SliderData.js';
+import sliderData from '../services/sliderData';
 import '../assets/css/Slider.css';
 
 const Slider = () => {
@@ -52,16 +52,16 @@ const Slider = () => {
           );
         })}
         <button className="prev" onClick={() => setIndex(index - 1)}>
-        <i className="fa fa-angle-double-left" />
+          <i className="fa fa-angle-double-left" />
         </button>
         <button className="next" onClick={() => setIndex(index + 1)}>
-        <i className="fa fa-angle-double-right" />
+          <i className="fa fa-angle-double-right" />
         </button>
       </div>
     </section>
-    
+
   );
-  
+
 };
 
 export default Slider;
