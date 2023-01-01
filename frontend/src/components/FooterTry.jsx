@@ -3,11 +3,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
+
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import '../assets/css/Footer.css';
+import '../assets/css/ParmFooter.css';
 
 const FooterTry = () => {
         return (
@@ -15,7 +16,7 @@ const FooterTry = () => {
                         sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
-                                minHeight: '20vh',
+                                minHeight: '100vh',
                         }}
                 >
                         <CssBaseline />
@@ -26,10 +27,11 @@ const FooterTry = () => {
                                         py: 3,
                                         px: 2,
                                         mt: 'auto',
-                                        backgroundColor: (theme) =>
-                                                theme.palette.mode === 'light'
-                                                        ? theme.palette.grey[200]
-                                                        : theme.palette.grey[800],
+                                        backgroundColor: '#eeeeee'
+                                        // backgroundColor: (theme) =>
+                                        //         theme.palette.mode === 'light'
+                                        //                 ? theme.palette.grey[200]
+                                        //                 : theme.palette.grey[800],
                                 }}
                         >
                                 <Container maxWidth="sm">

@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 // import './App.css';
-import HomepageContainer from "./components/HomepageContainer";
+// import HomepageContainer from "./components/HomepageContainer";
+import MyRouter from "./routes/MyRouter";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         >
           Learn React
         </a> */}
-        <HomepageContainer />
+        <MyRouter />
       </header>
     </div >
   );
