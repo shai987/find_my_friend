@@ -1,0 +1,15 @@
+.wrapper{
+    display: flex;
+    justify-content: space-around;
+    align-self: baseline;
+}
+
+.first {
+    width: 50%;
+    float:left; /* add this */
+}
+.second {
+    width: 50%;
+    float:right;
+    
+}
