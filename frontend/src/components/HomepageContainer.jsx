@@ -1,19 +1,17 @@
 import { Fragment } from "react";
-import NavBar from "./NavBar";
 import Welcome from "./Welcome";
 import FinderOfTheMonth from "./FinderOfTheMonth";
-import Footer from "./Footer";
-import ScrollToTop from "./ScrollToTop";
+import Slider from "./Slider";
+import Statistics from "./Statistics";
 
 const HomepageContainer = () => {
         return (
                 <div className="HomepageContainer">
                         <Fragment>
-                                < NavBar />
                                 <Welcome />
+                                <Slider />
+                                <Statistics />
                                 <FinderOfTheMonth />
-                                <Footer />
-                                <ScrollToTop />
                         </Fragment >
                 </div >
         );
