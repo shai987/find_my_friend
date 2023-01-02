@@ -148,39 +148,6 @@ const MyRouter = () => {
                                                         </Menu>
                                                 </Toolbar>
                                         </Container>
-                                        <Tooltip title="הגדרות" sx={{ ml: 2 }} placement='left-end'>
-                                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                                        <Avatar alt="s" src="" />
-                                                </IconButton>
-                                        </Tooltip>
-
-                                        <Menu
-                                                sx={{ mt: "45px" }}
-                                                id="menu-appbar"
-                                                anchorEl={anchorElUser}
-                                                anchorOrigin={{
-                                                        vertical: "top",
-                                                        horizontal: "right",
-                                                }}
-                                                keepMounted
-                                                transformOrigin={{
-                                                        vertical: "top",
-                                                        horizontal: "right",
-                                                }}
-                                                open={Boolean(anchorElUser)}
-                                                onClose={handleCloseUserMenu}
-                                        >
-                                                <MenuItem onClick={handleCloseUserMenu}>
-                                                        <Link className='link' to='/About'>
-                                                                <Typography textAlign="center">{settings[0]}</Typography>
-                                                        </Link>
-                                                </MenuItem>
-                                                <MenuItem onClick={handleCloseUserMenu}>
-                                                        <Link className='link' to='/LogOut'>
-                                                                <Typography textAlign="center">{settings[1]}</Typography>
-                                                        </Link>
-                                                </MenuItem>
-                                        </Menu>
                                 </AppBar>
                                 <Routes>
                                         <Route path='/' element={<HomepageContainer />}></Route>
