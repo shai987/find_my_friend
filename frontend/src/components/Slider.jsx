@@ -3,15 +3,20 @@ import sliderData from '../services/sliderData';
 import '../assets/css/Slider.css';
 
 const Slider = () => {
-  const [recommenders] = useState(sliderData);
+  const [recommenders, setRecommenders] = useState(sliderData);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+
     const lastIndex = recommenders.length - 1;
+    // const lastIndex = setRecommenders(recommenders.length - 1);
+
     if (index < 0) {
       setIndex(lastIndex);
+      // setIndex(setRecommenders());
     }
     if (index > lastIndex) {
+      // if (index > setRecommenders()) {
       setIndex(0);
     }
   }, [index, recommenders]);
@@ -44,7 +49,7 @@ const Slider = () => {
             position = "lastSlide";
           }
           return (
-            <article className={position} key={id}>
+            <article className={`basicArticle ${position}`} key={id}>
               <img src={image} alt={name} className="person-img" />
               <h4>{name}</h4>
               <p className="text">{quote}</p>

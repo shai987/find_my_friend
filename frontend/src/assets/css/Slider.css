@@ -37,8 +37,7 @@ h4 {
   overflow: hidden;
 }
 
-/* put article in comment becuse it disrupts the menu */
-/* article {
+.basicArticle {
   position: absolute;
   top: 0;
   left: 0;
@@ -46,7 +45,7 @@ h4 {
   height: 100%;
   opacity: 0;
   transition: all 0.3s linear;
-} */
+}
 
 article.activeSlide {
   opacity: 1;
