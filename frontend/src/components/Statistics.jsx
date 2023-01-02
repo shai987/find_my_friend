@@ -1,12 +1,11 @@
-import React from "react";
-import '../assets/css/Statistics.css';
 import { chartData, pieData } from '../services/statisticsData';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie } from "recharts";
+import '../assets/css/Statistics.css';
 
 const Statistics = () => {
     return (
         <div>
-            <h2 layout="horizontal" verticalAlign="top" align="center">הנתונים מדברים בעד עצמם</h2>
+            <h2 layout="horizontal" /* verticalAlign="top" */ align="center">הנתונים מדברים בעד עצמם</h2>
             <div className="wrapper">
                 <LineChart width={500} height={300} data={chartData} className="first" >
                     <CartesianGrid strokeDasharray="3 3" />
