@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import sliderData from '../services/sliderData';
-import '../assets/css/Slider.css';
+import sliderData from '../../services/sliderData';
+import '../../assets/css/Slider.css';
 
 const Slider = () => {
   const [recommenders] = useState(sliderData);

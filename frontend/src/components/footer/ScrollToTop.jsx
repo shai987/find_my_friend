@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaAngleDoubleUp } from "react-icons/fa";
-import '../assets/css/ScrollToTop.css';
+import '../../assets/css/ScrollToTop.css';
 
 // if someone want to see how to do it
 // https://www.youtube.com/watch?v=oszUqCqTGHo

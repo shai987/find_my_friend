@@ -1,4 +1,4 @@
-// import libraries
+// import libraries from material-ui
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 // import icons from icons-material

@@ -1,6 +1,6 @@
-import { chartData, pieData } from '../services/statisticsData';
+import { chartData, pieData } from '../../services/statisticsData';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie } from "recharts";
-import '../assets/css/Statistics.css';
+import '../../assets/css/Statistics.css';
 
 const Statistics = () => {
     return (

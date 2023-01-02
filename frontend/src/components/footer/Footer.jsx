@@ -2,9 +2,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-import ParmFooter from './footer/ParmFooter';
+import ParmFooter from './ParmFooter';
 import ScrollToTop from "./ScrollToTop";
-
 
 const Footer = () => {
         return (
