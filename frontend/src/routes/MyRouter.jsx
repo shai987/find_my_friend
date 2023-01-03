@@ -2,24 +2,23 @@
 import {
         BrowserRouter as Router,
         Routes,
+        Navigate,
         Route,
         Link
 } from 'react-router-dom';
 // import libraries from material-ui
 import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-
+// import our components
 import HomepageContainer from '../components/homePage/HomepageContainer';
 import UserAccount from '../components/navBar/UserAccount';
 import ContactUs from '../components/navBar/ContactUs';
@@ -27,8 +26,7 @@ import About from '../components/navBar/About';
 import Footer from '../components/footer/Footer';
 import LogOut from '../components/navBar/LogOut';
 import Image from '../components/Image';
-import NavBar from '../components/navBar/NavBar';
-
+// import css
 import '../assets/css/MyRouter.css';
 
 const MyRouter = () => {
@@ -50,28 +48,26 @@ const MyRouter = () => {
                 }
         }
 
-        const [anchorElNav, setAnchorElNav] = useState(null);
-        const [anchorElUser, setAnchorElUser] = useState(null);
+        const [nav, setNav] = useState(null);
+        const [user, setUser] = useState(null);
 
-        const handleOpenNavMenu = (event) => {
-                setAnchorElNav(event.currentTarget);
-        };
         const handleOpenUserMenu = (event) => {
-                setAnchorElUser(event.currentTarget);
+                setUser(event.currentTarget);
         };
 
         const handleCloseNavMenu = () => {
-                setAnchorElNav(null);
+                setNav(null);
         };
 
         const handleCloseUserMenu = () => {
-                setAnchorElUser(null);
+                setUser(null);
         };
 
         return (
                 <>
                         <Router>
-                                <AppBar className="appBar" position="static">
+                                {/* sticky position allows the menu to be displayed even when scrolling */}
+                                <AppBar className="appBar" position="sticky">
                                         <Container maxWidth="xl" sx={{ mr: 2 }}>
                                                 <Toolbar disableGutters>
                                                         <Link to='/'>
@@ -84,7 +80,7 @@ const MyRouter = () => {
                                                                         <Image img={image} />
                                                                 </Typography>
                                                         </Link> &nbsp; &nbsp;
-                                                        {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}> */}
+
                                                         <Link className='link' to='/UserAccount'>
                                                                 <Button
                                                                         onClick={handleCloseNavMenu}
@@ -112,18 +108,17 @@ const MyRouter = () => {
                                                                         {pages[2]} &nbsp;
                                                                 </Button>
                                                         </Link>
-                                                        {/* </Box> */}
-                                                        {/* <Box sx={{ flexGrow: 0, ml: -60, display: { xs: "none", md: "flex" } }}> */}
+
                                                         <Tooltip title="הגדרות" sx={{ ml: 10 }}>
                                                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                                                         <Avatar alt="s" src="" />
                                                                 </IconButton>
                                                         </Tooltip>
-                                                        {/* </Box> */}
+
                                                         <Menu
                                                                 sx={{ mt: "45px" }}
                                                                 id="menu-appbar"
-                                                                anchorEl={anchorElUser}
+                                                                anchorEl={user}
                                                                 anchorOrigin={{
                                                                         vertical: "top",
                                                                         horizontal: "right",
@@ -133,7 +128,7 @@ const MyRouter = () => {
                                                                         vertical: "top",
                                                                         horizontal: "right",
                                                                 }}
-                                                                open={Boolean(anchorElUser)}
+                                                                open={Boolean(user)}
                                                                 onClose={handleCloseUserMenu}
                                                         >
                                                                 <MenuItem onClick={handleCloseUserMenu}>
@@ -156,6 +151,8 @@ const MyRouter = () => {
                                         <Route path='/ContactUs' element={<ContactUs />}></Route>
                                         <Route path='/About' element={<About />}></Route>
                                         <Route path='/LogOut' element={<LogOut />}></Route>
+                                        {/* If the user go to not exsist path it would take him back to "/" */}
+                                        <Route path="*" element={<Navigate to="/" />}></Route>
                                 </Routes>
                         </Router >
                         <Footer />

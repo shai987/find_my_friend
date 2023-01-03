@@ -8,17 +8,11 @@ import ScrollToTop from "./ScrollToTop";
 const Footer = () => {
         return (
                 <>
-                        <Box
-                                sx={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        minHeight: '100vh',
-                                }}
-                        >
+                        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+
                                 <CssBaseline />
 
-                                <Box
-                                        component="footer"
+                                <Box component="footer"
                                         sx={{
                                                 py: 3,
                                                 px: 2,
