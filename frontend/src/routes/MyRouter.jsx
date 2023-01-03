@@ -84,7 +84,7 @@ const MyRouter = () => {
                                                                         <Image img={image} />
                                                                 </Typography>
                                                         </Link> &nbsp; &nbsp;
-                                                        {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}> */}
+
                                                         <Link className='link' to='/UserAccount'>
                                                                 <Button
                                                                         onClick={handleCloseNavMenu}
@@ -140,6 +140,7 @@ const MyRouter = () => {
                                                                                 <Typography textAlign="center">{settings[0]}</Typography>
                                                                         </Link>
                                                                 </MenuItem>
+
                                                                 <MenuItem onClick={handleCloseUserMenu}>
                                                                         <Link className='link' to='/LogOut'>
                                                                                 <Typography textAlign="center">{settings[1]}</Typography>
