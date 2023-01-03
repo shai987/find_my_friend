@@ -1,0 +1,108 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  } 
+  
+  .line{
+    width: 200px;
+    height: 3px;
+    background: #F3C577;
+    margin: 20px auto;
+  } 
+
+  .banner {
+    width: 100%;
+  background-image: url(https://st2.depositphotos.com/1606449/7516/i/600/depositphotos_75163555-stock-photo-cats-and-dogs-hanging-paws.jpg);
+  height: 405px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-attachment: fixed;
+  }
+
+  .container h1 {
+    text-align:center;
+    margin-top: 80px;
+  }
+ .about {
+display: flex;
+justify-content: baseline;
+padding: 40px;
+width: 60%;
+margin: 10rem auto 0 auto;
+
+ }
+
+.text img {
+    height: 300px;
+    float: right;
+    margin: 0px 0px 15px 20px;
+ }  
+  
+  body{
+    margin: 0;
+    font-family: 'Josefin Sans', sans-serif;
+  } 
+  
+  .team_wrapper{
+    margin-top: 50px;
+  }
+  
+  .team_wrapper h1{
+    font-family: 'Allura', cursive;
+    font-size: 52px;
+    margin-bottom: 60px;
+    text-align: center;
+  }
+  
+  .team{
+    display: flex;
+    justify-content: center;
+    width: auto;
+    text-align: center;
+    flex-wrap: wrap;
+  }
+  
+  .team .team_member{
+    background: #aaabd3;
+    margin: 5px;
+    margin-bottom: 50px;
+    width: 300px;
+    padding: 20px;
+    line-height: 20px;
+    position: relative;
+    
+  }
+  
+  .team .team_member h3{
+    color: #f3f3f3;
+    font-size: 26px;
+    margin-top: 50px;
+  }
+  
+  .team .team_member p.role{
+    color: rgb(94, 82, 82);
+    margin: 12px 0;
+    font-size: 16px;
+   
+  }
+  
+  .team .team_member .team_img{
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #fff;
+  }
+  
+  .team .team_member .team_img img{
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border-radius: 50%;
+  }
