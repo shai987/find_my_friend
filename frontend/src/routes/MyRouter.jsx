@@ -1,14 +1,11 @@
+// import react-router-dom
 import {
         BrowserRouter as Router,
         Routes,
         Route,
         Link
 } from 'react-router-dom';
-
-import HomepageContainer from '../components/HomepageContainer';
-import UserAccount from '../components/UserAccount';
-import About from '../components/About';
-import Image from '../components/Image';
+// import libraries from material-ui
 import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -22,12 +19,21 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+
+import HomepageContainer from '../components/homePage/HomepageContainer';
+import UserAccount from '../components/navBar/UserAccount';
+import ContactUs from '../components/navBar/ContactUs';
+import About from '../components/navBar/About';
+import Footer from '../components/footer/Footer';
+import LogOut from '../components/navBar/LogOut';
+import Image from '../components/Image';
+import NavBar from '../components/navBar/NavBar';
+
 import '../assets/css/MyRouter.css';
 
-import Footer from '../components/Footer';
-
 const MyRouter = () => {
-        const settings = ["Profile", "Account", "Dashboard", "Logout"];
+        const pages = ["אזור אישי", "אודות", "צור קשר"];
+        const settings = ["אזור אישי", "התנתקות"];
 
         const image = {
                 src: require('../assets/images/dog.jpg'),
@@ -78,61 +84,78 @@ const MyRouter = () => {
                                                                         <Image img={image} />
                                                                 </Typography>
                                                         </Link> &nbsp; &nbsp;
+                                                        {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}> */}
                                                         <Link className='link' to='/UserAccount'>
                                                                 <Button
                                                                         onClick={handleCloseNavMenu}
                                                                         sx={{ my: 2, color: "white", display: "block" }}
                                                                 >
-                                                                        אזור אישי
-                                                                        &nbsp;
+                                                                        {pages[0]} &nbsp;
                                                                 </Button>
-                                                                {/* settings of the user */}
-                                                                {/* <Tooltip title="הגדרות" placement="top-end">
-                                                                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                                                                        <Avatar alt="ss" src='' />
-                                                                                </IconButton>
-                                                                        </Tooltip>
-                                                                        <Menu
-                                                                                sx={{ mt: "45px" }}
-                                                                                id="menu-appbar"
-                                                                                anchorEl={anchorElUser}
-                                                                                anchorOrigin={{
-                                                                                        vertical: "top",
-                                                                                        horizontal: "right",
-                                                                                }}
-                                                                                keepMounted
-                                                                                transformOrigin={{
-                                                                                        vertical: "top",
-                                                                                        horizontal: "right",
-                                                                                }}
-                                                                                open={Boolean(anchorElUser)}
-                                                                                onClose={handleCloseUserMenu}
-                                                                        >
-                                                                                {settings.map((setting) => (
-                                                                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                                                                                <Typography textAlign="center">{setting}</Typography>
-                                                                                        </MenuItem>
-                                                                                ))}
-                                                                        </Menu> */}
-
-
                                                         </Link>
+
+                                                        <Link className='link' to='/ContactUs'>
+                                                                <Button
+                                                                        onClick={handleCloseNavMenu}
+                                                                        sx={{ my: 2, color: "white", display: "block" }}
+                                                                >
+                                                                        {pages[1]}
+                                                                        &nbsp;&nbsp;
+                                                                </Button>
+                                                        </Link>
+
                                                         <Link className='link' to='/About'>
                                                                 <Button
                                                                         onClick={handleCloseNavMenu}
                                                                         sx={{ my: 2, color: "white", display: "block" }}
                                                                 >
-                                                                        מי אנחנו?
+                                                                        {pages[2]} &nbsp;
                                                                 </Button>
                                                         </Link>
+                                                        {/* </Box> */}
+                                                        {/* <Box sx={{ flexGrow: 0, ml: -60, display: { xs: "none", md: "flex" } }}> */}
+                                                        <Tooltip title="הגדרות" sx={{ ml: 10 }}>
+                                                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                                                        <Avatar alt="s" src="" />
+                                                                </IconButton>
+                                                        </Tooltip>
+                                                        {/* </Box> */}
+                                                        <Menu
+                                                                sx={{ mt: "45px" }}
+                                                                id="menu-appbar"
+                                                                anchorEl={anchorElUser}
+                                                                anchorOrigin={{
+                                                                        vertical: "top",
+                                                                        horizontal: "right",
+                                                                }}
+                                                                keepMounted
+                                                                transformOrigin={{
+                                                                        vertical: "top",
+                                                                        horizontal: "right",
+                                                                }}
+                                                                open={Boolean(anchorElUser)}
+                                                                onClose={handleCloseUserMenu}
+                                                        >
+                                                                <MenuItem onClick={handleCloseUserMenu}>
+                                                                        <Link className='link' to='/About'>
+                                                                                <Typography textAlign="center">{settings[0]}</Typography>
+                                                                        </Link>
+                                                                </MenuItem>
+                                                                <MenuItem onClick={handleCloseUserMenu}>
+                                                                        <Link className='link' to='/LogOut'>
+                                                                                <Typography textAlign="center">{settings[1]}</Typography>
+                                                                        </Link>
+                                                                </MenuItem>
+                                                        </Menu>
                                                 </Toolbar>
                                         </Container>
                                 </AppBar>
                                 <Routes>
                                         <Route path='/' element={<HomepageContainer />}></Route>
                                         <Route path='/UserAccount' element={<UserAccount />}></Route>
+                                        <Route path='/ContactUs' element={<ContactUs />}></Route>
                                         <Route path='/About' element={<About />}></Route>
-
+                                        <Route path='/LogOut' element={<LogOut />}></Route>
                                 </Routes>
                         </Router >
                         <Footer />

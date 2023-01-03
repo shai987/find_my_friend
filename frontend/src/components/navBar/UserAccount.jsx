@@ -1,6 +1,6 @@
 const UserAccount = () => {
         return (
-                <div>UserAccount</div>
+                <div>אזור אישי</div>
         );
 }
 export default UserAccount;

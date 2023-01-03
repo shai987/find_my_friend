@@ -13,3 +13,7 @@
 .link {
         text-decoration: none;
 }
+
+.r {
+        direction: ltr;
+}

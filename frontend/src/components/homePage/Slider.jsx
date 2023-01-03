@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import sliderData from '../assets/data/SliderData.js';
-import '../assets/css/Slider.css';
+import { useState, useEffect } from "react";
+import sliderData from '../../services/sliderData';
+import '../../assets/css/Slider.css';
 
 const Slider = () => {
   const [recommenders] = useState(sliderData);
@@ -8,6 +8,7 @@ const Slider = () => {
 
   useEffect(() => {
     const lastIndex = recommenders.length - 1;
+
     if (index < 0) {
       setIndex(lastIndex);
     }
@@ -44,7 +45,7 @@ const Slider = () => {
             position = "lastSlide";
           }
           return (
-            <article className={position} key={id}>
+            <article className={`basicArticle ${position}`} key={id}>
               <img src={image} alt={name} className="person-img" />
               <h4>{name}</h4>
               <p className="text">{quote}</p>
@@ -52,16 +53,16 @@ const Slider = () => {
           );
         })}
         <button className="prev" onClick={() => setIndex(index - 1)}>
-        <i className="fa fa-angle-double-left" />
+          <i className="fa fa-angle-double-left" />
         </button>
         <button className="next" onClick={() => setIndex(index + 1)}>
-        <i className="fa fa-angle-double-right" />
+          <i className="fa fa-angle-double-right" />
         </button>
       </div>
     </section>
-    
+
   );
-  
+
 };
 
 export default Slider;

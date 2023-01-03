@@ -11,9 +11,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import '../assets/css/NavBar.css';
+import '../../assets/css/NavBar.css';
 
-// const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const NavBar = () => {
         const pages = ["אזור אישי", "מי אנחנו?"];
@@ -49,11 +49,11 @@ const NavBar = () => {
                                                 }}
                                         >
                                                 {/* img = add the icon */}
-                                                <img className="dog" src={require('../assets/images/dog.jpg')} alt="dog_image" />
+                                                <img className="dog" src={require('../../assets/images/dog.jpg')} alt="dog_image" />
                                         </Typography>
 
                                         {/* zoom in menu burger */}
-                                        {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                                        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                                                 <IconButton
                                                         size="large"
                                                         aria-label="account of current user"
@@ -88,7 +88,7 @@ const NavBar = () => {
                                                                 </MenuItem>
                                                         ))}
                                                 </Menu>
-                                        </Box> */}
+                                        </Box>
                                         {/* zoom in menu burger */}
                                         {/* <Typography
                                                 variant="h5"
@@ -107,10 +107,10 @@ const NavBar = () => {
                                                 }}
                                         >
                                                 img = add the icon
-                                                <img className="dog" src={require('../assets/images/dog.jpg')} alt="dog_image" />
+                                                <img className="dog" src={require('../../assets/images/dog.jpg')} alt="dog_image" />
                                         </Typography> */}
 
-                                        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                                        {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                                                 {pages.map((page) => (
                                                         <Button
                                                                 key={page}
@@ -120,10 +120,10 @@ const NavBar = () => {
                                                                 {page}
                                                         </Button>
                                                 ))}
-                                        </Box>
+                                        </Box> */}
 
                                         {/* settings of the user */}
-                                        {/* <Box sx={{ flexGrow: 0 }}>
+                                        <Box sx={{ flexGrow: 0 }}>
                                                 <Tooltip title="הגדרות" placement="top-end">
                                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -151,7 +151,7 @@ const NavBar = () => {
                                                                 </MenuItem>
                                                         ))}
                                                 </Menu>
-                                        </Box> */}
+                                        </Box>
                                 </Toolbar>
                         </Container>
                 </AppBar>
