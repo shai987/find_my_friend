@@ -110,7 +110,7 @@ const NavBar = () => {
                                                 <img className="dog" src={require('../../assets/images/dog.jpg')} alt="dog_image" />
                                         </Typography> */}
 
-                                        {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                                        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                                                 {pages.map((page) => (
                                                         <Button
                                                                 key={page}
@@ -120,7 +120,7 @@ const NavBar = () => {
                                                                 {page}
                                                         </Button>
                                                 ))}
-                                        </Box> */}
+                                        </Box>
 
                                         {/* settings of the user */}
                                         <Box sx={{ flexGrow: 0 }}>

@@ -136,6 +136,7 @@ const MyRouter = () => {
                                                                                 <Typography textAlign="center">{settings[0]}</Typography>
                                                                         </Link>
                                                                 </MenuItem>
+
                                                                 <MenuItem onClick={handleCloseUserMenu}>
                                                                         <Link className='link' to='/LogOut'>
                                                                                 <Typography textAlign="center">{settings[1]}</Typography>
