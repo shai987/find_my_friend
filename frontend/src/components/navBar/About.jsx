@@ -28,7 +28,7 @@ const About = () => {
 
                                         </p>
                                         <div className="img3">
-                                                <img src="https://static8.depositphotos.com/1004199/982/i/600/depositphotos_9822329-stock-photo-cat-and-dog-together.jpg" alt="dogs_cat" />
+                                                <img src="https://static8.depositphotos.com/1004199/982/i/600/depositphotos_9822329-stock-photo-cat-and-dog-together.jpg" />
                                         </div>
                                 </div>
                         </div>

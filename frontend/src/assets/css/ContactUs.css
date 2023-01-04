@@ -12,6 +12,10 @@ h1 {
     margin-top: 50px;
   }
 
+ p {
+  text-align:center;
+  margin-top: 50px;
+}
   .line{
     width: 200px;
     height: 3px;
@@ -29,7 +33,7 @@ h1 {
     padding: 40px 15%;  
   }
 
-  .contact{
+  .form_contact{
     height: 100%;
     width: 100%;
     min-height: 100vh;
@@ -39,3 +43,22 @@ h1 {
     grid-gap:6 rem;
   }
 
+  .form_contact form {
+    position: relative;
+    margin-right: 20px;
+    margin-left: -140px;
+  }
+
+  .form_contact form input, .form_contact form textarea, .form_contact select, .form_contact button {
+    width: 100%;
+    padding: 17px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    font-family: Arial;
+  }
+
+.dog_image {
+margin-top: 120px;
+margin-right: -80px;
+margin-left: -50px;
+}
