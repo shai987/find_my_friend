@@ -36,6 +36,7 @@ const MyRouter = () => {
         const image = {
                 src: require('../assets/images/dog.jpg'),
                 alt: "dog_image",
+                title: "Link back to home page",
                 style: {
                         height: '50px',
                         width: '50px',
