@@ -16,7 +16,7 @@ const Welcome = () => {
                         {/* <img src={require('../assets/images/dog_cat.jpeg')} alt="dog&cat_image"></img> */}
                         <Image img={image} />
                         <article className="textttt">
-                                <p>החבר שלך אבד? תן למודל הפסיכי לעזור לך</p>
+                                <p id='pCheck'>החבר שלך אבד? תן למודל הפסיכי לעזור לך</p>
                         </article>
                 </div>
         );

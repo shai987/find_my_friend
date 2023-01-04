@@ -21,6 +21,7 @@ const ParmFooter = () => {
                                         <ContactPageIcon color="primary" fontSize="small" />
                                 </Link>
                         </Typography>
+
                         {/* Contact-Mail */}
                         <Typography className='he' variant="body1">
                                 {'נשמח לשמוע מכם '}

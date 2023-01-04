@@ -9,8 +9,8 @@ const HomepageContainer = () => {
                 <div className="HomepageContainer">
                         <>
                                 <Welcome />
-                                <Slider />
                                 <HowTheSiteWork />
+                                <Slider />
                                 <Statistics />
                                 <FinderOfTheMonth />
                         </>

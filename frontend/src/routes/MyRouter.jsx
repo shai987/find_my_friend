@@ -30,13 +30,12 @@ import Image from '../components/Image';
 import '../assets/css/MyRouter.css';
 
 const MyRouter = () => {
-        const pages = ["אזור אישי", "אודות", "צור קשר"];
+        const pages = ["אודות", "צור קשר"];
         const settings = ["אזור אישי", "התנתקות"];
 
         const image = {
                 src: require('../assets/images/dog.jpg'),
                 alt: "dog_image",
-                title: "This is a dog img",
                 style: {
                         height: '50px',
                         width: '50px',
@@ -81,7 +80,16 @@ const MyRouter = () => {
                                                                 </Typography>
                                                         </Link> &nbsp; &nbsp;
 
-                                                        <Link className='link' to='/UserAccount'>
+                                                        {/* <Link className='link' to='/UserAccount'>
+                                                                <Button
+                                                                        onClick={handleCloseNavMenu}
+                                                                        sx={{ my: 2, color: "white", display: "block" }}
+                                                                >
+                                                                        {pages[]} &nbsp;
+                                                                </Button>
+                                                        </Link> */}
+
+                                                        <Link className='link' to='/About'>
                                                                 <Button
                                                                         onClick={handleCloseNavMenu}
                                                                         sx={{ my: 2, color: "white", display: "block" }}
@@ -100,14 +108,6 @@ const MyRouter = () => {
                                                                 </Button>
                                                         </Link>
 
-                                                        <Link className='link' to='/About'>
-                                                                <Button
-                                                                        onClick={handleCloseNavMenu}
-                                                                        sx={{ my: 2, color: "white", display: "block" }}
-                                                                >
-                                                                        {pages[2]} &nbsp;
-                                                                </Button>
-                                                        </Link>
 
                                                         <Tooltip title="הגדרות" sx={{ ml: 10 }}>
                                                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
