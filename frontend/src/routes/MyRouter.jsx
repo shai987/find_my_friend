@@ -133,7 +133,7 @@ const MyRouter = () => {
                                                                 onClose={handleCloseUserMenu}
                                                         >
                                                                 <MenuItem onClick={handleCloseUserMenu}>
-                                                                        <Link className='link' to='/About'>
+                                                                        <Link className='link' to='/UserAccount'>
                                                                                 <Typography textAlign="center">{settings[0]}</Typography>
                                                                         </Link>
                                                                 </MenuItem>
