@@ -33,6 +33,9 @@
 
 .contact_wrapper {
   padding: 40px 15%;
+  display: flex;
+  justify-content: space-around;
+  align-self: baseline;
 }
 
 .form_contact {

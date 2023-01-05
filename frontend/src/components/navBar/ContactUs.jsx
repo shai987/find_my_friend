@@ -21,7 +21,7 @@ const ContactForm = () => {
       <div className="line"></div>
       <p>מוזמנים לפנות אלינו כדי לשתף, לחוות דעה, להעלות בעיות או בכל עניין אחר</p>
       <section className="contact_wrapper">
-        <div className="form_contact">
+        <div className="form_contact"> 
           <form onSubmit={onSubmit}>
             <input type="text" id="name" placeholder="שם" required />
             <select value="">
