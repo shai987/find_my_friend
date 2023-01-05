@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart
 import '../../assets/css/Statistics.css';
 
 const Statistics = () => {
-    return (
+    return ( 
         <div>
             <h2 layout="horizontal" /* verticalAlign="top" */ align="center">הנתונים מדברים בעד עצמם</h2>
             <div className="wrapper">

@@ -20,7 +20,7 @@ const ContactForm = () => {
       <h1>צור קשר</h1>
       <div className="line"></div>
       <p>מוזמנים לפנות אלינו כדי לשתף, לחוות דעה, להעלות בעיות או בכל עניין אחר</p>
-      <section className="wrapper">
+      <section className="contact_wrapper">
         <div className="form_contact">
           <form onSubmit={onSubmit}>
             <input type="text" id="name" placeholder="שם" required />

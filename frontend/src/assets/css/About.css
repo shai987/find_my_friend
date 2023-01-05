@@ -1,4 +1,4 @@
-* {
+.aboutUs {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -50,16 +50,16 @@
 }
 
 .img3 {
-  margin-top: 220px;
+  margin-top: 120px;
   margin-bottom: 200px;
   margin-right: -200px;
   margin-left: 400px;
   text-align: center;
 }
 
-body {
-  margin: 0;
-  font-family: 'Josefin Sans', sans-serif;
+.img3 img {
+  height: 300px;
+  width: 300px;
 }
 
 .team_wrapper {

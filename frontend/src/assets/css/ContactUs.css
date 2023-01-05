@@ -1,3 +1,9 @@
+.contactUs {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .baner {
   width: 100%;
   background-image: url(https://media.istockphoto.com/id/1168945108/photo/close-up-image-of-male-hands-using-smartphone-with-icon-telephone-email-mobile-phone-and.jpg?b=1&s=612x612&w=0&k=20&c=paoKylHupt1tAyuqdpARvlW-yJKqf68Vla1qVPjHpYM=);
@@ -25,13 +31,7 @@
   margin: 20px auto;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.wrapper {
+.contact_wrapper {
   padding: 40px 15%;
 }
 
