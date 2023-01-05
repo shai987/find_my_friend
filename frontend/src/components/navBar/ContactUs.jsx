@@ -2,10 +2,10 @@ import { useState } from "react";
 import '../../assets/css/ContactUs.css';
 
 const ContactForm = () => {
-  const [formStatus, setFormStatus] = useState('שלח טופס')
+  const [formStatus, setFormStatus] = useState('שלח טופס');
   const onSubmit = (e) => {
-    e.preventDefault()
-    setFormStatus('שולח...')
+    e.preventDefault();
+    setFormStatus('שולח...');
     const { name, email, message } = e.target.elements;
     let conFom = {
       name: name.value,
@@ -15,7 +15,7 @@ const ContactForm = () => {
   }
   return (
 
-    <div dir="rtl">
+    <div className="contactUs"vdir="rtl">
       <div className="baner"></div>
       <h1>צור קשר</h1>
       <div className="line"></div>
@@ -23,8 +23,8 @@ const ContactForm = () => {
       <section className="wrapper">
         <div className="form_contact">
           <form onSubmit={onSubmit}>
-            <input className="form-control" type="text" id="name" placeholder="שם" required />
-            <select>
+            <input type="text" id="name" placeholder="שם" required />
+            <select value="">
               <option value="option1">נושא הפנייה</option>
               <option value="option2">בעיה</option>
               <option value="option3">הערה לשיפור</option>

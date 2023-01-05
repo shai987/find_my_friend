@@ -22,7 +22,7 @@
   background-attachment: fixed;
 }
 
-.container h1 {
+.aboutUs h1 {
   text-align: center;
   margin-top: 80px;
   margin-bottom: 10px;
@@ -33,7 +33,7 @@
   justify-content: baseline;
   padding: 40px;
   width: 60%;
-  margin: 160px auto 0 auto;
+  margin: 100px auto 0 auto;
   margin-top: 30px;
 
 }
@@ -46,7 +46,7 @@
   height: 200px;
   width: 280px;
   float: left;
-  margin: 0px 150px 15px -250px;
+  margin: 0px 150px 15px -200px;
 }
 
 .img3 {

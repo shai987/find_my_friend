@@ -5,12 +5,10 @@ import Shaika from '../../assets/images/Shaika.jpg';
 import AdiLiel2 from '../../assets/images/AdiLiel2.png';
 const About = () => {
         return (
-                <div dir="rtl">
+                <div className="aboutUs" dir="rtl">
                         <div className="banner"></div>
-                        <div className="container">
                                 <h1 >מי אנחנו</h1>
                                 <div className="line"></div>
-                        </div>
                         <div className="about">
                                 <div className="text">
                                         <h3>קצת על האתר</h3>
