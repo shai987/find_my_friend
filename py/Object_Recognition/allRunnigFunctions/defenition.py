@@ -1,22 +1,17 @@
-import tensorflow as tf
+import numpy as np
 import matplotlib.pyplot as plt
 import sys
 
 from keras.models import load_model
-from keras_preprocessing.image import img_to_array, load_img
 
 # load Dogs_vs_Cats model
-# model = load_model('../models/Dogs_vs_Cats_best.h5')
-model = load_model('../models/dogs&cats_final1.h5')
+model = load_model('../models/Dogs&Cats.h5')
 
-def dogs_cats_classifier_short(filename):
+def dogs_cats_classifier_short(test_image):
     plt.show()
-    test_image = load_img(filename, target_size=(224, 224))
-    test_image_array = img_to_array(test_image)
-    new_image = tf.expand_dims(test_image_array, 0)
-    pred = model.predict(new_image)
+    probs = model.predict(np.expand_dims(test_image, axis=0))
     plt.imshow(test_image)
-    if pred[0] < 0:
+    if probs[0] < 0:
         return "cat"
     else:
         return "dog"
