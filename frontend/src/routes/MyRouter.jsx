@@ -36,7 +36,7 @@ const MyRouter = () => {
         const image = {
                 src: require('../assets/images/dog.jpg'),
                 alt: "dog_image",
-                title: "Link back to home page",
+                title: "חזרה לדף הבית",
                 style: {
                         height: '50px',
                         width: '50px',
@@ -68,17 +68,10 @@ const MyRouter = () => {
                         <Router>
                                 {/* sticky position allows the menu to be displayed even when scrolling */}
                                 <AppBar className="appBar" position="sticky">
-                                        <Container maxWidth="xl" sx={{ mr: 2 }}>
+                                        <Container maxWidth="xl" sx={{ mr: '2px', ml: '2px', display: 'grid' }}>
                                                 <Toolbar disableGutters>
                                                         <Link to='/'>
-                                                                <Typography
-                                                                        sx={{
-                                                                                display: "block",
-                                                                                my: 1, // margin-top
-                                                                        }}
-                                                                >
-                                                                        <Image img={image} />
-                                                                </Typography>
+                                                                <Image img={image} />
                                                         </Link> &nbsp; &nbsp;
 
                                                         {/* <Link className='link' to='/UserAccount'>
@@ -110,8 +103,10 @@ const MyRouter = () => {
                                                         </Link>
 
 
-                                                        <Tooltip title="הגדרות">
-                                                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mr: 'auto', ml: '-300px', display: "block", }}>
+                                                        <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
+                                                                <IconButton onClick={handleOpenUserMenu} sx={{
+                                                                        p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
+                                                                }}>
                                                                         <Avatar alt="Shaika" src={require("../assets/images/Shaika.jpg")} />
                                                                 </IconButton>
                                                         </Tooltip>
