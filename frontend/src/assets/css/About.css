@@ -1,3 +1,5 @@
+
+
 .aboutUs {
   margin: 0;
   padding: 0;
@@ -14,7 +16,7 @@
 
 .banner {
   width: 100%;
-  background-image: url(https://st2.depositphotos.com/1606449/7516/i/600/depositphotos_75163555-stock-photo-cats-and-dogs-hanging-paws.jpg);
+  background-image: url(../images/cat_dogs_about.jpg);
   height: 405px;
   background-position: center;
   background-repeat: no-repeat;
@@ -59,7 +61,7 @@
 
 .img3 img {
   height: 300px;
-  width: 300px;
+  width: 400px;
 }
 
 .team_wrapper {

@@ -6,7 +6,7 @@
 
 .baner {
   width: 100%;
-  background-image: url(https://media.istockphoto.com/id/1168945108/photo/close-up-image-of-male-hands-using-smartphone-with-icon-telephone-email-mobile-phone-and.jpg?b=1&s=612x612&w=0&k=20&c=paoKylHupt1tAyuqdpARvlW-yJKqf68Vla1qVPjHpYM=);
+  background-image: url(../images/contact.jpg);
   height: 405px;
   background-position: center;
   background-repeat: no-repeat;
@@ -65,9 +65,8 @@
   font-family: Arial;
 }
 
-.dog_image {
+.dog_image img {
   margin-top: 120px;
   margin-right: -80px;
   margin-left: -80px;
- 
-}
+  }
