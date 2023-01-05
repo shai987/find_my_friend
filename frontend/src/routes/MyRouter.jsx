@@ -74,7 +74,7 @@ const MyRouter = () => {
                                                                 <Typography
                                                                         sx={{
                                                                                 display: "block",
-                                                                                my: 2, // margin-top
+                                                                                my: 1, // margin-top
                                                                         }}
                                                                 >
                                                                         <Image img={image} />
@@ -110,9 +110,9 @@ const MyRouter = () => {
                                                         </Link>
 
 
-                                                        <Tooltip title="הגדרות" sx={{ ml: 10 }}>
-                                                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                                                        <Avatar alt="s" src="" />
+                                                        <Tooltip title="הגדרות">
+                                                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mr: 'auto', ml: '-300px', display: "block", }}>
+                                                                        <Avatar alt="Shaika" src={require("../assets/images/Shaika.jpg")} />
                                                                 </IconButton>
                                                         </Tooltip>
 
