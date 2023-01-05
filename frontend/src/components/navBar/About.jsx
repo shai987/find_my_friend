@@ -5,12 +5,10 @@ import Shaika from '../../assets/images/Shaika.jpg';
 import AdiLiel2 from '../../assets/images/AdiLiel2.png';
 const About = () => {
         return (
-                <div dir="rtl">
+                <div className="aboutUs" dir="rtl">
                         <div className="banner"></div>
-                        <div className="container">
                                 <h1 >מי אנחנו</h1>
                                 <div className="line"></div>
-                        </div>
                         <div className="about">
                                 <div className="text">
                                         <h3>קצת על האתר</h3>
@@ -27,7 +25,7 @@ const About = () => {
                                                 <img src="https://images.unsplash.com/photo-1636390785299-b4df455163dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2UlMjByZWNvZ25pdGlvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60" alt="data" />אנו סטודנטים בשנה ג' בתואר למדעי המידע באוניברסיטת בר אילן. במסגרת פרויקט הגמר בו אנו לוקחים חלק, יצרנו אתר המשלב בין צד לקוח, צד שרת ומודלים. בחרנו בנושא שקרוב לליבנו, מתוך הכרה בכך שחיפוש אחר בעל חיים אבוד יכול להיות תהליך מתסכל ומייגע. אנו מאמינים כי האתר יכול לסייע באופן משמעותי באיתור בעלי חיים אבודים, ומקווים שהוא ישמש מספר רב של אנשים.
 
                                         </p>
-                                        <div className="img3">
+                                       <div className="img3">
                                                 <img src="https://static8.depositphotos.com/1004199/982/i/600/depositphotos_9822329-stock-photo-cat-and-dog-together.jpg" alt="dog_cat " />
                                         </div>
                                 </div>
