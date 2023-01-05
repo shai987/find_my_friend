@@ -1,2 +1,0 @@
-In order to run this files (all.py) you must to change the path to:
-cd py/Object_Recognition/allRunnigFunctions
