@@ -15,7 +15,6 @@ cats_breeds = open ('../jsonData/cat.json', "r")
 # Reading from file
 cats_breeds = json.loads(cats_breeds.read())
 
-# cats_breeds = ['Abyssinian', 'American Bobtail', 'American Shorthair', 'Bengal', 'Birman', 'Bombay', 'British Shorthair', 'Egyptian Mau', 'Maine Coon', 'Persian', 'Ragdoll', 'Russian Blue', 'Siamese', 'Sphynx', 'Tuxedo']
 label_maps_cats = {}
 label_maps_rev_cats = {}
 for i, v in enumerate(cats_breeds):
