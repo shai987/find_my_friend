@@ -2,12 +2,11 @@
         text-align: center;
 }
 
-#petFind {
-        height: 100px;
-        width: 100px;
-        margin-top: 220px;
-        margin-bottom: 200px;
-        margin-right: -200px;
-        margin-left: 400px;
-        text-align: center;
+#petFind img {
+        height: 200px;
+        width: 250px;
+        margin-top: 10px;
+        margin-bottom: 100px;
+        margin-right: 100px;
+        margin-left: 100px;
 }

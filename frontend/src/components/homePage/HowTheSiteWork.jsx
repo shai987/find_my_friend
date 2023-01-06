@@ -5,14 +5,14 @@ const HowTheSiteWork = () => {
                 src: require('../../assets/images/petFind.png'),
                 alt: "dog_image",
                 title: "",
-                style: {
-                        height: '200px',
-                        width: '250px',
-                        marginTop: '10px',
-                        marginBottom: '100px',
-                        marginRight: '100px',
-                        marginLeft: '100px',
-                }
+                // style: {
+                //         height: '200px',
+                //         width: '250px',
+                //         marginTop: '10px',
+                //         marginBottom: '100px',
+                //         marginRight: '100px',
+                //         marginLeft: '100px',
+                // }
         }
 
         return (
@@ -23,7 +23,7 @@ const HowTheSiteWork = () => {
                                 <p>הכניסו תמונה של בעל החיים ותנו למערכת שלנו לעשות עבורכם את החיפוש.</p>
                                 <p>אנחנו נעשה הכל כדי למצוא את החבר הכי טוב שלכם כמה שיותר מהר</p>
                         </div>
-                        <div /* id='petFind' */>
+                        <div id='petFind'>
                                 <Image img={image} />
                         </div>
                 </>
