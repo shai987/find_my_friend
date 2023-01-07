@@ -9,7 +9,7 @@ from keras.models import load_model
 dogs_breeds_model = load_model('../models/Dogs_Breeds.h5')
 
 # JSON file
-dogs_breeds = open ('../jsonData/dog.json', "r")
+dogs_breeds = open ('../json_data/dog.json', "r")
 
 # Reading from file
 dogs_breeds = json.loads(dogs_breeds.read())
@@ -28,7 +28,6 @@ def dogs_breeds_classifier_short(test_image):
         percent = probs[0][idx]*100
         if(percent > 2):
             breeds.append(f'{label_maps_rev_dogs[idx].split("-")[-1]} ({"{:.2f}%".format(probs[0][idx]*100)})')
-    plt.show()    
+    # plt.show()    
     return breeds
 
-sys.modules[__name__] = dogs_breeds_classifier_short
