@@ -6,8 +6,8 @@
 
 .baner {
   width: 100%;
-  background-image: url(https://media.istockphoto.com/id/1168945108/photo/close-up-image-of-male-hands-using-smartphone-with-icon-telephone-email-mobile-phone-and.jpg?b=1&s=612x612&w=0&k=20&c=paoKylHupt1tAyuqdpARvlW-yJKqf68Vla1qVPjHpYM=);
-  height: 405px;
+  background-image: url(../images/contact.jpg);
+  height: 250px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,17 +41,17 @@
 .form_contact {
   height: 100%;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100vh; 
   display: grid;
-  grid-template-columns: repeat(2, 2fr);
+  grid-template-columns: repeat(2, 2fr); 
   align-items: center;
-  grid-gap: 6 rem;
+  grid-gap: 96px; 
 }
 
 .form_contact form {
   position: relative;
   margin-right: 20px;
-  margin-left: -140px;
+  margin-left: -140px;   
 }
 
 .form_contact form input,
@@ -62,12 +62,9 @@
   padding: 17px;
   font-size: 12px;
   margin-bottom: 12px;
-  font-family: Arial;
+  font-family: Arial;  
 }
 
-.dog_image {
-  margin-top: 120px;
-  margin-right: -80px;
-  margin-left: -80px;
- 
-}
+.dog_image img {
+  margin: 120px -80px 0 -80px;
+  }
