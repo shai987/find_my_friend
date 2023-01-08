@@ -8,12 +8,10 @@ from keras.models import load_model
 model = load_model('../models/Dogs&Cats.h5')
 
 def dogs_cats_classifier_short(test_image):
-    plt.show()
+    # plt.show()
     probs = model.predict(np.expand_dims(test_image, axis=0))
     plt.imshow(test_image)
     if probs[0] < 0:
         return "cat"
     else:
         return "dog"
-
-sys.modules[__name__] = dogs_cats_classifier_short

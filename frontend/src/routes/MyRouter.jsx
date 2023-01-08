@@ -26,6 +26,7 @@ import About from '../components/navBar/About';
 import Footer from '../components/footer/Footer';
 import LogOut from '../components/navBar/LogOut';
 import Image from '../components/Image';
+import RonShai from '../components/RonShai';
 // import css
 import '../assets/css/MyRouter.css';
 
@@ -152,6 +153,7 @@ const MyRouter = () => {
                                         <Route path="*" element={<Navigate to="/" />}></Route>
                                 </Routes>
                         </Router >
+                        <RonShai />
                         <Footer />
                 </>
         );
