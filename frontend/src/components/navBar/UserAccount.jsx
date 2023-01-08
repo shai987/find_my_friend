@@ -9,53 +9,54 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import cutecatdog from '../../assets/images/cutecatdog.png';
-
-
+import '../../assets/css/UserAccount.css';
+  
 const requests = [
         { type: 'כלב',
           name: 'ניקו',
-          image: '',
+          image: require('../../assets/images/catOwner.jpg'),
           race: 'פודל',
           date: '8.1.23',
           found_lost: 'נמצא',
           status: 'אותר'      
         },
-        { type: '1',
-        name: '1',
-        image: '',
-        race: '1',
-        date: '1',
-        found_lost: '1',
-        status: '1'      
-      },
-      { type: '1',
-      name: '1',
-      image: '',
-      race: '1',
-      date: '1',
-      found_lost: '1',
-      status: '1'      
-    },
-    { type: '1',
-    name: '1',
-    image: '',
-    race: '1',
-    date: '1',
-    found_lost: '1',
-    status: '1'      
+        { type: 'כלב',
+        name: 'ניקו',
+        image: require('../../assets/images/catOwner.jpg'),
+        race: 'פודל',
+        date: '8.1.23',
+        found_lost: 'נמצא',
+        status: 'אותר'      
+      },    { type: 'כלב',
+      name: 'ניקו',
+      image: require('../../assets/images/catOwner.jpg'),
+      race: 'פודל',
+      date: '8.1.23',
+      found_lost: 'נמצא',
+      status: 'אותר'      
+    },    { type: 'כלב',
+    name: 'ניקו',
+    image: require('../../assets/images/catOwner.jpg'),
+    race: 'פודל',
+    date: '8.1.23',
+    found_lost: 'נמצא',
+    status: 'אותר'      
   }
-
 ]
 const UserAccount = () => {
         return (
                 <Fragment>
-                        <div> <img src={cutecatdog} alt="cats_dogs" /> ברוך הבא User</div>
+                        <div className="d"> 
+                          <img width="600" height="300" src={cutecatdog} alt="cats_dogs" /> ברוך הבא User
+                          <button>להוספת פנייה</button>
+                        </div>
                        
-             <TableContainer component={Paper}>
+             <TableContainer className="tableWrapper" component={Paper}>
              <Typography
           sx={{ flex: '1 1 100%' }}
           variant="h6"
           id="tableTitle"
+          align= "center"
           component="div"
         >
           טבלת פניות
@@ -64,13 +65,13 @@ const UserAccount = () => {
                
                 <TableHead>
                         <TableRow>
-                        <TableCell align="right">סוג החיה</TableCell>
-                        <TableCell align="right">שם החיה</TableCell>
-                        <TableCell align="right">תמונה</TableCell>
-                        <TableCell align="right">גזע החיה</TableCell>
-                        <TableCell align="right">נמצאה/אבדה</TableCell>
-                        <TableCell align="right">תאריך העלאת הפנייה</TableCell>
-                        <TableCell align="right">סטטוס</TableCell>
+                        <TableCell align="center">סוג החיה</TableCell>
+                        <TableCell align="center">שם החיה</TableCell>
+                        <TableCell align="center">תמונה</TableCell>
+                        <TableCell align="center">גזע החיה</TableCell>
+                        <TableCell align="center">נמצאה/אבדה</TableCell>
+                        <TableCell align="center">תאריך העלאת הפנייה</TableCell>
+                        <TableCell align="center">סטטוס</TableCell>
                         </TableRow>
                 </TableHead>
                 <TableBody>
@@ -79,19 +80,19 @@ const UserAccount = () => {
               key={request.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="right">{request.type}</TableCell>
-              <TableCell align="right">{request.name}</TableCell>
-              <TableCell align="right">{request.image}</TableCell>
-              <TableCell align="right">{request.race}</TableCell>
-              <TableCell align="right">{request.found_lost}</TableCell>
-              <TableCell align="right">{request.date}</TableCell>
-              <TableCell align="right">{request.status}</TableCell>
+              <TableCell align="center">{request.type}</TableCell>
+              <TableCell align="center">{request.name}</TableCell>
+              <TableCell align="center"><img className="imgTable" src={request.image} /></TableCell>
+              <TableCell align="center">{request.race}</TableCell>
+              <TableCell align="center">{request.found_lost}</TableCell>
+              <TableCell align="center">{request.date}</TableCell>
+              <TableCell align="center">{request.status}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-    <div>למעבר ל</div>
+    
 
           </Fragment>
         );
