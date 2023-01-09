@@ -1,9 +1,13 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const newPet_schema = new mongoose.Schema({
+export const newPet_schema = new mongoose.Schema({
         name: String,
-        company: String
+        img:
+        {
+                data: Buffer,
+                contentType: String
+        }
 })
 
-const user = mongoose.model("users", user_schema);
-module.exports = user;
+// const newPet = mongoose.model("newPet", newPet_schema);
+// module.exports = user;

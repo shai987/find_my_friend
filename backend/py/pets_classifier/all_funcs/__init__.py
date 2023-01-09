@@ -1,7 +1,0 @@
-from all_funcs.base_classifier import dogs_cats_classifier_short
-from all_funcs.dogs_breeds import dogs_breeds_classifier_short
-from all_funcs.cats_breeds import cats_breeds_classifier_short
-
-# from py.pets_classifier.all_funcs.base_classifier import dogs_cats_classifier_short
-# from py.pets_classifier.all_funcs.dogs_breeds import dogs_breeds_classifier_short
-# from py.pets_classifier.all_funcs.cats_breeds import cats_breeds_classifier_short
