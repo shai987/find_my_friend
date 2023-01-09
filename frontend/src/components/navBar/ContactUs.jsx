@@ -15,8 +15,7 @@ const ContactForm = () => {
     }
   }
   return (
-
-    <div className="contactUs"vdir="rtl">
+    <div className="contactUs" dir="rtl">
       <div className="baner"></div>
       <h1>צור קשר</h1>
       <div className="line"></div>
