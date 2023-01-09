@@ -1,2 +1,2 @@
 in order to run flask move to path:
-cd backend/py/pets_classifier/shai_test
+cd backend/py
