@@ -1,0 +1,32 @@
+.tableHead {
+    background-color: rgb(163, 163, 170); 
+}
+
+.tableWrapper{
+padding-left: 250px;
+padding-right: 250px;
+padding-bottom: 150px;
+padding-top: 100px;
+}
+
+.imgTable{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.headingOfUser img {
+    float: right;
+    margin: 0px 0px 15px 20px;
+}
+
+.headingOfUser p {
+    padding-right: 800px;
+    padding-top: 120px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.requestTableHead {
+    background-color: rgb(206, 206, 214);
+}
