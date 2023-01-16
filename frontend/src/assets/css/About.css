@@ -76,7 +76,7 @@
 }
 
 .team .team_member {
-  background: #b7b7d7;
+  background: #b7b7c2;
   margin: 5px;
   margin-bottom: 50px;
   width: 300px;
@@ -92,7 +92,8 @@
 }
 
 .team .team_member p.role {
-  color: rgb(94, 82, 82);
+  color: rgb(100, 36, 100);
+  font-weight: 550;
   margin: 12px 0;
   font-size: 16px;
 }

@@ -10,50 +10,19 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import cutecatdog from '../../assets/images/cutecatdog.png';
 import '../../assets/css/UserAccount.css';
+import requests from '../../services/UserAccountData';
   
-const requests = [
-        { type: 'כלב',
-          name: 'ניקו',
-          image: require('../../assets/images/dog.jpg'),
-          race: 'רועה בלגי',
-          date: '8.1.23',
-          found_lost: 'מצאתי',
-          status: 'אותר'      
-        },
-        { type: 'חתול',
-        name: 'תולי',
-        image: require('../../assets/images/catOwner.jpg'),
-        race: 'סיאמי',
-        date: '9.1.23',
-        found_lost: 'איבדתי',
-        status: 'אותר'      
-      },   
-       { type: 'כלב',
-      name: 'נלה',
-      image: require('../../assets/images/catOwner.jpg'),
-      race: 'פודל',
-      date: '8.1.23',
-      found_lost: 'איבדתי',
-      status: 'אותר'      
-    },
-    { type: 'חתול',
-    name: 'מיצי',
-    image: require('../../assets/images/catOwner.jpg'),
-    race: 'סיאמי',
-    date: '8.1.23',
-    found_lost: 'איבדתי',
-    status: 'אותר'      
-  }
-]
 const UserAccount = () => {
         return (
                 <>
-                  <div className="headingOfUser">       
-                    <img width="600" height="300" src={cutecatdog} alt="cats_dogs" /> 
-                    <p>ברוך הבא USER</p>
-                    <Button variant="contained">להוספת פנייה</Button>
+                <div className="userWrapper"> 
+                  <div className="userHeading">
+                    <section className="userText">
+                      <h1>ברוך הבא USER</h1>
+                      <Button variant="contained">להוספת פנייה</Button>
+                    </section>
                   </div>
-                  <TableContainer className="tableWrapper" component={Paper}>
+                <TableContainer className="tableWrapper" component={Paper}>
                     <Typography
                       sx={{ flex: '1 1 100%' }}
                       variant="h5"
@@ -71,7 +40,7 @@ const UserAccount = () => {
                           <TableCell align="center">גזע החיה</TableCell>
                           <TableCell align="center">מצאתי/איבדתי</TableCell>
                           <TableCell align="center">תאריך העלאת הפנייה</TableCell>
-                          <TableCell salign="center">סטטוס</TableCell>
+                          <TableCell align="center">סטטוס</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -94,6 +63,7 @@ const UserAccount = () => {
                       </TableBody>
                     </Table>
                   </TableContainer>
+                </div>
                 </>
               );
             }
