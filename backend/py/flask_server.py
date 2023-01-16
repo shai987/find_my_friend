@@ -4,6 +4,7 @@ from pymongo import MongoClient
 import json
 # Import our module
 from all_classifiers_func import all_classifiers
+from Pet import Pet
 
 client = MongoClient('localhost', 27017)
 db = client.findMyFriend
@@ -17,12 +18,13 @@ def index():
     name = args.get("name", default="", type=str)
     # test_image = f"../pets/{name}.jpg"
     test_image = f"../pets/{name}"
-    pet1 = all_classifiers.pet_details(test_image)
-    print(pet1.pet_type,pet1.breeds)
+    p = all_classifiers.pet_details(test_image)
+    pet = Pet(p.pet_type, p.breeds)
+    print(pet.pet_type,pet.breeds)
     # convert into JSON:
-    pet1_json = json.dumps(pet1)
-    print(pet1_json)
-    return pet1_json
+    pet_json = json.dumps(pet.__dict__)
+    print(pet_json)
+    return pet_json
     
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
