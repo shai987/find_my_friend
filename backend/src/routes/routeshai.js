@@ -1,5 +1,4 @@
 import express from 'express';
-import request from 'request';
 import axios from 'axios';
 import mongoose from 'mongoose';
 import multer from 'multer';
@@ -32,7 +31,6 @@ const uploadFile = multer({ storage: storage, fileFilter: fileFilter }).single('
 
 router.post('/add', async (req, res) => {
         try {
-                console.log("ron")
                 // console.log(req.file.originalname);
                 uploadFile(req, res, async (err) => {
                         if (err instanceof multer.MulterError) {
@@ -54,25 +52,19 @@ router.post('/add', async (req, res) => {
                                                         contentType: 'image/png'
                                                 }
                                         }
+
                                         const newPet = new newPet_model(obj);
                                         await newPet.save();
-                                        //const url = req.protocol + '://' + req.get('host');
-                                        //imageadr = url + '/pets/' + req.file.originalname;
-                                        axios
-                                        .get(`http://127.0.0.1:5000/flask/pets_details?name=${req.file.originalname}`, {
-                                                responseType: "json",
-                                        })
-                                        .then( (response) => {
-                                                console.log(response.data);
-                                                res.json(response.data);
-                                        });
 
-                                        /*request(`http://127.0.0.1:5000/flask/pets_details?name=${req.file.originalname}`, (error, response, body) => {
-                                                fsExtra.emptyDirSync("pets");
-                                                body = JSON.parse(body);
-                                                console.log({ body: body })
-                                                //response.send({ body: body });
-                                        });*/
+                                        axios
+                                                .get(`http://127.0.0.1:5000/flask/pets_details?name=${req.file.originalname}`, {
+                                                        responseType: "json",
+                                                })
+                                                .then((response) => {
+                                                        fsExtra.emptyDirSync("pets");
+                                                        console.log(response.data);
+                                                        res.json(response.data);
+                                                });
                                 }
 
                                 catch (err) {

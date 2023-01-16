@@ -16,7 +16,6 @@ app = Flask(__name__)
 def index():
     args = request.args
     name = args.get("name", default="", type=str)
-    # test_image = f"../pets/{name}.jpg"
     test_image = f"../pets/{name}"
     p = all_classifiers.pet_details(test_image)
     pet = Pet(p.pet_type, p.breeds)
