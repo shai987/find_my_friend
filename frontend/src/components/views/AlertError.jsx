@@ -6,7 +6,7 @@ const AlertError = ({ errors }) => {
         return (
                 <ul className='error'>
                         {errors.map((error) => (
-                                <li>{error}</li>
+                                <li key={error}>{error}</li>
                         ))}
                 </ul>
         );

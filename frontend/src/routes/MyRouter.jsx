@@ -28,12 +28,14 @@ import LogOut from '../components/navBar/LogOut';
 import Image from '../components/Image';
 import RonShai from '../components/RonShai';
 import Shai from '../components/Shai';
+import ShaiNew from '../components/ShaiNew';
+
 
 // import css
 import '../assets/css/MyRouter.css';
 
 const MyRouter = () => {
-        const pages = ["אודות", "צור קשר", "רון שי", "s"];
+        const pages = ["אודות", "צור קשר", "רון שי", "s", "as"];
         const settings = ["אזור אישי", "התנתקות"];
 
         const image = {
@@ -124,6 +126,16 @@ const MyRouter = () => {
                                                                 </Button>
                                                         </Link>
 
+                                                        <Link className='link' to='/ShaiNew'>
+                                                                <Button
+                                                                        onClick={handleCloseNavMenu}
+                                                                        sx={{ my: 2, color: "white", display: "block" }}
+                                                                >
+                                                                        {pages[4]}
+                                                                        &nbsp;&nbsp;
+                                                                </Button>
+                                                        </Link>
+
 
                                                         <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
                                                                 <IconButton onClick={handleOpenUserMenu} sx={{
@@ -172,6 +184,7 @@ const MyRouter = () => {
                                         <Route path='/LogOut' element={<LogOut />}></Route>
                                         <Route path='/RonShai' element={<RonShai />}></Route>
                                         <Route path='/Shai' element={<Shai />}></Route>
+                                        <Route path='/ShaiNew' element={<ShaiNew />}></Route>
 
                                         {/* If the user go to not exsist path it would take him back to "/" */}
                                         <Route path="*" element={<Navigate to="/" />}></Route>

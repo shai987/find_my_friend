@@ -13,8 +13,7 @@ const newPet_model = mongoose.model("newPet", newPet_schema);
 const storage = multer.diskStorage({
         destination: 'pets',
         filename: (req, file, cb) => {
-                const ext = path.extname(file.originalname);
-                cb(null, `${req.body.name}${ext}`);
+                cb(null, file.originalname);
         }
 });
 
@@ -28,10 +27,12 @@ const fileFilter = (req, file, cb) => {
         }
 };
 
-const uploadFile = multer({ storage: storage, fileFilter: fileFilter }).single('upfile');
+const uploadFile = multer({ storage: storage, fileFilter: fileFilter }).single('file');
 
 router.post('/add', async (req, res) => {
         try {
+                console.log("ron")
+                // console.log(req.file.originalname);
                 uploadFile(req, res, async (err) => {
                         if (err instanceof multer.MulterError) {
                                 if (!err.message) {
@@ -41,29 +42,26 @@ router.post('/add', async (req, res) => {
                         } else if (err) {
                                 res.send("User not saved, file upload failed");
                         }
+
                         else {
 
                                 try {
-                                        console.log(req.body);
+                                        console.log(req.file.originalname);
                                         let obj = {
-                                                name: req.body.name,
-                                                // name: req.file.originalname,
-                                                //TODO Later change to fs.readFile
                                                 img: {
-                                                        data: fs.readFileSync(`C:/Users/USER/Desktop/final_project_react/find_my_friend/backend/pets/${req.file.filename}`),
+                                                        data: fs.readFileSync(`pets/${req.file.originalname}`),
                                                         contentType: 'image/png'
                                                 }
                                         }
                                         const newPet = new newPet_model(obj);
                                         await newPet.save();
-
-                                        request(`http://127.0.0.1:5000/flask/pets_details?name=${req.body.name}`, (error, response, body) => {
-                                                // request(`http://127.0.0.1:5000/flask/pets_details?name=${req.file.originalname}`, (error, response, body) => {
-
-                                                // request(`http://127.0.0.1:5000/flask/pets_details?name=${req.file.originalname}`, (error, response, body) => {
-                                                //TODO CHANGE TO GENERY FORM
-                                                fsExtra.emptyDirSync("C:/Users/USER/Desktop/final_project_react/find_my_friend/backend/pets");
-                                                res.send({ body: body });
+                                        //const url = req.protocol + '://' + req.get('host');
+                                        //imageadr = url + '/pets/' + req.file.originalname;
+                                        request(`http://127.0.0.1:5000/flask/pets_details?name=${req.file.originalname}`, (error, response, body) => {
+                                                fsExtra.emptyDirSync("pets");
+                                                body = JSON.parse(body);
+                                                console.log({ body: body })
+                                                //response.send({ body: body });
                                         });
                                 }
 
@@ -71,7 +69,7 @@ router.post('/add', async (req, res) => {
                                         res.json(err.message);
                                 }
                         }
-                })
+                });
 
         }
 
