@@ -8,7 +8,7 @@ import { newPet_schema } from '../models/new_pet.js';
 import { validationResult } from 'express-validator';
 import { } from 'dotenv/config';
 const localhost = process.env.LOCAL_HOST;
-const flask_port = process.env.PORT_FLASK || 5000;
+const flask_port = process.env.FLASK_PORT || 5000;
 
 const newPet_model = mongoose.model("newPet", newPet_schema);
 
@@ -39,7 +39,6 @@ export const handlePet = async (req, res) => {
                  return res.status(400).json({ errors: errors.array() });
          } */
         try {
-                // console.log(req.file.originalname);
                 uploadFile(req, res, async (err) => {
                         if (err instanceof multer.MulterError) {
                                 if (!err.message) {
