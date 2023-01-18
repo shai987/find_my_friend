@@ -9,9 +9,13 @@ const HomepageContainer = () => {
                 <div className="HomepageContainer">
                         <>
                                 <Welcome />
+                                <br />
                                 <HowTheSiteWork />
+                                <br />
                                 <Slider />
+                                <br />
                                 <Statistics />
+                                <br />
                                 <FinderOfTheMonth />
                         </>
                 </div >

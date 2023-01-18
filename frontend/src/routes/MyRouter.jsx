@@ -66,6 +66,13 @@ const MyRouter = () => {
                 setUser(null);
         };
 
+        //לכפתור התנתקות
+        const [open, setOpen] = useState(false);
+
+        const handleClickOpen = () => {
+                setOpen(true);
+        };
+
         return (
                 <>
                         <Router>
@@ -157,7 +164,7 @@ const MyRouter = () => {
 
                                                                 <MenuItem onClick={handleCloseUserMenu}>
                                                                         <Link className='link' to='/LogOut'>
-                                                                                <Typography textAlign="center">{settings[1]}</Typography>
+                                                                                <Typography textAlign="center">{settings[1]} </Typography>
                                                                         </Link>
                                                                 </MenuItem>
                                                         </Menu>
