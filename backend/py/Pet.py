@@ -1,4 +1,5 @@
 # our class
 class Pet:
-    pet_type = ""
-    breeds = []
+    def __init__(self, pet_type, breeds):
+        self.pet_type = pet_type
+        self.breeds = breeds

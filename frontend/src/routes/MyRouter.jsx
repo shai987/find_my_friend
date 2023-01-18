@@ -26,14 +26,13 @@ import About from '../components/navBar/About';
 import Footer from '../components/footer/Footer';
 import LogOut from '../components/navBar/LogOut';
 import Image from '../components/Image';
-import RonShai from '../components/RonShai';
-import Shai from '../components/Shai';
+import ImageForm from '../components/forms/ImageForm';
 
 // import css
 import '../assets/css/MyRouter.css';
 
 const MyRouter = () => {
-        const pages = ["אודות", "צור קשר", "רון שי", "s"];
+        const pages = ["אודות", "צור קשר", 'טופס ראשוני'];
         const settings = ["אזור אישי", "התנתקות"];
 
         const image = {
@@ -112,21 +111,12 @@ const MyRouter = () => {
                                                                 </Button>
                                                         </Link>
 
-                                                        <Link className='link' to='/RonShai'>
+                                                        <Link className='link' to='/ImageForm'>
                                                                 <Button
                                                                         onClick={handleCloseNavMenu}
                                                                         sx={{ my: 2, color: "white", display: "block" }}
                                                                 >
                                                                         {pages[2]}
-                                                                        &nbsp;&nbsp;
-                                                                </Button>
-                                                        </Link>
-                                                        <Link className='link' to='/Shai'>
-                                                                <Button
-                                                                        onClick={handleCloseNavMenu}
-                                                                        sx={{ my: 2, color: "white", display: "block" }}
-                                                                >
-                                                                        {pages[3]}
                                                                         &nbsp;&nbsp;
                                                                 </Button>
                                                         </Link>
@@ -177,9 +167,7 @@ const MyRouter = () => {
                                         <Route path='/ContactUs' element={<ContactUs />}></Route>
                                         <Route path='/About' element={<About />}></Route>
                                         <Route path='/LogOut' element={<LogOut />}></Route>
-                                        <Route path='/RonShai' element={<RonShai />}></Route>
-                                        <Route path='/Shai' element={<Shai />}></Route>
-
+                                        <Route path='/ImageForm' element={<ImageForm />}></Route>
                                         {/* If the user go to not exsist path it would take him back to "/" */}
                                         <Route path="*" element={<Navigate to="/" />}></Route>
                                 </Routes>

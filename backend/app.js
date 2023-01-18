@@ -1,6 +1,7 @@
 import express from 'express';
-// import router from './src/routes/route.js';
-import router from './src/routes/route1.js';
+import router from './src/routes/route.js';
+// import router from './src/routes/route1.js';
+// import router from './src/routes/routeshai.js';
 import cors from 'cors'
 import { } from 'dotenv/config';
 import mongoose from 'mongoose';
@@ -11,7 +12,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
-// app.use(express.static('./pets'));
+app.use(express.static('./pets'));
 app.use(express.json());
 
 app.use('/route', router);
