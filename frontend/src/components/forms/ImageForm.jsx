@@ -1,6 +1,7 @@
 import "../../assets/css/ImageForm.css"
 import { useState, useRef } from "react";
 import axios from 'axios';
+axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 // drag drop file component
 const ImageForm = () => {
@@ -65,7 +66,8 @@ const ImageForm = () => {
                 formData.append('file', image.data);
 
                 try {
-                        const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
+                        // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
+                        const res = await axios.post('/add', formData);
                         setResponse(`Pet Type: ${res.data.pet_type}, Breeds: ${res.data.breeds}`)
                 } catch (err) {
                         console.log(err);
