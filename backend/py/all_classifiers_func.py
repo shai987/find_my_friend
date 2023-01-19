@@ -3,7 +3,7 @@ from base_classifier import base_classifier
 from dogs_breeds import dogs_breeds
 from cats_breeds import cats_breeds
 from Pet import Pet
-# Import library from from keras
+# Import library from keras
 from keras_preprocessing.image import load_img
 
 class all_classifiers :
