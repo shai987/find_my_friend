@@ -6,6 +6,8 @@
   max-width: 100%;
   text-align: center;
   position: relative;
+  white-space: pre-wrap;
+  direction: ltr;
 }
 
 #input-file-upload {

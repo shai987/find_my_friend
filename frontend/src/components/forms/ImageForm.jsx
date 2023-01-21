@@ -70,7 +70,7 @@ const ImageForm = () => {
                         setLoading(true);
                         // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
                         const res = await axios.post('/add', formData);
-                        setResponse(`Pet Type: ${res.data.pet_type}, Breeds: ${res.data.breeds}`);
+                        setResponse(`Pet Type: ${res.data.pet_type},\nBreeds: ${res.data.breeds}`);
                         setLoading(false);
                 } catch (err) {
                         setLoading(false);
@@ -80,21 +80,21 @@ const ImageForm = () => {
 
         return (
                 <>
-                {loading ? <Loader /> : 
-                        (<form id="form-file-upload" onDragEnter={handleDrag} onSubmit={handleSubmit}>
-                                <input ref={inputRef} type="file" id="input-file-upload" onChange={handleChange} />
-                                <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
-                                        <div>
-                                                {image.preview && <img src={image.preview} width='300' height='300' />}
-                                                <p>{dragText}</p>
-                                                <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
-                                        </div>
-                                </label>
-                                {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
-                                <button type='submit'>שלח</button>
-                                <div>{response}</div>
-                        </form>)
-                }
+                        {loading ? <Loader /> :
+                                (<form id="form-file-upload" onDragEnter={handleDrag} onSubmit={handleSubmit}>
+                                        <input ref={inputRef} type="file" id="input-file-upload" onChange={handleChange} />
+                                        <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
+                                                <div>
+                                                        {image.preview && <img src={image.preview} width='300' height='300' />}
+                                                        <p>{dragText}</p>
+                                                        <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
+                                                </div>
+                                        </label>
+                                        {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
+                                        <button type='submit'>שלח</button>
+                                        <div>{response}</div>
+                                </form>)
+                        }
                 </>
         );
 };
