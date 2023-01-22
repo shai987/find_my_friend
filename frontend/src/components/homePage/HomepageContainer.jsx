@@ -12,10 +12,9 @@ const HomepageContainer = () => {
                                 <br />
                                 <HowTheSiteWork />
                                 <br />
-                                <Slider />
-                                <br />
                                 <Statistics />
                                 <br />
+                                <Slider />
                                 <FinderOfTheMonth />
                         </>
                 </div >
