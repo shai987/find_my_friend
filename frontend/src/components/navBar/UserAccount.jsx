@@ -8,9 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import cutecatdog from '../../assets/images/cutecatdog.png';
 import '../../assets/css/UserAccount.css';
 import requests from '../../services/UserAccountData';
+import cat_dog_hug from '../../assets/images/cat_dog_hug.jpg';
   
 const UserAccount = () => {
         return (
@@ -18,8 +18,12 @@ const UserAccount = () => {
                 <div className="userWrapper"> 
                   <div className="userHeading">
                     <section className="userText">
-                      <h1>ברוך הבא USER</h1>
-                      <Button variant="contained">להוספת פנייה</Button>
+                     <h1>
+                        <img alt="hugcatdog" src={cat_dog_hug} />
+                        ברוך הבא USER
+                        <br></br>
+                        <Button variant="contained">להוספת פנייה</Button>
+                     </h1>
                     </section>
                   </div>
                 <TableContainer className="tableWrapper" component={Paper}>
@@ -52,7 +56,7 @@ const UserAccount = () => {
                             <TableCell align="center">{request.type}</TableCell>
                             <TableCell align="center">{request.name}</TableCell>
                             <TableCell align="center">
-                              <img className="imgTable" src={request.image} />
+                              <img className="imgTable" src={request.image} alt="tableimage"/>
                             </TableCell>
                             <TableCell align="center">{request.race}</TableCell>
                             <TableCell align="center">{request.found_lost}</TableCell>

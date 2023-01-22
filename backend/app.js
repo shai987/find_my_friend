@@ -1,7 +1,5 @@
 import express from 'express';
 import router from './src/routes/route.js';
-// import router from './src/routes/route1.js';
-// import router from './src/routes/routeshai.js';
 import cors from 'cors'
 import { } from 'dotenv/config';
 import mongoose from 'mongoose';

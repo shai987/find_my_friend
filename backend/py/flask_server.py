@@ -1,7 +1,7 @@
 # Import libraries
 from flask import Flask, request
 import json
-# Import our module
+# Import our modules
 from all_classifiers_func import all_classifiers
 from Pet import Pet
 

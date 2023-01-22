@@ -2,8 +2,7 @@
 
  .userHeading {
     width: 100%;
-    height: 100vh;
-    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOEEeJJIkCvV8B3HHwEz71y7TLUTON3LXwdw&usqp=CAU);
+    height: 80vh;
     background-size: cover;
       }
       .userWrapper {  
@@ -19,15 +18,19 @@
        left: 50%;
        transform: translate(-50%, -50%);
        text-align: center;
-       color: white;
       }
  
       .userText h1 {
        font-size: 30px;
       }
+
+      .userText img {
+        height: 300px;
+        width: 400px;
+      }
       .userText button {
        padding: 10px 20px;
-       background-color: rgb(234, 97, 12);
+       background-color: rgb(49, 114, 212);
        color: white;
        border: none;
        font-weight: 550;
@@ -41,7 +44,7 @@
 padding-left: 250px;
 padding-right: 250px;
 padding-bottom: 150px;
-padding-top: 100px;
+padding-top: 60px;
 }
 
 .imgTable{
