@@ -27,7 +27,6 @@ import Footer from '../components/footer/Footer';
 import LogOut from '../components/navBar/LogOut';
 import Image from '../components/Image';
 import ImageForm from '../components/forms/ImageForm';
-
 // import css
 import '../assets/css/MyRouter.css';
 
@@ -83,15 +82,6 @@ const MyRouter = () => {
                                                                 <Image img={image} />
                                                         </Link> &nbsp; &nbsp;
 
-                                                        {/* <Link className='link' to='/UserAccount'>
-                                                                <Button
-                                                                        onClick={handleCloseNavMenu}
-                                                                        sx={{ my: 2, color: "white", display: "block" }}
-                                                                >
-                                                                        {pages[]} &nbsp;
-                                                                </Button>
-                                                        </Link> */}
-
                                                         <Link className='link' to='/About'>
                                                                 <Button
                                                                         onClick={handleCloseNavMenu}
@@ -121,14 +111,15 @@ const MyRouter = () => {
                                                                 </Button>
                                                         </Link>
 
-
-                                                        <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
-                                                                <IconButton onClick={handleOpenUserMenu} sx={{
-                                                                        p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
-                                                                }}>
-                                                                        <Avatar alt="Shaika" src={require("../assets/images/Shaika.jpg")} />
-                                                                </IconButton>
-                                                        </Tooltip>
+                                                        <div id='iconPosition'>
+                                                                <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
+                                                                        <IconButton onClick={handleOpenUserMenu} sx={{
+                                                                                p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
+                                                                        }}>
+                                                                                <Avatar alt="Shaika" src={require("../assets/images/Shaika.jpg")} />
+                                                                        </IconButton>
+                                                                </Tooltip>
+                                                        </div>
 
                                                         <Menu
                                                                 sx={{ mt: "45px" }}

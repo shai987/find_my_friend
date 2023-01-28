@@ -17,3 +17,9 @@
 .r {
         direction: ltr;
 }
+
+#iconPosition {
+        position: fixed;
+        top: 13px;
+        width: 93%;
+}
