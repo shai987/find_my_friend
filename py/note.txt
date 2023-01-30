@@ -1,0 +1,2 @@
+in order to run this files you need to change the path to:
+cd py/model_func_run
