@@ -1,4 +1,4 @@
-import "../../assets/css/ImageForm.css"
+import "../../assets/css/FindMyPetBreeds.css";
 import { useState, useRef } from "react";
 import axios from 'axios';
 import Loader from '../Loader';
@@ -10,8 +10,8 @@ const FindMyPetBreeds = () => {
         const [dragActive, setDragActive] = useState(false);
         const [image, setImage] = useState({ preview: '', data: '' });
         const [response, setResponse] = useState("");
-        const [dragText, setDragText] = useState("Drag and drop your file here or")
-        const [uploadText, setUploadText] = useState("Upload a file")
+        const [dragText, setDragText] = useState("Drag and drop your file here or");
+        const [uploadText, setUploadText] = useState("Upload a file");
         // ref
         const inputRef = useRef(null);
         const [loading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ const FindMyPetBreeds = () => {
                         preview: URL.createObjectURL(e.target.files[0]),
                         data: e.target.files[0],
                 }
-                setImage(img)
+                setImage(img);
                 if (e.target.files && e.target.files[0]) {
                         // handleFiles(e.target.files);
                 }
