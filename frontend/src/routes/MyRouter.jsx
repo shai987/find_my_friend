@@ -28,6 +28,11 @@ import LogOut from '../components/navBar/LogOut';
 import Image from '../components/Image';
 import FindMyPetBreeds from '../components/navBar/FindMyPetBreeds';
 import UserStatus from '../components/forms/UserStatus';
+import SignIn from '../components/forms/SignIn';
+import SignUp from '../components/forms/SignUp';
+import RequestStatus from '../components/forms/RequestStatus';
+import ImageForm from '../components/forms/ImageForm';
+// import PetDetails from '../components/forms/PetDetails';
 
 // import css
 import '../assets/css/MyRouter.css';
@@ -172,6 +177,11 @@ const MyRouter = () => {
                                         <Route path='/LogOut' element={<LogOut />}></Route>
                                         <Route path='/FindMyPetBreeds' element={<FindMyPetBreeds />}></Route>
                                         <Route path='/UserStatus' element={<UserStatus />}></Route>
+                                        <Route path='/SignIn' element={<SignIn />}></Route>
+                                        <Route path='/SignUp' element={<SignUp />}></Route>
+                                        <Route path='/RequestStatus' element={<RequestStatus />}></Route>
+                                        <Route path='/ImageForm' element={<ImageForm />}></Route>
+                                        {/* <Route path='/PetDetails' element={<PetDetails />}></Route> */}
 
                                         {/* If the user go to not exsist path it would take him back to "/" */}
                                         <Route path="*" element={<Navigate to="/" />}></Route>

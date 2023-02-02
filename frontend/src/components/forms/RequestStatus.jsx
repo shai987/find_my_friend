@@ -2,18 +2,21 @@
 // במידה ולא - מעבר לטופס כניסה
 // במידה וכן - מעבר לקומפוננטה הבאה
 
+// import react-router-dom
+import { Link } from 'react-router-dom';
 
 const RequestStatus = () => {
 
         return (
                 <>
                         <div>
-                                <button>איבדתי
-                                        <a href="/FindMyPetBreeds"></a>
+                                <button>
+                                        <Link className='link' to='/PetDetails'>איבדתי</Link>
                                 </button>
                                 <br />
-                                <button>מצאתי
-                                        <a href="/FindMyPetBreeds"></a>
+
+                                <button>
+                                        <Link className='link' to='/PetDetails'>מצאתי</Link>
                                 </button>
                         </div>
                 </>

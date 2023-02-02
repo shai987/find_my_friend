@@ -1,3 +1,7 @@
+import { UserProvider } from '../../context/UserContext';
+
+import axios from 'axios';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { UserProvider } from '../../context/UserContext';
+
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 const theme = createTheme();
@@ -22,12 +26,12 @@ const SignIn = () => {
                 e.preventDefault();
                 // const data = new FormData(event.currentTarget);
                 let formData = new FormData();
-                formData.append('file', image.data);
+                // formData.append('file', image.data);
 
                 try {
                         const res = await axios.post('/add', formData);
                         //קבלת תשובה מה-node => עידכון סטייטס שמעדכן את הקונטקסט
-                        setResponse(`Pet Type: ${res.data.pet_type},\nBreeds: ${res.data.breeds}`);
+                        // setResponse(`Pet Type: ${res.data.pet_type},\nBreeds: ${res.data.breeds}`);
                 } catch (err) {
                         console.log(err);
                 }

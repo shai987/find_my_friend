@@ -1,29 +1,19 @@
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
+// import react-router-dom
+import { Link } from 'react-router-dom';
 
 const UserStatus = () => {
 
         return (
                 <>
                         <div>
-                                {/* <button>חדש */}
-                                <Typography className='he' variant="body1">
-                                        <Link className='try' href="/SignIn" underline="none" rel="noopener noreferrer">
-                                                {/* <a href="/FindMyPetBreeds"></a> */}
-                                                SignIn
-                                        </Link>
-                                </Typography>
-                                {/* </button> */}
+                                <button>
+                                        <Link className='link' to='/SignIn'>חדש</Link>
+                                </button>
                                 <br />
-                                {/* <button>קיים */}
-                                {/* <a href="/SignUp"></a> */}
-                                <Typography className='he' variant="body1">
-                                        <Link className='try' href="/SignUp" underline="none" rel="noopener noreferrer">
-                                                {/* <a href="/FindMyPetBreeds"></a> */}
-                                                SignUp
-                                        </Link>
-                                </Typography>
-                                {/* </button> */}
+
+                                <button>
+                                        <Link className='link' to='/SignUp'>קיים</Link>
+                                </button>
                         </div>
                 </>
         );
