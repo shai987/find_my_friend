@@ -26,12 +26,14 @@ import About from '../components/navBar/About';
 import Footer from '../components/footer/Footer';
 import LogOut from '../components/navBar/LogOut';
 import Image from '../components/Image';
-import ImageForm from '../components/forms/ImageForm';
+import FindMyPetBreeds from '../components/navBar/FindMyPetBreeds';
+import UserStatus from '../components/forms/UserStatus';
+
 // import css
 import '../assets/css/MyRouter.css';
 
 const MyRouter = () => {
-        const pages = ["אודות", "צור קשר", 'טופס ראשוני'];
+        const pages = ["אודות", "צור קשר", "Play Ground", "צא לדרך"];
         const settings = ["אזור אישי", "התנתקות"];
 
         const image = {
@@ -101,12 +103,22 @@ const MyRouter = () => {
                                                                 </Button>
                                                         </Link>
 
-                                                        <Link className='link' to='/ImageForm'>
+                                                        <Link className='link' to='/FindMyPetBreeds'>
                                                                 <Button
                                                                         onClick={handleCloseNavMenu}
                                                                         sx={{ my: 2, color: "white", display: "block" }}
                                                                 >
                                                                         {pages[2]}
+                                                                        &nbsp;&nbsp;
+                                                                </Button>
+                                                        </Link>
+
+                                                        <Link className='link' to='/UserStatus'>
+                                                                <Button
+                                                                        onClick={handleCloseNavMenu}
+                                                                        sx={{ my: 2, color: "white", display: "block" }}
+                                                                >
+                                                                        {pages[3]}
                                                                         &nbsp;&nbsp;
                                                                 </Button>
                                                         </Link>
@@ -158,7 +170,9 @@ const MyRouter = () => {
                                         <Route path='/ContactUs' element={<ContactUs />}></Route>
                                         <Route path='/About' element={<About />}></Route>
                                         <Route path='/LogOut' element={<LogOut />}></Route>
-                                        <Route path='/ImageForm' element={<ImageForm />}></Route>
+                                        <Route path='/FindMyPetBreeds' element={<FindMyPetBreeds />}></Route>
+                                        <Route path='/UserStatus' element={<UserStatus />}></Route>
+
                                         {/* If the user go to not exsist path it would take him back to "/" */}
                                         <Route path="*" element={<Navigate to="/" />}></Route>
                                 </Routes>
