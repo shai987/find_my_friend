@@ -38,7 +38,7 @@ import ImageForm from '../components/forms/ImageForm';
 import '../assets/css/MyRouter.css';
 
 const MyRouter = () => {
-        const pages = ["אודות", "צור קשר", "Play Ground", "צא לדרך"];
+        const pages = ["אודות", "צור קשר", "אזור משחקים", "צא לדרך"];
         const settings = ["אזור אישי", "התנתקות"];
 
         const image = {
@@ -89,44 +89,17 @@ const MyRouter = () => {
                                                                 <Image img={image} />
                                                         </Link> &nbsp; &nbsp;
 
-                                                        <Link className='link' to='/About'>
-                                                                <Button
-                                                                        onClick={handleCloseNavMenu}
-                                                                        sx={{ my: 2, color: "white", display: "block" }}
-                                                                >
-                                                                        {pages[0]} &nbsp;
-                                                                </Button>
-                                                        </Link>
-
-                                                        <Link className='link' to='/ContactUs'>
-                                                                <Button
-                                                                        onClick={handleCloseNavMenu}
-                                                                        sx={{ my: 2, color: "white", display: "block" }}
-                                                                >
-                                                                        {pages[1]}
-                                                                        &nbsp;&nbsp;
-                                                                </Button>
-                                                        </Link>
-
-                                                        <Link className='link' to='/FindMyPetBreeds'>
-                                                                <Button
-                                                                        onClick={handleCloseNavMenu}
-                                                                        sx={{ my: 2, color: "white", display: "block" }}
-                                                                >
-                                                                        {pages[2]}
-                                                                        &nbsp;&nbsp;
-                                                                </Button>
-                                                        </Link>
-
-                                                        <Link className='link' to='/UserStatus'>
-                                                                <Button
-                                                                        onClick={handleCloseNavMenu}
-                                                                        sx={{ my: 2, color: "white", display: "block" }}
-                                                                >
-                                                                        {pages[3]}
-                                                                        &nbsp;&nbsp;
-                                                                </Button>
-                                                        </Link>
+                                                        {pages.map((page) => (
+                                                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                                                        <Link className='link' to={`/${page}`}>
+                                                                                <Button
+                                                                                        sx={{ my: 2, color: "white", display: "block" }}
+                                                                                >
+                                                                                        {page}
+                                                                                </Button>
+                                                                        </Link>
+                                                                </MenuItem>
+                                                        ))}
 
                                                         <div id='iconPosition'>
                                                                 <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
@@ -154,29 +127,25 @@ const MyRouter = () => {
                                                                 open={Boolean(user)}
                                                                 onClose={handleCloseUserMenu}
                                                         >
-                                                                <MenuItem onClick={handleCloseUserMenu}>
-                                                                        <Link className='link' to='/UserAccount'>
-                                                                                <Typography textAlign="center">{settings[0]}</Typography>
-                                                                        </Link>
-                                                                </MenuItem>
-
-                                                                <MenuItem onClick={handleCloseUserMenu}>
-                                                                        <Link className='link' to='/LogOut'>
-                                                                                <Typography textAlign="center">{settings[1]} </Typography>
-                                                                        </Link>
-                                                                </MenuItem>
+                                                                {settings.map((setting) => (
+                                                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                                                                <Link className='link' to={`/${setting}`}>
+                                                                                        <Typography sx={{ color: "black" }}> {setting}</Typography>
+                                                                                </Link>
+                                                                        </MenuItem>
+                                                                ))}
                                                         </Menu>
                                                 </Toolbar>
                                         </Container>
                                 </AppBar>
                                 <Routes>
                                         <Route path='/' element={<HomepageContainer />}></Route>
-                                        <Route path='/UserAccount' element={<UserAccount />}></Route>
-                                        <Route path='/ContactUs' element={<ContactUs />}></Route>
-                                        <Route path='/About' element={<About />}></Route>
-                                        <Route path='/LogOut' element={<LogOut />}></Route>
-                                        <Route path='/FindMyPetBreeds' element={<FindMyPetBreeds />}></Route>
-                                        <Route path='/UserStatus' element={<UserStatus />}></Route>
+                                        <Route path='/אזור אישי' element={<UserAccount />}></Route>
+                                        <Route path='/צור קשר' element={<ContactUs />}></Route>
+                                        <Route path='/אודות' element={<About />}></Route>
+                                        <Route path='/התנתקות' element={<LogOut />}></Route>
+                                        <Route path='/אזור משחקים' element={<FindMyPetBreeds />}></Route>
+                                        <Route path='/צא לדרך' element={<UserStatus />}></Route>
                                         <Route path='/SignIn' element={<SignIn />}></Route>
                                         <Route path='/SignUp' element={<SignUp />}></Route>
                                         <Route path='/RequestStatus' element={<RequestStatus />}></Route>
