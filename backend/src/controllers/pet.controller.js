@@ -7,6 +7,7 @@ import * as fsExtra from "fs-extra";
 import { newPet_schema } from '../models/new_pet.js';
 import { validationResult } from 'express-validator';
 import { } from 'dotenv/config';
+
 const localhost = process.env.LOCAL_HOST;
 const flask_port = process.env.FLASK_PORT || 5000;
 
