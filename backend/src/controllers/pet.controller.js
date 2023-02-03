@@ -2,7 +2,7 @@ import axios from 'axios';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs'
+import fs from 'fs';
 import * as fsExtra from "fs-extra";
 import { newPet_schema } from '../models/new_pet.js';
 import { validationResult } from 'express-validator';
