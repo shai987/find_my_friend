@@ -2,7 +2,9 @@ import "../../assets/css/ImageForm.css"
 import { useState, useRef } from "react";
 import axios from 'axios';
 import Loader from '../Loader';
+import PetDetails from "./PetDetails";
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
+
 
 // drag drop file component
 const ImageForm = () => {
@@ -15,6 +17,9 @@ const ImageForm = () => {
         // ref
         const inputRef = useRef(null);
         const [loading, setLoading] = useState(false);
+        
+        const[pet_type, setPetType] = useState(""); 
+        const[pet_breeds, setPetBreeds]=useState("");
 
         // handle drag events
         const handleDrag = (e) => {
@@ -70,7 +75,9 @@ const ImageForm = () => {
                         setLoading(true);
                         // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
                         const res = await axios.post('/add', formData);
-                        setResponse(`Pet Type: ${res.data.pet_type},\nBreeds: ${res.data.breeds}`);
+                        setPetType(res.data.pet_type);
+                        setPetBreeds(res.data.breeds);
+                        setResponse(res.data);
                         setLoading(false);
                 } catch (err) {
                         setLoading(false);
@@ -81,7 +88,7 @@ const ImageForm = () => {
         return (
                 <>
                         {loading ? <Loader /> :
-                                (<form id="form-file-upload" onDragEnter={handleDrag} onSubmit={handleSubmit}>
+                                (!response? <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={handleSubmit}>
                                         <input ref={inputRef} type="file" id="input-file-upload" onChange={handleChange} />
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
@@ -93,7 +100,7 @@ const ImageForm = () => {
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
                                         <button type='submit'>שלח</button>
                                         <div>{response}</div>
-                                </form>)
+                                </form>: <PetDetails pet_type = {pet_type} pet_breeds = {pet_breeds} />)
                         }
                 </>
         );

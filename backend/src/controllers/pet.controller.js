@@ -4,14 +4,14 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import * as fsExtra from "fs-extra";
-import { newPet_schema } from '../models/new_pet.js';
+import { pet_details_schema } from '../models/pet_details.js';
 import { validationResult } from 'express-validator';
 import { } from 'dotenv/config';
 
 const localhost = process.env.LOCAL_HOST;
 const flask_port = process.env.FLASK_PORT || 5000;
 
-const newPet_model = mongoose.model("newPet", newPet_schema);
+const newPet_model = mongoose.model("newPet", pet_details_schema);
 
 const storage = multer.diskStorage({
         destination: 'pets',
@@ -53,7 +53,7 @@ export const handlePet = async (req, res) => {
                         else {
 
                                 try {
-                                        console.log(req.file.originalname);
+                                        //console.log(req.file.originalname);
                                         let obj = {
                                                 img: {
                                                         data: fs.readFileSync(`pets/${req.file.originalname}`),

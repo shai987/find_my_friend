@@ -1,9 +1,7 @@
-const AlertSuccess = ({ success }) => {
-        if (success === '') {
-                return <></>;
-        }
+export const AlertSuccess = ({ success }) => {
+  if (success === "") {
+    return <></>;
+  }
 
-        return <p className='success'>{success}</p>;
+  return <p className="success">{success}</p>;
 };
-
-export default AlertSuccess;

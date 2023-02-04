@@ -11,12 +11,12 @@ const RequestStatus = () => {
                 <>
                         <div>
                                 <button>
-                                        <Link className='link' to='/PetDetails'>איבדתי</Link>
+                                        <Link className='link' to='/ImageForm'>איבדתי</Link>
                                 </button>
                                 <br />
 
                                 <button>
-                                        <Link className='link' to='/PetDetails'>מצאתי</Link>
+                                        <Link className='link' to='/ImageForm'>מצאתי</Link>
                                 </button>
                         </div>
                 </>
