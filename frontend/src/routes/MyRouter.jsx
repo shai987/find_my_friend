@@ -38,7 +38,7 @@ import ImageForm from '../components/forms/ImageForm';
 import '../assets/css/MyRouter.css';
 
 const MyRouter = () => {
-        const pages = ["אודות", "צור קשר", "אזור משחקים", "צא לדרך"];
+        const pages = ["אודות", "צור קשר", "אזור משחקים", "צא לדרך", "RequestStatus"];
         const settings = ["אזור אישי", "התנתקות"];
 
         const image = {
