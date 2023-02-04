@@ -59,7 +59,7 @@ const PetDetails = (props) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-      
+
     });
     setFormErrors([]);
     setFormSuccess("");
