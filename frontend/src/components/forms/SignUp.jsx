@@ -1,9 +1,9 @@
+import { useState } from 'react';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,16 +12,72 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import axios from 'axios';
+
+import { AlertError } from "../views/AlertError";
+import { AlertSuccess } from "../views/AlertSuccess";
+
+axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
+
 const theme = createTheme();
 
 const SignUp = () => {
-        const handleSubmit = (event) => {
-                event.preventDefault();
-                const data = new FormData(event.currentTarget);
-                console.log({
-                        email: data.get('email'),
-                        password: data.get('password'),
+
+        const initialFormData = {
+                first_name: "",
+                last_name: "",
+                email: "",
+                user_password: "",
+        };
+
+        const [formData, setFormData] = useState(initialFormData);
+        const [formSuccess, setFormSuccess] = useState("");
+        const [formErrors, setFormErrors] = useState([]);
+
+        const handleChange = (e) => {
+                setFormData({
+                        ...formData,
+                        [e.target.name]: e.target.value,
+
                 });
+                setFormErrors([]);
+                setFormSuccess("");
+        };
+
+        const handleErrors = (err) => {
+                if (err.response.data && err.response.data.errors) {
+                        // Handle validation errors
+                        const { errors } = err.response.data;
+
+                        let errorMsg = [];
+                        for (let error of errors) {
+                                const { msg } = error;
+
+                                errorMsg.push(msg);
+                        }
+
+                        setFormErrors(errorMsg);
+                } else {
+                        // Handle generic error
+                        setFormErrors(["Oops, there was an error!"]);
+                }
+        };
+
+        const handleSubmit = async (e) => {
+                e.preventDefault();
+
+                try {
+                        // Send POST request
+                        await axios.post("/add", formData);
+
+                        // HTTP req successful
+                        setFormSuccess("Data received correctly");
+
+                        // Reset form data
+                        setFormData(initialFormData);
+                } catch (err) {
+                        handleErrors(err);
+                }
         };
 
         return (
@@ -40,19 +96,25 @@ const SignUp = () => {
                                                 <LockOutlinedIcon />
                                         </Avatar>
                                         <Typography component="h1" variant="h5">
-                                                Sign up
+                                                הרשמה לאתר
                                         </Typography>
+
+                                        <AlertSuccess success={formSuccess} />
+                                        <AlertError errors={formErrors} />
+
                                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                                                 <Grid container spacing={2}>
                                                         <Grid item xs={12} sm={6}>
                                                                 <TextField
                                                                         autoComplete="given-name"
-                                                                        name="firstName"
+                                                                        name="first_name"
                                                                         required
                                                                         fullWidth
                                                                         id="firstName"
-                                                                        label="First Name"
+                                                                        label="שם פרטי"
                                                                         autoFocus
+                                                                        value={formData.firstName}
+                                                                        onChange={handleChange}
                                                                 />
                                                         </Grid>
                                                         <Grid item xs={12} sm={6}>
@@ -60,9 +122,11 @@ const SignUp = () => {
                                                                         required
                                                                         fullWidth
                                                                         id="lastName"
-                                                                        label="Last Name"
-                                                                        name="lastName"
+                                                                        label="שם משפחה"
+                                                                        name="last_name"
                                                                         autoComplete="family-name"
+                                                                        value={formData.lastName}
+                                                                        onChange={handleChange}
                                                                 />
                                                         </Grid>
                                                         <Grid item xs={12}>
@@ -70,26 +134,24 @@ const SignUp = () => {
                                                                         required
                                                                         fullWidth
                                                                         id="email"
-                                                                        label="Email Address"
+                                                                        label="כתובת אימייל"
                                                                         name="email"
                                                                         autoComplete="email"
+                                                                        value={formData.email}
+                                                                        onChange={handleChange}
                                                                 />
                                                         </Grid>
                                                         <Grid item xs={12}>
                                                                 <TextField
                                                                         required
                                                                         fullWidth
-                                                                        name="password"
-                                                                        label="Password"
+                                                                        name="user_password"
+                                                                        label="סיסמא"
                                                                         type="password"
                                                                         id="password"
                                                                         autoComplete="new-password"
-                                                                />
-                                                        </Grid>
-                                                        <Grid item xs={12}>
-                                                                <FormControlLabel
-                                                                        control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                                                        label="I want to receive inspiration, marketing promotions and updates via email."
+                                                                        value={formData.password}
+                                                                        onChange={handleChange}
                                                                 />
                                                         </Grid>
                                                 </Grid>
@@ -99,12 +161,12 @@ const SignUp = () => {
                                                         variant="contained"
                                                         sx={{ mt: 3, mb: 2 }}
                                                 >
-                                                        Sign Up
+                                                        הרשמה
                                                 </Button>
                                                 <Grid container justifyContent="flex-end">
-                                                        <Grid item>
+                                                        <Grid item xs>
                                                                 <Link href="#" variant="body2">
-                                                                        Already have an account? Sign in
+                                                                        יש לך כבר חשבון באתר? לחץ כאן והתחבר
                                                                 </Link>
                                                         </Grid>
                                                 </Grid>

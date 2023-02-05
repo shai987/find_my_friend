@@ -1,5 +1,7 @@
 import { UserProvider } from '../../context/UserContext';
 
+import { useState } from 'react';
+
 import axios from 'axios';
 
 import Avatar from '@mui/material/Avatar';
@@ -16,24 +18,67 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { AlertError } from "../views/AlertError";
+import { AlertSuccess } from "../views/AlertSuccess";
+
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 const theme = createTheme();
 
 const SignIn = () => {
 
+        const initialFormData = {
+                email: "",
+                user_password: "",
+        };
+
+        const [formData, setFormData] = useState(initialFormData);
+        const [formSuccess, setFormSuccess] = useState("");
+        const [formErrors, setFormErrors] = useState([]);
+
+        const handleChange = (e) => {
+                setFormData({
+                        ...formData,
+                        [e.target.name]: e.target.value,
+
+                });
+                setFormErrors([]);
+                setFormSuccess("");
+        };
+
+        const handleErrors = (err) => {
+                if (err.response.data && err.response.data.errors) {
+                        // Handle validation errors
+                        const { errors } = err.response.data;
+
+                        let errorMsg = [];
+                        for (let error of errors) {
+                                const { msg } = error;
+
+                                errorMsg.push(msg);
+                        }
+
+                        setFormErrors(errorMsg);
+                } else {
+                        // Handle generic error
+                        setFormErrors(["Oops, there was an error!"]);
+                }
+        };
+
         const handleSubmit = async (e) => {
                 e.preventDefault();
-                // const data = new FormData(event.currentTarget);
-                let formData = new FormData();
-                // formData.append('file', image.data);
 
                 try {
-                        const res = await axios.post('/add', formData);
-                        //קבלת תשובה מה-node => עידכון סטייטס שמעדכן את הקונטקסט
-                        // setResponse(`Pet Type: ${res.data.pet_type},\nBreeds: ${res.data.breeds}`);
+                        // Send POST request
+                        await axios.post("/add", formData);
+
+                        // HTTP req successful
+                        setFormSuccess("Data received correctly");
+
+                        // Reset form data
+                        setFormData(initialFormData);
                 } catch (err) {
-                        console.log(err);
+                        handleErrors(err);
                 }
         };
 
@@ -53,32 +98,40 @@ const SignIn = () => {
                                                 <LockOutlinedIcon />
                                         </Avatar>
                                         <Typography component="h1" variant="h5">
-                                                Sign in
+                                                כניסה
                                         </Typography>
+
+                                        <AlertSuccess success={formSuccess} />
+                                        <AlertError errors={formErrors} />
+
                                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                                                 <TextField
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         id="email"
-                                                        label="Email Address"
+                                                        label="כתובת מייל"
                                                         name="email"
                                                         autoComplete="email"
                                                         autoFocus
+                                                        value={formData.email}
+                                                        onChange={handleChange}
                                                 />
                                                 <TextField
                                                         margin="normal"
                                                         required
                                                         fullWidth
-                                                        name="password"
-                                                        label="Password"
+                                                        name="user_password"
+                                                        label="סיסמא"
                                                         type="password"
                                                         id="password"
                                                         autoComplete="current-password"
+                                                        value={formData.password}
+                                                        onChange={handleChange}
                                                 />
                                                 <FormControlLabel
                                                         control={<Checkbox value="remember" color="primary" />}
-                                                        label="Remember me"
+                                                        label="זכור אותי"
                                                 />
                                                 <Button
                                                         type="submit"
@@ -86,24 +139,25 @@ const SignIn = () => {
                                                         variant="contained"
                                                         sx={{ mt: 3, mb: 2 }}
                                                 >
-                                                        Sign In
+                                                        התחברות
                                                 </Button>
                                                 <Grid container>
                                                         <Grid item xs>
                                                                 <Link href="#" variant="body2">
-                                                                        Forgot password?
+                                                                        {"אין לך חשבון? הירשם"}
                                                                 </Link>
                                                         </Grid>
+
                                                         <Grid item>
                                                                 <Link href="#" variant="body2">
-                                                                        {"Don't have an account? Sign Up"}
+                                                                        שכחת סיסמא?
                                                                 </Link>
                                                         </Grid>
                                                 </Grid>
                                         </Box>
                                 </Box>
                         </Container>
-                </ThemeProvider>
+                </ThemeProvider >
         );
 }
 

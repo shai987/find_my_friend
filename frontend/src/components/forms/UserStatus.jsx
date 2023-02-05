@@ -8,12 +8,12 @@ const UserStatus = () => {
                 <>
                         <div>
                                 <button>
-                                        <Link className='link' to='/SignIn'>חדש</Link>
+                                        <Link className='link' to='/SignUp'>חדש</Link>
                                 </button>
                                 <br />
 
                                 <button>
-                                        <Link className='link' to='/SignUp'>קיים</Link>
+                                        <Link className='link' to='/SignIn'>קיים</Link>
                                 </button>
                         </div>
                 </>
