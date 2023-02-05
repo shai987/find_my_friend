@@ -63,9 +63,10 @@ export const validate = (method) => {
                                 body('email')
                                         .not()
                                         .isEmpty()
-                                        .withMessage('Email is required')
-                                        .trim()
-                                        .escape(),
+                                        .withMessage('E-mail is required')
+                                        .isEmail()
+                                        .withMessage('Please insert a valid e-mail')
+                                        .normalizeEmail(),
                                 body('user_password')
                                         .not()
                                         .isEmpty()
@@ -79,9 +80,10 @@ export const validate = (method) => {
                                 body('email')
                                         .not()
                                         .isEmpty()
-                                        .withMessage('Email is required')
-                                        .trim()
-                                        .escape(),
+                                        .withMessage('E-mail is required')
+                                        .isEmail()
+                                        .withMessage('Please insert a valid e-mail')
+                                        .normalizeEmail(),
                                 body('user_password')
                                         .not()
                                         .isEmpty()

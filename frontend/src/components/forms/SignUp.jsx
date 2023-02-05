@@ -68,7 +68,7 @@ const SignUp = () => {
 
                 try {
                         // Send POST request
-                        await axios.post("/add", formData);
+                        await axios.post("/userSignUp", formData);
 
                         // HTTP req successful
                         setFormSuccess("Data received correctly");
@@ -113,7 +113,7 @@ const SignUp = () => {
                                                                         id="firstName"
                                                                         label="שם פרטי"
                                                                         autoFocus
-                                                                        value={formData.firstName}
+                                                                        value={formData.first_name}
                                                                         onChange={handleChange}
                                                                 />
                                                         </Grid>
@@ -125,7 +125,7 @@ const SignUp = () => {
                                                                         label="שם משפחה"
                                                                         name="last_name"
                                                                         autoComplete="family-name"
-                                                                        value={formData.lastName}
+                                                                        value={formData.last_name}
                                                                         onChange={handleChange}
                                                                 />
                                                         </Grid>
@@ -150,7 +150,7 @@ const SignUp = () => {
                                                                         type="password"
                                                                         id="password"
                                                                         autoComplete="new-password"
-                                                                        value={formData.password}
+                                                                        value={formData.user_password}
                                                                         onChange={handleChange}
                                                                 />
                                                         </Grid>

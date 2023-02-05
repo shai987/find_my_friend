@@ -42,43 +42,49 @@ const SignIn = () => {
                         [e.target.name]: e.target.value,
 
                 });
-                setFormErrors([]);
-                setFormSuccess("");
+                // setFormErrors([]);
+                // setFormSuccess("");
         };
 
-        const handleErrors = (err) => {
-                if (err.response.data && err.response.data.errors) {
-                        // Handle validation errors
-                        const { errors } = err.response.data;
-
-                        let errorMsg = [];
-                        for (let error of errors) {
-                                const { msg } = error;
-
-                                errorMsg.push(msg);
-                        }
-
-                        setFormErrors(errorMsg);
-                } else {
-                        // Handle generic error
-                        setFormErrors(["Oops, there was an error!"]);
-                }
-        };
+        /*  const handleErrors = (err) => {
+                 if (err.response.data && err.response.data.errors) {
+                         // Handle validation errors
+                         const { errors } = err.response.data;
+ 
+                         let errorMsg = [];
+                         for (let error of errors) {
+                                 const { msg } = error;
+ 
+                                 errorMsg.push(msg);
+                         }
+ 
+                         setFormErrors(errorMsg);
+                 } else {
+                         // Handle generic error
+                         setFormErrors(["Oops, there was an error!"]);
+                 }
+         }; */
 
         const handleSubmit = async (e) => {
                 e.preventDefault();
 
                 try {
                         // Send POST request
-                        await axios.post("/add", formData);
-
-                        // HTTP req successful
-                        setFormSuccess("Data received correctly");
+                        await axios.get(`/userSignIn?email=${formData.email}&user_password=${formData.user_password}`).then((response) => {
+                                if (response.data.message === "User not found") {
+                                        console.log("User not found");
+                                        setFormSuccess("User not found");
+                                } else {
+                                        console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                        setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                }
+                        });
 
                         // Reset form data
                         setFormData(initialFormData);
                 } catch (err) {
-                        handleErrors(err);
+                        // handleErrors(err);
+                        console.log(err.message);
                 }
         };
 
@@ -126,7 +132,7 @@ const SignIn = () => {
                                                         type="password"
                                                         id="password"
                                                         autoComplete="current-password"
-                                                        value={formData.password}
+                                                        value={formData.user_password}
                                                         onChange={handleChange}
                                                 />
                                                 <FormControlLabel
