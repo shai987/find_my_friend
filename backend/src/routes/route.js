@@ -12,7 +12,7 @@ router.post("/petDetails", validate('handlePetDetails'), handlePetDetails);
 
 router.post("/userSignUp", validate('handleSignUp'), handleSignUp);
 
-router.get("/userSignIn",/*  validate('handleSignIn'), */ handleSignIn);
+router.post("/userSignIn",/*  validate('handleSignIn'), */ handleSignIn);
 
 router.post("/deleteAll", handleDeleteAllUser);
 

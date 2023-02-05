@@ -70,7 +70,7 @@ const SignIn = () => {
 
                 try {
                         // Send POST request
-                        await axios.get(`/userSignIn?email=${formData.email}&user_password=${formData.user_password}`).then((response) => {
+                        await axios.post(`/userSignIn?email=${formData.email}&user_password=${formData.user_password}`).then((response) => {
                                 if (response.data.message === "User not found") {
                                         console.log("User not found");
                                         setFormSuccess("User not found");
