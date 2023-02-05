@@ -10,9 +10,9 @@ const PetDetails = (props) => {
   const {pet_type, pet_breeds} = props;
   const initialFormData = {
     petName: "",
-    petType: "",
+    petType: pet_type,
     petGender: "",
-    petBreeds: "",
+    petBreeds: pet_breeds,
     location: "",
   };
 
@@ -25,7 +25,7 @@ const PetDetails = (props) => {
 
     try {
       // Send POST request
-      const res = await axios.post("/add", formData);
+      const res = await axios.post("/petDetails", formData);
       // HTTP req successful
       setFormSuccess("Data received correctly");
 
@@ -87,17 +87,18 @@ const PetDetails = (props) => {
           <input
             type="radio"
             name="petType"
-            value={formData.petType}
-            onInput={handleChange}
-            checked={pet_type==="cat"? true: false} 
+            value="cat"
+            checked={formData.petType==="cat"} 
+            onChange={handleChange}
+            
           />
           <label htmlFor="">כלב</label>
           <input
             type="radio"
             name="petType"
-            value={formData.petType}
-            onInput={handleChange}
-            checked={pet_type==="dog"? true: false} 
+            value="dog"
+            checked={formData.petType==="dog"} 
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -122,7 +123,7 @@ const PetDetails = (props) => {
           <label htmlFor="">גזע החיה</label>
           <textarea cols="30" rows="10"
             name="petBreeds"
-            value={pet_breeds}
+            value={formData.petBreeds}
             onInput={handleChange}
           />
         </div>

@@ -74,7 +74,7 @@ const ImageForm = () => {
                 try {
                         setLoading(true);
                         // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
-                        const res = await axios.post('/add', formData);
+                        const res = await axios.post('/uploadImage', formData);
                         setPetType(res.data.pet_type);
                         setPetBreeds(res.data.breeds);
                         setResponse(res.data);

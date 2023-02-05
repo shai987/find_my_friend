@@ -69,7 +69,7 @@ const FindMyPetBreeds = () => {
                 try {
                         setLoading(true);
                         // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
-                        const res = await axios.post('/add', formData);
+                        const res = await axios.post('/uploadImage', formData);
                         setResponse(`Pet Type: ${res.data.pet_type},\nBreeds: ${res.data.breeds}`);
                         setLoading(false);
                 } catch (err) {

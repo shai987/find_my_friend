@@ -1,12 +1,12 @@
 import express from 'express';
 const router = express.Router();
 
-import { handlePet } from '../controllers/pet.controller.js';
-import { handlePetDetails } from '../controllers/pet_details.controller.js';
+import { handlePetImage } from '../controllers/pet.controller.js';
+import { handlePetDetails } from '../controllers/pet.controller.js';
 import { handleSignUp, handleSignIn, handleDeleteAllUser, handleGetAllUsers } from '../controllers/user.controller.js';
 import { validate } from "../middlewares/validator.middleware.js";
 
-router.post("/add", validate('handlePet'), handlePet);
+router.post("/uploadImage", validate('handlePetImage'), handlePetImage);
 
 router.post("/petDetails", validate('handlePetDetails'), handlePetDetails);
 

@@ -8,6 +8,7 @@ import { pet_details_schema } from '../models/pet_details.js';
 import { validationResult } from 'express-validator';
 import { } from 'dotenv/config';
 
+
 const localhost = process.env.LOCAL_HOST;
 const flask_port = process.env.FLASK_PORT || 5000;
 
@@ -32,7 +33,7 @@ const fileFilter = (req, file, cb) => {
 
 const uploadFile = multer({ storage: storage, fileFilter: fileFilter }).single('file');
 
-export const handlePet = async (req, res) => {
+export const handlePetImage = async (req, res) => {
         /*  const errors = validationResult(req);
          if (!errors.isEmpty()) {
                  // Validation errors
@@ -87,3 +88,26 @@ export const handlePet = async (req, res) => {
                 res.sendStatus(500);
         }
 };
+
+
+export const handlePetDetails = async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          // Validation errors
+          return res.status(400).json({ errors: errors.array() });
+        }
+      
+        const { petName, petType, petGender, petBreeds, location } = req.body;
+        //image mongo
+      
+        // Handle the data:
+      
+        try {
+          const newPet = new newPet_model(req.body);
+          await newPet.save();
+        } catch (err) {
+          res.json(err.message);
+        }
+      
+        res.status(200).json({ message: "The server received the data" });
+      };
