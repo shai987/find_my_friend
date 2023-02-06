@@ -2,6 +2,8 @@ import { UserProvider } from '../../context/UserContext';
 
 import { useState } from 'react';
 
+import { Link, useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 
 import Avatar from '@mui/material/Avatar';
@@ -10,7 +12,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -20,6 +21,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
+
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
@@ -31,10 +33,10 @@ const SignIn = () => {
                 email: "",
                 user_password: "",
         };
-
         const [formData, setFormData] = useState(initialFormData);
         const [formSuccess, setFormSuccess] = useState("");
         const [formErrors, setFormErrors] = useState([]);
+        const navigate = useNavigate();
 
         const handleChange = (e) => {
                 setFormData({
@@ -45,6 +47,14 @@ const SignIn = () => {
                 // setFormErrors([]);
                 // setFormSuccess("");
         };
+        /*         useEffect(() => {
+                        // Checking if user is not loggedIn
+                        if (!isLoggedIn) {
+                                navigate("/");
+                        } else {
+                                navigate("/login");
+                        }
+                }, [navigate, isLoggedIn]); */
 
         /*  const handleErrors = (err) => {
                  if (err.response.data && err.response.data.errors) {
@@ -76,7 +86,8 @@ const SignIn = () => {
                                         setFormSuccess("User not found");
                                 } else {
                                         console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
-                                        setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                        // setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                        return navigate("/אזור אישי");
                                 }
                         });
 
@@ -149,7 +160,7 @@ const SignIn = () => {
                                                 </Button>
                                                 <Grid container>
                                                         <Grid item xs>
-                                                                <Link href="#" variant="body2">
+                                                                <Link to='/SignUp' variant="body2">
                                                                         {"אין לך חשבון? הירשם"}
                                                                 </Link>
                                                         </Grid>
