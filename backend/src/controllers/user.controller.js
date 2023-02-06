@@ -21,8 +21,16 @@ export const handleSignUp = async (req, res) => {
                                 console.log(err.message);
                         }
                         res.send(result);
-                });
 
+                        /*    if (result.length > 0) {
+                                   res.send({ message: "not good" });
+                                   console.log({ message: "not good" });
+                                   console.log(result);
+                           } else {
+                                   res.send(result);
+                                   console.log(result);
+                           } */
+                });
         }
         catch (err) {
                 res.send(err.message);
