@@ -26,13 +26,13 @@ export const validate = (method) => {
                                         .withMessage('Pet type is required')
                                         .trim()
                                         .escape(),
-                                body('gender')
+                                body('petGender')
                                         .not()
                                         .isEmpty()
                                         .withMessage('Pet gender is required')
                                         .trim()
                                         .escape(),
-                                body('breed')
+                                body('petBreeds')
                                         .not()
                                         .isEmpty()
                                         .withMessage('Pet name is required')

@@ -107,16 +107,16 @@ const PetDetails = (props) => {
           <input
             type="radio"
             name="petGender"
-            value={formData.age}
-            onInput={handleChange}
+            value = "F"
+            onChange={handleChange}
           />
           <label htmlFor="">זכר</label>
           <input
             type="radio"
             name="petGender"
             className="input"
-            value={formData.age}
-            onInput={handleChange}
+            value="M"
+            onChange={handleChange}
           />
         </div>
         <div>
