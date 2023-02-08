@@ -1,0 +1,7 @@
+לטובת הרצה של ספריות פיתון שעושות שימוש בפרויקט נריץ בטרמינל פייתון את הפקודה 
+pip install -r requirements.txt
+
+pip install pipreqs באמעצות הפקודה pipreqs על מנת לקבל קובץ כזה ולשתף עם מישהו אחר, נוריד את הספרייה 
+
+המתאים ששם נרצה לשמור את קובץ ההרצה path-ולאחר מכן את ה pipreqs ואז נריץ את הפקודה 
+pipreqs C:\Users\USER\Desktop\final_project_react\find_my_friend\backend\py  - אצלי 
