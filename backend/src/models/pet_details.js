@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 export const pet_details_schema = new mongoose.Schema({
-        name: String,
         petName: String,
         petType: String,
         petGender: String,
@@ -11,7 +10,8 @@ export const pet_details_schema = new mongoose.Schema({
         {
                 data: Buffer,
                 contentType: String
-        }
+        },
+        userEmail: String
 })
 
 // const newPet = mongoose.model("newPet", newPet_schema);
