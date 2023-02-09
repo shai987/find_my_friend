@@ -14,6 +14,7 @@ const ImageForm = () => {
         const [response, setResponse] = useState("");
         const [dragText, setDragText] = useState("Drag and drop your file here or")
         const [uploadText, setUploadText] = useState("Upload a file")
+        const [documentID, setDocumentID] = useState("")
         // ref
         const inputRef = useRef(null);
         const [loading, setLoading] = useState(false);
@@ -77,6 +78,7 @@ const ImageForm = () => {
                         const res = await axios.post('/uploadImage', formData);
                         setPetType(res.data.pet_type);
                         setPetBreeds(res.data.breeds);
+                        setDocumentID(res.data.document_id);
                         setResponse(res.data);
                         setLoading(false);
                 } catch (err) {
@@ -100,7 +102,7 @@ const ImageForm = () => {
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
                                         <button type='submit'>שלח</button>
                                         <div>{response}</div>
-                                </form>: <PetDetails pet_type = {pet_type} pet_breeds = {pet_breeds} />)
+                                </form>: <PetDetails pet_type = {pet_type} pet_breeds = {pet_breeds} documentID={documentID}/>)
                         }
                 </>
         );

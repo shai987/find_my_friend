@@ -7,8 +7,9 @@ axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
 
-  const {pet_type, pet_breeds} = props;
+  const {pet_type, pet_breeds, documentID} = props;
   const initialFormData = {
+    documentID: documentID,
     petName: "",
     petType: pet_type,
     petGender: "",

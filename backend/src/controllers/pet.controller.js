@@ -51,6 +51,18 @@ export const handlePetImage = async (req, res) => {
         res.send("User not saved, file upload failed");
       } else {
         try {
+          let obj = {
+            img: {
+              data: fs.readFileSync(`pets/${req.file.originalname}`),
+              contentType: "image/png",
+            },
+          };
+
+          const newPet = new newPet_model(obj);
+          let result = await newPet.save();
+          // extract the document id
+          let documentID = result._id.valueOf();
+
           axios
             .get(
               `http://${localhost}${flask_port}/flask/pets_details?name=${req.file.originalname}`,
@@ -59,7 +71,9 @@ export const handlePetImage = async (req, res) => {
               }
             )
             .then((response) => {
-              //fsExtra.emptyDirSync("pets");
+              // After saving the data, empty the "pets" folder
+              fsExtra.emptyDirSync("pets");
+              response.data.document_id = documentID;
               console.log(response.data);
               res.json(response.data);
             });
@@ -74,41 +88,27 @@ export const handlePetImage = async (req, res) => {
 };
 
 export const handlePetDetails = async (req, res) => {
-  let photoFileName;
-
-  // Function to get the current photo file in "pets" folder
-  let filenames = fs.readdirSync('pets');
-  filenames.forEach(file => {
-        photoFileName = file;
-      });
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     // Validation errors
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { petName, petType, petGender, petBreeds, location } = req.body;
+  const { documentID, petName, petType, petGender, petBreeds, location } = req.body;
+
+  const filter = { _id: documentID };
+  const update = {
+    petName: petName,
+    petType: petType,
+    petGender: petGender,
+    petBreeds: petBreeds,
+    location: location,
+  };
 
   // Handle the data:
   try {
-    let obj = {
-      petName: petName,
-      petType: petType,
-      petGender: petGender,
-      petBreeds: petBreeds,
-      location: location,
-      img: {
-        data: fs.readFileSync(`pets/${photoFileName}`),
-        contentType: "image/png",
-      },
-    };
-
-    const newPet = new newPet_model(obj);
-    await newPet.save();
-    // After saving the data, empty the "pets" folder
-    fsExtra.emptyDirSync("pets");
-
+    
+    await newPet_model.findOneAndUpdate(filter, update);
   } catch (err) {
     res.json(err.message);
   }
