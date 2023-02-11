@@ -1,7 +1,8 @@
 // import react-router-dom
 import { Link } from 'react-router-dom';
-
+// import css
 import '../../assets/css/basic.css';
+
 const UserStatus = () => {
 
         return (

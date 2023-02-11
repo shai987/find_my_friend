@@ -1,7 +1,8 @@
+// import from react
 import { useState } from 'react';
-
+// import react-router-dom
 import { Link, useNavigate } from 'react-router-dom';
-
+// import libraries from material-ui
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,12 +13,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-import axios from 'axios';
-
+// import our components
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
-
+// import libraries
+import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 const theme = createTheme();
