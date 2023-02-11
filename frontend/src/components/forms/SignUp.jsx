@@ -118,6 +118,17 @@ const SignUp = () => {
                                                 <Grid container spacing={2}>
                                                         <Grid item xs={12} sm={6}>
                                                                 <TextField
+                                                                        sx={{
+                                                                                "& label": {
+                                                                                        left: "unset",
+                                                                                        right: "1.75rem",
+                                                                                        transformOrigin: "right",
+                                                                                },
+                                                                                "& legend": {
+                                                                                        textAlign: "right",
+                                                                                        fontSize: "0.6rem",
+                                                                                },
+                                                                        }}
                                                                         autoComplete="given-name"
                                                                         name="first_name"
                                                                         required
@@ -131,6 +142,17 @@ const SignUp = () => {
                                                         </Grid>
                                                         <Grid item xs={12} sm={6}>
                                                                 <TextField
+                                                                        sx={{
+                                                                                "& label": {
+                                                                                        left: "unset",
+                                                                                        right: "1.75rem",
+                                                                                        transformOrigin: "right",
+                                                                                },
+                                                                                "& legend": {
+                                                                                        textAlign: "right",
+                                                                                        fontSize: "0.6rem",
+                                                                                },
+                                                                        }}
                                                                         required
                                                                         fullWidth
                                                                         id="lastName"
@@ -143,6 +165,17 @@ const SignUp = () => {
                                                         </Grid>
                                                         <Grid item xs={12}>
                                                                 <TextField
+                                                                        sx={{
+                                                                                "& label": {
+                                                                                        left: "unset",
+                                                                                        right: "1.75rem",
+                                                                                        transformOrigin: "right",
+                                                                                },
+                                                                                "& legend": {
+                                                                                        textAlign: "right",
+                                                                                        fontSize: "0.6rem",
+                                                                                },
+                                                                        }}
                                                                         required
                                                                         fullWidth
                                                                         id="email"
@@ -155,6 +188,17 @@ const SignUp = () => {
                                                         </Grid>
                                                         <Grid item xs={12}>
                                                                 <TextField
+                                                                        sx={{
+                                                                                "& label": {
+                                                                                        left: "unset",
+                                                                                        right: "1.75rem",
+                                                                                        transformOrigin: "right",
+                                                                                },
+                                                                                "& legend": {
+                                                                                        textAlign: "right",
+                                                                                        fontSize: "0.6rem",
+                                                                                },
+                                                                        }}
                                                                         required
                                                                         fullWidth
                                                                         name="user_password"

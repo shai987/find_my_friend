@@ -33,6 +33,7 @@ const SignIn = () => {
                 email: "",
                 user_password: "",
         };
+
         const [formData, setFormData] = useState(initialFormData);
         const [formSuccess, setFormSuccess] = useState("");
         const [formErrors, setFormErrors] = useState([]);
@@ -60,14 +61,14 @@ const SignIn = () => {
                  if (err.response.data && err.response.data.errors) {
                          // Handle validation errors
                          const { errors } = err.response.data;
- 
+         
                          let errorMsg = [];
                          for (let error of errors) {
                                  const { msg } = error;
- 
+         
                                  errorMsg.push(msg);
                          }
- 
+         
                          setFormErrors(errorMsg);
                  } else {
                          // Handle generic error
@@ -123,6 +124,17 @@ const SignIn = () => {
 
                                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                                                 <TextField
+                                                        sx={{
+                                                                "& label": {
+                                                                        left: "unset",
+                                                                        right: "1.75rem",
+                                                                        transformOrigin: "right",
+                                                                },
+                                                                "& legend": {
+                                                                        textAlign: "right",
+                                                                        fontSize: "0.6rem",
+                                                                },
+                                                        }}
                                                         margin="normal"
                                                         required
                                                         fullWidth
@@ -135,6 +147,17 @@ const SignIn = () => {
                                                         onChange={handleChange}
                                                 />
                                                 <TextField
+                                                        sx={{
+                                                                "& label": {
+                                                                        left: "unset",
+                                                                        right: "1.75rem",
+                                                                        transformOrigin: "right",
+                                                                },
+                                                                "& legend": {
+                                                                        textAlign: "right",
+                                                                        fontSize: "0.6rem",
+                                                                },
+                                                        }}
                                                         margin="normal"
                                                         required
                                                         fullWidth
