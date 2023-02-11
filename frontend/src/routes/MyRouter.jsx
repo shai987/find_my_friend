@@ -38,8 +38,18 @@ import ImageForm from '../components/forms/ImageForm';
 import '../assets/css/MyRouter.css';
 
 const MyRouter = () => {
-        const pages = ["אודות", "צור קשר", "אזור משחקים", "צא לדרך", "RequestStatus"];
-        const settings = ["אזור אישי", "התנתקות"];
+        const pages = [
+                { key: 'About', value: 'אודות' },
+                { key: 'ContactUs', value: 'צור קשר' },
+                { key: 'FindMyPetBreeds', value: 'אזור משחקים' },
+                { key: 'UserStatus', value: 'צא לדרך' },
+                { key: 'RequestStatus', value: 'RequestStatus' },
+        ];
+
+        const settings = [
+                { key: 'UserAccount', value: 'אזור אישי' },
+                { key: 'LogOut', value: 'התנתקות' },
+        ];
 
         const image = {
                 src: require('../assets/images/dog.jpg'),
@@ -90,12 +100,12 @@ const MyRouter = () => {
                                                         </Link> &nbsp; &nbsp;
 
                                                         {pages.map((page) => (
-                                                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                                                        <Link className='link' to={`/${page}`}>
+                                                                <MenuItem key={page.key} onClick={handleCloseNavMenu}>
+                                                                        <Link className='link' to={`/${page.key}`}>
                                                                                 <Button
                                                                                         sx={{ my: 2, color: "white", display: "block" }}
                                                                                 >
-                                                                                        {page}
+                                                                                        {page.value}
                                                                                 </Button>
                                                                         </Link>
                                                                 </MenuItem>
@@ -128,9 +138,9 @@ const MyRouter = () => {
                                                                 onClose={handleCloseUserMenu}
                                                         >
                                                                 {settings.map((setting) => (
-                                                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                                                                <Link className='link' to={`/${setting}`}>
-                                                                                        <Typography sx={{ color: "black" }}> {setting}</Typography>
+                                                                        <MenuItem key={setting.key} onClick={handleCloseUserMenu}>
+                                                                                <Link className='link' to={`/${setting.key}`}>
+                                                                                        <Typography sx={{ color: "black" }}> {setting.value}</Typography>
                                                                                 </Link>
                                                                         </MenuItem>
                                                                 ))}
@@ -140,12 +150,12 @@ const MyRouter = () => {
                                 </AppBar>
                                 <Routes>
                                         <Route path='/' element={<HomepageContainer />}></Route>
-                                        <Route path='/אזור אישי' element={<UserAccount />}></Route>
-                                        <Route path='/צור קשר' element={<ContactUs />}></Route>
-                                        <Route path='/אודות' element={<About />}></Route>
-                                        <Route path='/התנתקות' element={<LogOut />}></Route>
-                                        <Route path='/אזור משחקים' element={<FindMyPetBreeds />}></Route>
-                                        <Route path='/צא לדרך' element={<UserStatus />}></Route>
+                                        <Route path='/UserAccount' element={<UserAccount />}></Route>
+                                        <Route path='/ContactUs' element={<ContactUs />}></Route>
+                                        <Route path='/About' element={<About />}></Route>
+                                        <Route path='/LogOut' element={<LogOut />}></Route>
+                                        <Route path='/FindMyPetBreeds' element={<FindMyPetBreeds />}></Route>
+                                        <Route path='/UserStatus' element={<UserStatus />}></Route>
                                         <Route path='/SignIn' element={<SignIn />}></Route>
                                         <Route path='/SignUp' element={<SignUp />}></Route>
                                         <Route path='/RequestStatus' element={<RequestStatus />}></Route>
