@@ -88,7 +88,7 @@ const SignIn = () => {
                                 } else {
                                         console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         // setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
-                                        return navigate("/אזור אישי");
+                                        return navigate("/UserAccount");
                                 }
                         });
 
