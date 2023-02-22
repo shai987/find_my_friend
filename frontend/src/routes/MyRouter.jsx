@@ -165,8 +165,8 @@ const MyRouter = () => {
                                         {/* If the user go to not exsist path it would take him back to "/" */}
                                         <Route path="*" element={<Navigate to="/" />}></Route>
                                 </Routes>
+                                <Footer />
                         </Router >
-                        <Footer />
                 </>
         );
 }

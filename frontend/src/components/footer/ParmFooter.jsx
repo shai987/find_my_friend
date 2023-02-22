@@ -1,6 +1,5 @@
 // import libraries from material-ui
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 // import icons from icons-material
 import FacebookSharpIcon from '@mui/icons-material/FacebookSharp';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
@@ -8,27 +7,26 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import MarkEmailReadTwoToneIcon from '@mui/icons-material/MarkEmailReadTwoTone';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
-
 // import css
 import '../../assets/css/ParmFooter.css';
-
 //import image
 import pen from '../../assets/images/pen.png';
 import email from '../../assets/images/email.png';
 import social_media from '../../assets/images/social_media.png';
 import { color } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 const ParmFooter = () => {
         return (
                 <>
                         <div id="div_position">
                                 <div className='position-ContactUs'>
-                                        <a href="/ContactUs">
+                                        <Link to="/ContactUs">
                                                 <figure className='figure_style'>
                                                         <img className='footer_img' src={pen} alt="pen" />
                                                         <figcaption>צרו איתנו קשר</figcaption>
                                                 </figure>
-                                        </a>
+                                        </Link>
                                 </div>
                                 <div className='position-email'>
                                         <a href="mailto:findmyfriend10@gmail.com">
@@ -39,12 +37,12 @@ const ParmFooter = () => {
                                         </a>
                                 </div>
                                 <div className='position-social_media'>
-                                        <a href="">
+                                        <Link to="/">
                                                 <figure className='figure_style'>
                                                         <img className='footer_img' src={social_media} alt="pen" />
                                                         <figcaption>חפשו אותנו ברשתות החברתיות</figcaption>
                                                 </figure>
-                                        </a>
+                                        </Link>
                                 </div>
 
                         </div>

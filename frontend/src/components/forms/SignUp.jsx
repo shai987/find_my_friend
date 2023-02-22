@@ -73,7 +73,7 @@ const SignUp = () => {
                         await axios.post("/userSignUp", formData).then((response) => {
                                 return navigate("/SignIn");
                                 /*  if (response.data.message === "not good") {
-                                         console.log("User not found");
+                                         //  console.log("User not found");
                                          setFormSuccess("User not found");
                                  } else {
                                          console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
