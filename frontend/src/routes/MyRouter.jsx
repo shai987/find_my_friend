@@ -33,6 +33,7 @@ import SignUp from '../components/forms/SignUp';
 import RequestStatus from '../components/forms/RequestStatus';
 import ImageForm from '../components/forms/ImageForm';
 // import PetDetails from '../components/forms/PetDetails';
+import ScrollToTop from '../components/ScrollToTop';
 
 // import css
 import '../assets/css/MyRouter.css';
@@ -91,81 +92,83 @@ const MyRouter = () => {
         return (
                 <>
                         <Router>
-                                {/* sticky position allows the menu to be displayed even when scrolling */}
-                                <AppBar className="appBar" position="sticky">
-                                        <Container maxWidth="xl" sx={{ mr: '2px', ml: '2px', display: 'grid' }}>
-                                                <Toolbar disableGutters>
-                                                        <Link to='/'>
-                                                                <Image img={image} />
-                                                        </Link> &nbsp; &nbsp;
+                                <ScrollToTop>
+                                        {/* sticky position allows the menu to be displayed even when scrolling */}
+                                        <AppBar className="appBar" position="sticky" sx={{ backgroundColor: '#333333' }}>
+                                                <Container maxWidth="xl" sx={{ mr: '2px', ml: '2px', display: 'grid' }}>
+                                                        <Toolbar disableGutters>
+                                                                <Link to='/'>
+                                                                        <Image img={image} />
+                                                                </Link> &nbsp; &nbsp;
 
-                                                        {pages.map((page) => (
-                                                                <MenuItem key={page.key} onClick={handleCloseNavMenu}>
-                                                                        <Link className='link' to={`/${page.key}`}>
-                                                                                <Button
-                                                                                        sx={{ my: 2, color: "white", display: "block" }}
-                                                                                >
-                                                                                        {page.value}
-                                                                                </Button>
-                                                                        </Link>
-                                                                </MenuItem>
-                                                        ))}
-
-                                                        <div id='iconPosition'>
-                                                                <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
-                                                                        <IconButton onClick={handleOpenUserMenu} sx={{
-                                                                                p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
-                                                                        }}>
-                                                                                <Avatar alt="Shaika" src={require("../assets/images/Shaika.jpg")} />
-                                                                        </IconButton>
-                                                                </Tooltip>
-                                                        </div>
-
-                                                        <Menu
-                                                                sx={{ mt: "45px" }}
-                                                                id="menu-appbar"
-                                                                anchorEl={user}
-                                                                anchorOrigin={{
-                                                                        vertical: "top",
-                                                                        horizontal: "right",
-                                                                }}
-                                                                keepMounted
-                                                                transformOrigin={{
-                                                                        vertical: "top",
-                                                                        horizontal: "right",
-                                                                }}
-                                                                open={Boolean(user)}
-                                                                onClose={handleCloseUserMenu}
-                                                        >
-                                                                {settings.map((setting) => (
-                                                                        <MenuItem key={setting.key} onClick={handleCloseUserMenu}>
-                                                                                <Link className='link' to={`/${setting.key}`}>
-                                                                                        <Typography sx={{ color: "black" }}> {setting.value}</Typography>
+                                                                {pages.map((page) => (
+                                                                        <MenuItem key={page.key} onClick={handleCloseNavMenu}>
+                                                                                <Link className='link' to={`/${page.key}`}>
+                                                                                        <Button
+                                                                                                sx={{ my: 2, color: "white", display: "block" }}
+                                                                                        >
+                                                                                                {page.value}
+                                                                                        </Button>
                                                                                 </Link>
                                                                         </MenuItem>
                                                                 ))}
-                                                        </Menu>
-                                                </Toolbar>
-                                        </Container>
-                                </AppBar>
-                                <Routes>
-                                        <Route path='/' element={<HomepageContainer />}></Route>
-                                        <Route path='/UserAccount' element={<UserAccount />}></Route>
-                                        <Route path='/ContactUs' element={<ContactUs />}></Route>
-                                        <Route path='/About' element={<About />}></Route>
-                                        <Route path='/LogOut' element={<LogOut />}></Route>
-                                        <Route path='/FindMyPetBreeds' element={<FindMyPetBreeds />}></Route>
-                                        <Route path='/UserStatus' element={<UserStatus />}></Route>
-                                        <Route path='/SignIn' element={<SignIn />}></Route>
-                                        <Route path='/SignUp' element={<SignUp />}></Route>
-                                        <Route path='/RequestStatus' element={<RequestStatus />}></Route>
-                                        <Route path='/ImageForm' element={<ImageForm />}></Route>
-                                        {/* <Route path='/PetDetails' element={<PetDetails />}></Route> */}
 
-                                        {/* If the user go to not exsist path it would take him back to "/" */}
-                                        <Route path="*" element={<Navigate to="/" />}></Route>
-                                </Routes>
-                                <Footer />
+                                                                <div id='iconPosition'>
+                                                                        <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
+                                                                                <IconButton onClick={handleOpenUserMenu} sx={{
+                                                                                        p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
+                                                                                }}>
+                                                                                        <Avatar alt="Shaika" src={require("../assets/images/Shaika.jpg")} />
+                                                                                </IconButton>
+                                                                        </Tooltip>
+                                                                </div>
+
+                                                                <Menu
+                                                                        sx={{ mt: "45px" }}
+                                                                        id="menu-appbar"
+                                                                        anchorEl={user}
+                                                                        anchorOrigin={{
+                                                                                vertical: "top",
+                                                                                horizontal: "right",
+                                                                        }}
+                                                                        keepMounted
+                                                                        transformOrigin={{
+                                                                                vertical: "top",
+                                                                                horizontal: "right",
+                                                                        }}
+                                                                        open={Boolean(user)}
+                                                                        onClose={handleCloseUserMenu}
+                                                                >
+                                                                        {settings.map((setting) => (
+                                                                                <MenuItem key={setting.key} onClick={handleCloseUserMenu}>
+                                                                                        <Link className='link' to={`/${setting.key}`}>
+                                                                                                <Typography sx={{ color: "black" }}> {setting.value}</Typography>
+                                                                                        </Link>
+                                                                                </MenuItem>
+                                                                        ))}
+                                                                </Menu>
+                                                        </Toolbar>
+                                                </Container>
+                                        </AppBar>
+                                        <Routes>
+                                                <Route path='/' element={<HomepageContainer />}></Route>
+                                                <Route path='/UserAccount' element={<UserAccount />}></Route>
+                                                <Route path='/ContactUs' element={<ContactUs />}></Route>
+                                                <Route path='/About' element={<About />}></Route>
+                                                <Route path='/LogOut' element={<LogOut />}></Route>
+                                                <Route path='/FindMyPetBreeds' element={<FindMyPetBreeds />}></Route>
+                                                <Route path='/UserStatus' element={<UserStatus />}></Route>
+                                                <Route path='/SignIn' element={<SignIn />}></Route>
+                                                <Route path='/SignUp' element={<SignUp />}></Route>
+                                                <Route path='/RequestStatus' element={<RequestStatus />}></Route>
+                                                <Route path='/ImageForm' element={<ImageForm />}></Route>
+                                                {/* <Route path='/PetDetails' element={<PetDetails />}></Route> */}
+
+                                                {/* If the user go to not exsist path it would take him back to "/" */}
+                                                <Route path="*" element={<Navigate to="/" />}></Route>
+                                        </Routes>
+                                        <Footer />
+                                </ScrollToTop>
                         </Router >
                 </>
         );

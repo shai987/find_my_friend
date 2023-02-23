@@ -1,11 +1,10 @@
-import {useState, useEffect} from "react";
 import MyRouter from "./routes/MyRouter";
 
-const App = () => { 
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-       <MyRouter />
+        <MyRouter />
       </header>
     </div>
   );

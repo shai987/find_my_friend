@@ -6,30 +6,34 @@ import db_user_details from "../sql/sqlConnection.js";
 export const handleSignUp = async (req, res) => {
 
         const { email, first_name, last_name, user_password } = req.body;
-
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-                // Validation errors
-                return res.status(400).json({ errors: errors.array() });
-        }
+        /*   const errors = validationResult(req);
+  
+          if (!errors.isEmpty()) {
+                  // Validation errors
+                  return res.status(400).json({ errors: errors.array() });
+          } */
 
         try {
-                db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, user_password], (err, result) => {
+
+                db_user_details.query('SELECT COUNT(*) AS count FROM users WHERE email = ? OR user_password = ?', [email, user_password], (err, result) => {
                         if (err) {
                                 res.send(err.message);
                                 console.log(err.message);
                         }
-                        res.send(result);
+                        if (result[0].count > 0) {
+                                res.send({ message: "User already exists" });
+                        }
 
-                        /*    if (result.length > 0) {
-                                   res.send({ message: "not good" });
-                                   console.log({ message: "not good" });
-                                   console.log(result);
-                           } else {
-                                   res.send(result);
-                                   console.log(result);
-                           } */
+                        else {
+                                db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, user_password], (err, result) => {
+                                        if (err) {
+                                                res.send(err.message);
+                                                console.log(err.message);
+                                        }
+                                        res.send(result);
+                                        console.log(result);
+                                });
+                        }
                 });
         }
         catch (err) {

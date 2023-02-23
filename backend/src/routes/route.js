@@ -14,7 +14,7 @@ router.post("/userSignUp", validate('handleSignUp'), handleSignUp);
 
 router.post("/userSignIn",/*  validate('handleSignIn'), */ handleSignIn);
 
-router.post("/deleteAll", handleDeleteAllUser);
+router.post("/deleteAll", handleDeleteAllUser); // run: curl http://localhost:8080/route/deleteAll -X POST
 
 router.get("/getAll", handleGetAllUsers);
 

@@ -42,11 +42,11 @@ const SignUp = () => {
                         [e.target.name]: e.target.value,
 
                 });
-                setFormErrors([]);
+                // setFormErrors([]);
                 setFormSuccess("");
         };
 
-        const handleErrors = (err) => {
+        /* const handleErrors = (err) => {
                 if (err.response.data && err.response.data.errors) {
                         // Handle validation errors
                         const { errors } = err.response.data;
@@ -64,31 +64,31 @@ const SignUp = () => {
                         setFormErrors(["Oops, there was an error!"]);
                 }
         };
-
+ */
         const handleSubmit = async (e) => {
                 e.preventDefault();
 
                 try {
                         // Send POST request
                         await axios.post("/userSignUp", formData).then((response) => {
-                                return navigate("/SignIn");
-                                /*  if (response.data.message === "not good") {
-                                         //  console.log("User not found");
-                                         setFormSuccess("User not found");
-                                 } else {
-                                         console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
-                                         // setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
-                                         return navigate("/SignIn");
-                                 } */
+                                if (response.data.message === "User already exists") {
+                                        //  console.log("User not found");
+                                        return setFormSuccess("User already exists");
+                                } else {
+                                        console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                        // setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                        return navigate("/SignIn");
+                                }
                         });
 
                         // HTTP req successful
-                        setFormSuccess("Data received correctly");
+                        // setFormSuccess("Data received correctly");
 
                         // Reset form data
                         setFormData(initialFormData);
                 } catch (err) {
-                        handleErrors(err);
+                        // handleErrors(err);
+                        console.log(err.message);
                 }
         };
 
