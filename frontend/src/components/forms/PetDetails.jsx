@@ -7,7 +7,7 @@ axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
   // להוסיף useEffect שמטרתו לשאול את המשתמש אם הוא בטוח שברצונו לצאת מהדף מבלי לשלוח את הטופס. אם כן למחוק את המסמך מהמונגו.
-  const {pet_type, pet_breeds, documentID} = props;
+  const { pet_type, pet_breeds, documentID } = props;
   const initialFormData = {
     documentID: documentID,
     petName: "",
@@ -83,22 +83,22 @@ const PetDetails = (props) => {
           />
         </div>
         <div>
-           <p>סוג החיה</p>     
+          <p>סוג החיה</p>
           <label htmlFor="">חתול</label>
           <input
             type="radio"
             name="petType"
             value="cat"
-            checked={formData.petType==="cat"} 
+            checked={formData.petType === "cat"}
             onChange={handleChange}
-            
+
           />
           <label htmlFor="">כלב</label>
           <input
             type="radio"
             name="petType"
             value="dog"
-            checked={formData.petType==="dog"} 
+            checked={formData.petType === "dog"}
             onChange={handleChange}
           />
         </div>
@@ -108,7 +108,7 @@ const PetDetails = (props) => {
           <input
             type="radio"
             name="petGender"
-            value = "F"
+            value="F"
             onChange={handleChange}
           />
           <label htmlFor="">זכר</label>
@@ -140,7 +140,7 @@ const PetDetails = (props) => {
 
           />
         </div>
-        <input type="submit" className="button" value="שלח" />
+        <input type="submit" className="button" value="תמצא לי את  החיה" />
       </form>
     </div>
   );
