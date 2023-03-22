@@ -6,7 +6,7 @@ import fs from "fs";
 import * as fsExtra from "fs-extra";
 import { pet_details_schema } from "../models/pet_details.js";
 import { validationResult } from "express-validator";
-import {} from "dotenv/config";
+import { } from "dotenv/config";
 
 const localhost = process.env.LOCAL_HOST;
 const flask_port = process.env.FLASK_PORT || 5000;
@@ -34,6 +34,7 @@ const uploadFile = multer({ storage: storage, fileFilter: fileFilter }).single(
 );
 
 export const handlePetImage = async (req, res) => {
+  fsExtra.emptyDirSync("pets");
   /*  const errors = validationResult(req);
          if (!errors.isEmpty()) {
                  // Validation errors
@@ -72,7 +73,6 @@ export const handlePetImage = async (req, res) => {
             )
             .then((response) => {
               // After saving the data, empty the "pets" folder
-              fsExtra.emptyDirSync("pets");
               response.data.document_id = documentID;
               console.log(response.data);
               res.json(response.data);
@@ -107,11 +107,42 @@ export const handlePetDetails = async (req, res) => {
 
   // Handle the data:
   try {
-    
+
     await newPet_model.findOneAndUpdate(filter, update);
   } catch (err) {
     res.json(err.message);
   }
 
   res.status(200).json({ message: "The server received the data" });
+};
+
+// petSimilarity
+export const handleImageSimilarity = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // Validation errors
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { petType } = req.body; //location
+
+
+  // Handle the data:
+  try {
+    axios
+      .get(
+        `http://${localhost}${flask_port}/flask/pets_details?petType=${petType}`,
+        {
+          responseType: "json",
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        res.json(response.data);
+      });
+    res.status(200).json({ message: "The server received the data" });
+  } catch (err) {
+    res.json(err.message);
+  }
+
 };
