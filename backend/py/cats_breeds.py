@@ -7,7 +7,7 @@ from keras.models import load_model
 cats_breeds_model = load_model('./classification_models/Cats_Breeds.h5')
 
 # JSON file
-cats_breeds_names = open ('./json_data/cat.json', "r")
+cats_breeds_names = open ('./json_data/cat_he.json', "r", encoding='utf-8')
 
 # Reading from file
 cats_breeds_names = json.loads(cats_breeds_names.read())
