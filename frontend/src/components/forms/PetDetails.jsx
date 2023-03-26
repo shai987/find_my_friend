@@ -1,8 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from 'react-router-dom';
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
+import Loader from '../Loader';
 axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
@@ -20,10 +21,15 @@ const PetDetails = (props) => {
   const [formData, setFormData] = useState(initialFormData);
   const [formSuccess, setFormSuccess] = useState("");
   const [formErrors, setFormErrors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  //const [similarPets, setSimilarPets] = useState([]);
+  //const [message, setMessage] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
+    if (loading) { <Loader /> }
     try {
       // Send POST request
       const res = await axios.post("/petDetails", formData);
@@ -32,10 +38,23 @@ const PetDetails = (props) => {
 
       // Reset form data
       setFormData(initialFormData);
+      if (res.data) {
+        //setSimilarPets(res.data);
+        //setMessage("V")
+        navigate('./SimillarityResult', {
+          state: {
+            similarPets: res.data
+          }
+        })
+      }
+      else {
+        navigate('./NoResults')
+      }
     } catch (err) {
+      setLoading(false);
       handleErrors(err);
     }
-  };
+  }
 
   const handleErrors = (err) => {
     if (err.response.data && err.response.data.errors) {
@@ -67,82 +86,84 @@ const PetDetails = (props) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="form">
-        <h1>טופס מילוי פרטים</h1>
-        <AlertSuccess success={formSuccess} />
-        <AlertError errors={formErrors} />
-        <div>
-          {/*רק למי שאיבד חיה context ==="lost"? <input type=text>*/}
-          <label htmlFor="">שם החיה</label>
-          <input
-            type="text"
-            name="petName"
-            value={formData.petName}
-            onInput={handleChange}
-          />
-        </div>
-        <div>
-          <p>סוג החיה</p>
-          <label htmlFor="">חתול</label>
-          <input
-            type="radio"
-            name="petType"
-            value="cat"
-            checked={formData.petType === "cat"}
-            onChange={handleChange}
+    <>
+      <div>
+        <form onSubmit={handleSubmit} className="form">
+          <h1>טופס מילוי פרטים</h1>
+          <AlertSuccess success={formSuccess} />
+          <AlertError errors={formErrors} />
+          <div>
+            {/*רק למי שאיבד חיה context ==="lost"? <input type=text>*/}
+            <label htmlFor="">שם החיה</label>
+            <input
+              type="text"
+              name="petName"
+              value={formData.petName}
+              onInput={handleChange}
+            />
+          </div>
+          <div>
+            <p>סוג החיה</p>
+            <label htmlFor="">חתול</label>
+            <input
+              type="radio"
+              name="petType"
+              value="cat"
+              checked={formData.petType === "cat"}
+              onChange={handleChange}
 
-          />
-          <label htmlFor="">כלב</label>
-          <input
-            type="radio"
-            name="petType"
-            value="dog"
-            checked={formData.petType === "dog"}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <p>מין החיה</p>
-          <label htmlFor="">נקבה</label>
-          <input
-            type="radio"
-            name="petGender"
-            value="F"
-            onChange={handleChange}
-          />
-          <label htmlFor="">זכר</label>
-          <input
-            type="radio"
-            name="petGender"
-            className="input"
-            value="M"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="">גזע החיה</label>
-          <textarea cols="30" rows="10"
-            name="petBreeds"
-            value={formData.petBreeds}
-            onInput={handleChange}
-          />
-        </div>
-        <div>
-          {/*context==="lost"? מיקום גאוגרפי בו נמצא : מיקום גאוגרפי בו אבד*/}
-          <label htmlFor="">מיקום גיאוגרפי</label>
-          <input
-            type="text"
-            name="location"
-            className="input"
-            value={formData.location}
-            onInput={handleChange}
+            />
+            <label htmlFor="">כלב</label>
+            <input
+              type="radio"
+              name="petType"
+              value="dog"
+              checked={formData.petType === "dog"}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <p>מין החיה</p>
+            <label htmlFor="">נקבה</label>
+            <input
+              type="radio"
+              name="petGender"
+              value="F"
+              onChange={handleChange}
+            />
+            <label htmlFor="">זכר</label>
+            <input
+              type="radio"
+              name="petGender"
+              className="input"
+              value="M"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="">גזע החיה</label>
+            <textarea cols="30" rows="10"
+              name="petBreeds"
+              value={formData.petBreeds}
+              onInput={handleChange}
+            />
+          </div>
+          <div>
+            {/*context==="lost"? מיקום גאוגרפי בו נמצא : מיקום גאוגרפי בו אבד*/}
+            <label htmlFor="">מיקום גיאוגרפי</label>
+            <input
+              type="text"
+              name="location"
+              className="input"
+              value={formData.location}
+              onInput={handleChange}
 
-          />
-        </div>
-        <input type="submit" className="button" value="תמצא לי את  החיה" />
-      </form>
-    </div>
+            />
+          </div>
+          <input type="submit" className="button" value="תמצא לי את  החיה" />
+        </form>
+      </div>
+    </>
   );
 };
 
