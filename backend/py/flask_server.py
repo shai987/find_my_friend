@@ -1,6 +1,7 @@
 # Import libraries
 from flask import Flask, request
 import json
+import os
 # Import our modules
 from all_classifiers_func import all_classifiers
 from Pet import Pet
@@ -23,8 +24,12 @@ def pets_details():
 def imageSimilarity():
     args = request.args
     petType = args.get("petType", default="", type=str)
-    result = imageSimilarityClass.imageSimilarity(petType)
-    return result
+    #dir_list = os.listdir("../pets")
+    #image_address = f"../pets/{dir_list[0]}"
+    image_address = "../pets/nico.jpg"
+    result = imageSimilarityClass.imageSimilarity(petType, image_address)
+    result_json = json.dumps(result.__dict__)
+    return result_json
     
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

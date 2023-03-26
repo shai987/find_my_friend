@@ -107,8 +107,21 @@ export const handlePetDetails = async (req, res) => {
 
   // Handle the data:
   try {
-
+    // Part 1 - mongo
     await newPet_model.findOneAndUpdate(filter, update);
+
+    // Part 2 - flask
+    axios
+      .get(
+        `http://${localhost}${flask_port}/flask/pets_details?petType=${petType}`,
+        {
+          responseType: "json",
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        res.json(response.data);
+      });
   } catch (err) {
     res.json(err.message);
   }
