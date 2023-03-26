@@ -1,8 +1,5 @@
 const SimillarityResult = (props) => {
-        const { pet_type } = props;
-        const X = {
-                petType: pet_type,
-        };
+        const { similarPets } = props;
 
         /*try {
                 // Send POST request
@@ -11,7 +8,7 @@ const SimillarityResult = (props) => {
                 setFormSuccess("Data received correctly");
         }*/
         return (
-                <div>SimillarityResult</div>
+                <div>{similarPets}</div>
         );
 }
 export default SimillarityResult;
