@@ -41,14 +41,14 @@ const PetDetails = (props) => {
       if (res.data) {
         //setSimilarPets(res.data);
         //setMessage("V")
-        navigate('./SimillarityResult', {
+        navigate('/SimillarityResult', {
           state: {
             similarPets: res.data
           }
         })
       }
       else {
-        navigate('./NoResults')
+        navigate('/NoResults')
       }
     } catch (err) {
       setLoading(false);
