@@ -36,7 +36,6 @@ import ImageForm from '../components/forms/ImageForm';
 import ScrollToTop from '../components/ScrollToTop';
 import SimillarityResult from '../components/forms/SimillarityResult';
 import NoResults from '../components/forms/NoResults';
-
 // import css
 import '../assets/css/MyRouter.css';
 
