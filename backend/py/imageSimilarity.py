@@ -27,12 +27,13 @@ class imageSimilarityClass :
 
                 return flattended_feature
 
-        def imageSimilarity(self, petType, image_address):
+        def imageSimilarity(self, petType):
                 metric = 'cosine'
-                #dir_list = os.listdir("../pets")
-                #image_address = test_image = f"../pets/{dir_list[0]}"
+                dir_list = os.listdir("../pets")
+                image_address = f"../pets/{dir_list[0]}"
+                print(image_address)
                 test_image = self.imagePreprocessing(image_address)
-                test_nico = self.imagePreprocessing(r"C:\Users\USER\dog_cat_images\dogs\nico.jpg")
+                test_nico = self.imagePreprocessing(image_address)
                 dc = distance.cdist([test_image], [test_nico], metric)[0]
                 result = dc[0]
                 resultArray = []

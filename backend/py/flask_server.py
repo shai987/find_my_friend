@@ -24,11 +24,11 @@ def pets_details():
 def imageSimilarity():
     args = request.args
     petType = args.get("petType", default="", type=str)
-    #dir_list = os.listdir("../pets")
-    #image_address = f"../pets/{dir_list[0]}"
-    image_address = "../pets/nico.jpg"
-    result = imageSimilarityClass.imageSimilarity(petType, image_address)
-    result_json = json.dumps(result.__dict__)
+    print(petType)
+    #To use the class, we need to create an instance, like so:
+    similarPet = imageSimilarityClass()
+    result = similarPet.imageSimilarity(petType)
+    result_json = json.dumps(result)
     return result_json
     
 if __name__ == "__main__":

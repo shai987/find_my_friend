@@ -113,7 +113,7 @@ export const handlePetDetails = async (req, res) => {
     // Part 2 - flask
     axios
       .get(
-        `http://${localhost}${flask_port}/flask/pets_details?petType=${petType}`,
+        `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}`,
         {
           responseType: "json",
         }
@@ -126,36 +126,6 @@ export const handlePetDetails = async (req, res) => {
     res.json(err.message);
   }
 
-  res.status(200).json({ message: "The server received the data" });
+  //res.status(200).json({ message: "The server received the data" });
 };
 
-// petSimilarity
-export const handleImageSimilarity = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    // Validation errors
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  const { petType } = req.body; //location
-
-
-  // Handle the data:
-  try {
-    axios
-      .get(
-        `http://${localhost}${flask_port}/flask/pets_details?petType=${petType}`,
-        {
-          responseType: "json",
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        res.json(response.data);
-      });
-    res.status(200).json({ message: "The server received the data" });
-  } catch (err) {
-    res.json(err.message);
-  }
-
-};
