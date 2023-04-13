@@ -34,6 +34,8 @@ class imageSimilarityClass :
                 print(image_address)
                 test_image = self.imagePreprocessing(image_address)
                 test_nico = self.imagePreprocessing(image_address)
+                # shai test
+                # test_nico = self.imagePreprocessing(r"C:\Users\USER\dog_cat_images\dogs\pug.jpeg")
                 dc = distance.cdist([test_image], [test_nico], metric)[0]
                 result = dc[0]
                 resultArray = []
@@ -44,8 +46,11 @@ class imageSimilarityClass :
                                 # fill array of similar photos
                                 resultArray.append("V")      
                 else: # dog
-                        if result<0.3:
+                        if result<0.4:
                                 # fill array of similar photos
                                 resultArray.append("V") 
+                        # shai test
+                        # else:
+                                # resultArray.append(result) 
 
                 return resultArray     
