@@ -1,5 +1,5 @@
 // import from react
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 // import react-router-dom
 import { Link, useNavigate } from 'react-router-dom';
 // import libraries from material-ui
@@ -19,6 +19,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
 import { UserProvider } from '../../context/UserContext';
+import UserContext from '../../context/UserContext';
 // import libraries
 import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
@@ -30,13 +31,15 @@ const SignIn = () => {
         const initialFormData = {
                 email: "",
                 user_password: "",
+                first_name: "",
+                last_name: "",
         };
 
         const [formData, setFormData] = useState(initialFormData);
         const [formSuccess, setFormSuccess] = useState("");
         const [formErrors, setFormErrors] = useState([]);
         const navigate = useNavigate();
-
+        const user = useContext(UserContext);
         const handleChange = (e) => {
                 setFormData({
                         ...formData,
@@ -85,6 +88,7 @@ const SignIn = () => {
                                         setFormSuccess("User not found");
                                 } else {
                                         console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                        setFormData(response.data)
                                         // setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         return navigate("/RequestStatus");
                                 }

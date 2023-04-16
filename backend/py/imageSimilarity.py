@@ -43,37 +43,32 @@ class imageSimilarityClass :
 
                 return flattended_feature
 
-        def imageSimilarity(self, petType):
+        def imageSimilarity(self, petType, docID):
                 metric = 'cosine'
                 dir_list = os.listdir("../pets")
                 test_image_address = f"../pets/{dir_list[0]}"
                 print(test_image_address)
                 test_image = self.imagePreprocessing(test_image_address)
+                print(petType)
 
                 filter = {'petType': petType}
                 # get a cursor to iterate over the documents in the collection
                 cursor = collection.find(filter)
-
+                matching_docs = []
                 # iterate over the documents and process one image at a time
                 for doc in cursor:
                         # get the image buffer from the document
+                        print(type(doc["_id"]))
+                        print(type(docID))
+                        if str(doc["_id"]) == docID:
+                                continue
                         image_buffer = doc['img']['data']
                         matching_image = self.imagePreprocessing(BytesIO(image_buffer))
                         dc = distance.cdist([test_image], [matching_image], metric)[0]
                         result = dc[0]
-                        matching_docs = []
-                        print(result)
-                        if petType=="cat":
-                                if result<0.4:
-                                        # fill array of similar photos
-                                        matching_docs.append(doc)      
-                        else: # dog
-                                if result<0.4:
-                                        # fill array of similar photos
-                                        print(doc)
-                                        matching_docs.append(doc) 
-                        # shai test
-                        # else:
+                        if(result < 0.4): 
+                                matching_docs.append(doc) 
+                        print(result)              
                                 # resultArray.append(result) 
                 result_json = json.loads(json_util.dumps(matching_docs))
                 return result_json     

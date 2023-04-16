@@ -113,7 +113,7 @@ export const handlePetDetails = async (req, res) => {
     // Part 2 - flask
     axios
       .get(
-        `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}`,
+        `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}&docID=${documentID}`,
         {
           responseType: "json",
         }

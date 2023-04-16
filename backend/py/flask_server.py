@@ -24,9 +24,10 @@ def pets_details():
 def imageSimilarity():
     args = request.args
     petType = args.get("petType", default="", type=str)
+    docID = args.get("docID", default="", type=str)
     #To use the class, we need to create an instance, like so:
     similarPet = imageSimilarityClass()
-    result = similarPet.imageSimilarity(petType)
+    result = similarPet.imageSimilarity(petType, docID)
     return result
     
 if __name__ == "__main__":

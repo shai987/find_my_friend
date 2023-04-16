@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
 import Loader from '../Loader';
+
 axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
@@ -38,7 +39,7 @@ const PetDetails = (props) => {
 
       // Reset form data
       setFormData(initialFormData);
-      if (res.data) {
+      if (res.data.length !== 0) {
         //setSimilarPets(res.data);
         //setMessage("V")
         navigate('/SimillarityResult', {
