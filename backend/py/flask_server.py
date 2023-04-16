@@ -27,8 +27,7 @@ def imageSimilarity():
     #To use the class, we need to create an instance, like so:
     similarPet = imageSimilarityClass()
     result = similarPet.imageSimilarity(petType)
-    result_json = json.dumps(result)
-    return result_json
+    return result
     
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

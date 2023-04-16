@@ -2,8 +2,24 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import numpy as np
 import os
+import pymongo
+import json
+import bson.json_util as json_util
+from io import BytesIO
 from PIL import Image
 from scipy.spatial import distance
+
+# connection URL and database name
+url = 'mongodb://127.0.0.1:27017'
+db_name = 'findMyFriend'
+
+# connect to the database
+client = pymongo.MongoClient(url)
+db = client[db_name]
+
+# get a reference to the collection
+collection = db['newpets']
+
 
 model_url = "https://tfhub.dev/tensorflow/efficientnet/lite0/feature-vector/2"
 
@@ -30,27 +46,43 @@ class imageSimilarityClass :
         def imageSimilarity(self, petType):
                 metric = 'cosine'
                 dir_list = os.listdir("../pets")
-                image_address = f"../pets/{dir_list[0]}"
-                print(image_address)
-                test_image = self.imagePreprocessing(image_address)
-                test_nico = self.imagePreprocessing(image_address)
-                # shai test
-                # test_nico = self.imagePreprocessing(r"C:\Users\USER\dog_cat_images\dogs\pug.jpeg")
-                dc = distance.cdist([test_image], [test_nico], metric)[0]
-                result = dc[0]
-                resultArray = []
-                print(result)
+                test_image_address = f"../pets/{dir_list[0]}"
+                print(test_image_address)
+                test_image = self.imagePreprocessing(test_image_address)
 
-                if petType=="cat":
-                        if result<0.4:
-                                # fill array of similar photos
-                                resultArray.append("V")      
-                else: # dog
-                        if result<0.4:
-                                # fill array of similar photos
-                                resultArray.append("V") 
+                filter = {'petType': petType}
+                # get a cursor to iterate over the documents in the collection
+                cursor = collection.find(filter)
+
+                # iterate over the documents and process one image at a time
+                for doc in cursor:
+                        # get the image buffer from the document
+                        image_buffer = doc['img']['data']
+                        matching_image = self.imagePreprocessing(BytesIO(image_buffer))
+                        dc = distance.cdist([test_image], [matching_image], metric)[0]
+                        result = dc[0]
+                        matching_docs = []
+                        print(result)
+                        if petType=="cat":
+                                if result<0.4:
+                                        # fill array of similar photos
+                                        matching_docs.append(doc)      
+                        else: # dog
+                                if result<0.4:
+                                        # fill array of similar photos
+                                        print(doc)
+                                        matching_docs.append(doc) 
                         # shai test
                         # else:
                                 # resultArray.append(result) 
+                result_json = json.loads(json_util.dumps(matching_docs))
+                return result_json     
 
-                return resultArray     
+
+                
+                
+                
+                
+                
+                
+                
