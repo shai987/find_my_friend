@@ -52,18 +52,6 @@ export const handlePetImage = async (req, res) => {
         res.send("User not saved, file upload failed");
       } else {
         try {
-          let obj = {
-            img: {
-              data: fs.readFileSync(`pets/${req.file.originalname}`),
-              contentType: "image/png",
-            },
-          };
-
-          const newPet = new newPet_model(obj);
-          let result = await newPet.save();
-          // extract the document id
-          let documentID = result._id.valueOf();
-
           axios
             .get(
               `http://${localhost}${flask_port}/flask/pets_details?name=${req.file.originalname}`,
@@ -72,8 +60,6 @@ export const handlePetImage = async (req, res) => {
               }
             )
             .then((response) => {
-              // After saving the data, empty the "pets" folder
-              response.data.document_id = documentID;
               console.log(response.data);
               res.json(response.data);
             });
@@ -94,23 +80,40 @@ export const handlePetDetails = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { documentID, petName, petType, petGender, petBreeds, location } = req.body;
+  const { petName, petType, petGender, petBreeds, location } = req.body;
 
-  const filter = { _id: documentID };
-  const update = {
+  // get photo file name
+  const directoryPath = 'pets';
+  let filenames=[];
+  let fileName ="";
+  if (fs.existsSync(directoryPath)) {
+    filenames = fs.readdirSync(directoryPath);
+    fileName = filenames[0]
+  } else {
+    console.log('Directory does not exist');
+  }
+  
+  let obj = {
     petName: petName,
-    petType: petType,
-    petGender: petGender,
-    petBreeds: petBreeds,
-    location: location,
+        petType: petType,
+        petGender: petGender,
+        petBreeds: petBreeds,
+        location: location,
+        img: {
+          data: fs.readFileSync(`pets/${fileName}`),
+          contentType: "image/png",
+        },
   };
+
+  const newPet = new newPet_model(obj);
+  let result = await newPet.save();
+  // extract the document id
+  let documentID = result._id.valueOf();
 
   // Handle the data:
   try {
-    // Part 1 - mongo
-    await newPet_model.findOneAndUpdate(filter, update);
 
-    // Part 2 - flask
+    // flask
     axios
       .get(
         `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}&docID=${documentID}`,

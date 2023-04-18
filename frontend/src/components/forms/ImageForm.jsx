@@ -22,6 +22,18 @@ const ImageForm = () => {
         const[pet_type, setPetType] = useState(""); 
         const[pet_breeds, setPetBreeds]=useState("");
 
+        /*useEffect(() => {
+                
+                // Return a cleanup function
+                return async () => {
+                        try { 
+                                await axios.get('/deleteImage');
+                        } catch (err) {
+                                console.log(err);
+                        }
+                };
+              }, []);
+*/
         // handle drag events
         const handleDrag = (e) => {
                 e.preventDefault();
@@ -44,19 +56,22 @@ const ImageForm = () => {
                                 data: e.dataTransfer.files[0]
                         }
                         setImage(img)
+                        setDragText("")
+                        setUploadText("")
                 }
         };
 
         // triggers when file is selected with click
         const handleChange = (e) => {
                 e.preventDefault();
-                const img = {
-                        preview: URL.createObjectURL(e.target.files[0]),
-                        data: e.target.files[0],
-                }
-                setImage(img)
                 if (e.target.files && e.target.files[0]) {
-                        // handleFiles(e.target.files);
+                        const img = {
+                                preview: URL.createObjectURL(e.target.files[0]),
+                                data: e.target.files[0],
+                        }
+                        setImage(img)
+                        setDragText("")
+                        setUploadText("")
                 }
         };
 
@@ -67,8 +82,6 @@ const ImageForm = () => {
 
         const handleSubmit = async (e) => {
                 e.preventDefault();
-                setDragText("");
-                setUploadText("");
                 let formData = new FormData();
                 formData.append('file', image.data);
 
@@ -90,8 +103,8 @@ const ImageForm = () => {
         return (
                 <>
                         {loading ? <Loader /> :
-                                (!response? <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={handleSubmit}>
-                                        <input ref={inputRef} type="file" id="input-file-upload" onChange={handleChange} />
+                                (!response? <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
+                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
                                                         {image.preview && <img src={image.preview} width='300' height='300' />}
@@ -100,7 +113,7 @@ const ImageForm = () => {
                                                 </div>
                                         </label>
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
-                                        <button type='submit'>שלח</button>
+                                        <button type='submit' onClick={handleSubmit}>שלח</button>
                                         <div>{response}</div>
                                 </form>: <PetDetails pet_type = {pet_type} pet_breeds = {pet_breeds} documentID={documentID}/>)
                         }
