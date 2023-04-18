@@ -9,9 +9,8 @@ axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
   // להוסיף useEffect שמטרתו לשאול את המשתמש אם הוא בטוח שברצונו לצאת מהדף מבלי לשלוח את הטופס. אם כן למחוק את המסמך מהמונגו.
-  const { pet_type, pet_breeds, documentID } = props;
+  const { pet_type, pet_breeds } = props;
   const initialFormData = {
-    documentID: documentID,
     petName: "",
     petType: pet_type,
     petGender: "",

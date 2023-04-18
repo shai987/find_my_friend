@@ -91,7 +91,6 @@ const ImageForm = () => {
                         const res = await axios.post('/uploadImage', formData);
                         setPetType(res.data.pet_type);
                         setPetBreeds(res.data.breeds);
-                        setDocumentID(res.data.document_id);
                         setResponse(res.data);
                         setLoading(false);
                 } catch (err) {
