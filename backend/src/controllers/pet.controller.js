@@ -80,7 +80,7 @@ export const handlePetDetails = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { petName, petType, petGender, petBreeds, location } = req.body;
+  const { petName, petType, petGender, petBreeds, location, status, note } = req.body;
 
   // get photo file name
   const directoryPath = 'pets';
@@ -103,6 +103,9 @@ export const handlePetDetails = async (req, res) => {
           data: fs.readFileSync(`pets/${fileName}`),
           contentType: "image/png",
         },
+        note: note,
+        status: status
+        //note:note
   };
 
   const newPet = new newPet_model(obj);
@@ -116,7 +119,7 @@ export const handlePetDetails = async (req, res) => {
     // flask
     axios
       .get(
-        `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}&docID=${documentID}`,
+        `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}&docID=${documentID}&status=${status}`,
         {
           responseType: "json",
         }

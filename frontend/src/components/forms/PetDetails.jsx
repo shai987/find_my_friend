@@ -9,13 +9,15 @@ axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
   // להוסיף useEffect שמטרתו לשאול את המשתמש אם הוא בטוח שברצונו לצאת מהדף מבלי לשלוח את הטופס. אם כן למחוק את המסמך מהמונגו.
-  const { pet_type, pet_breeds } = props;
+  const { pet_type, pet_breeds, status } = props;
   const initialFormData = {
     petName: "",
     petType: pet_type,
     petGender: "",
     petBreeds: pet_breeds,
     location: "",
+    notes: "",
+    status: status
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -48,7 +50,11 @@ const PetDetails = (props) => {
         })
       }
       else {
-        navigate('/NoResults')
+        navigate('/NoResults', {
+          state: {
+            status: status
+          }
+        })
       }
     } catch (err) {
       setLoading(false);
@@ -93,7 +99,7 @@ const PetDetails = (props) => {
           <AlertSuccess success={formSuccess} />
           <AlertError errors={formErrors} />
           <div>
-            {/*רק למי שאיבד חיה context ==="lost"? <input type=text>*/}
+            {/*אם found אז שם חיה לא חובה*/ }
             <label htmlFor="">שם החיה</label>
             <input
               type="text"
@@ -142,15 +148,14 @@ const PetDetails = (props) => {
           </div>
           <div>
             <label htmlFor="">גזע החיה</label>
-            <textarea cols="30" rows="10"
+            <textarea disabled cols="20" rows="10"
               name="petBreeds"
               value={formData.petBreeds}
               onInput={handleChange}
             />
           </div>
           <div>
-            {/*context==="lost"? מיקום גאוגרפי בו נמצא : מיקום גאוגרפי בו אבד*/}
-            <label htmlFor="">מיקום גיאוגרפי</label>
+            <label htmlFor="">{status=="lost"?"המקום בו אבד": "המקום בו נמצא"}</label>
             <input
               type="text"
               name="location"
@@ -159,8 +164,16 @@ const PetDetails = (props) => {
               onInput={handleChange}
 
             />
+            <div>
+            <label htmlFor="">הערות</label>
+            <textarea cols="20" rows="10"
+              name="note"
+              value={formData.note}
+              onInput={handleChange}
+            />
           </div>
-          <input type="submit" className="button" value="תמצא לי את  החיה" />
+          </div>
+          <input type="submit" className="button" value={status=="lost"?"תמצא לי את הילד": "חםש את ההורים"} />
         </form>
       </div>
     </>

@@ -11,7 +11,10 @@ export const pet_details_schema = new mongoose.Schema({
                 data: Buffer,
                 contentType: String
         },
-        userEmail: String
+        userEmail: String,
+        status: String,
+        note: String,
+        userID:Number
 })
 
 // const newPet = mongoose.model("newPet", newPet_schema);

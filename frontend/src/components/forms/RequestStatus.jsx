@@ -2,6 +2,8 @@
 // במידה ולא - מעבר לטופס כניסה
 // במידה וכן - מעבר לקומפוננטה הבאה
 
+// update status - context
+
 // import react-router-dom
 import { Link } from 'react-router-dom';
 
@@ -11,12 +13,12 @@ const RequestStatus = () => {
                 <>
                         <div>
                                 <button>
-                                        <Link className='link' to='/ImageForm'>איבדתי</Link>
+                                        <Link className='link' to='/ImageForm' state={{ status: "lost" }}>איבדתי</Link>
                                 </button>
                                 <br />
 
                                 <button>
-                                        <Link className='link' to='/ImageForm'>מצאתי</Link>
+                                        <Link className='link' to='/ImageForm' state={{ status: "found" }}>מצאתי</Link>
                                 </button>
                         </div>
                 </>

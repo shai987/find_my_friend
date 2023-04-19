@@ -43,15 +43,19 @@ class imageSimilarityClass :
 
                 return flattended_feature
 
-        def imageSimilarity(self, petType, docID):
+        def imageSimilarity(self, petType, docID, status):
                 metric = 'cosine'
                 dir_list = os.listdir("../pets")
                 test_image_address = f"../pets/{dir_list[0]}"
                 print(test_image_address)
                 test_image = self.imagePreprocessing(test_image_address)
                 print(petType)
-
-                filter = {'petType': petType}
+                if(status == "found"):
+                        status = "lost"
+                else: 
+                        status = "found"
+                
+                filter = {'petType': petType, "status": status}
                 # get a cursor to iterate over the documents in the collection
                 cursor = collection.find(filter)
                 matching_docs = []

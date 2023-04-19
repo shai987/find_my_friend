@@ -1,5 +1,6 @@
 import "../../assets/css/ImageForm.css"
 import { useState, useRef } from "react";
+import { useLocation } from "react-router-dom"
 import axios from 'axios';
 import Loader from '../Loader';
 import PetDetails from "./PetDetails";
@@ -8,6 +9,10 @@ axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 // drag drop file component
 const ImageForm = () => {
+        const location = useLocation();
+        console.log(location.state.status)
+        const  status  = location.state.status;
+        console.log(status);
         // drag state
         const [dragActive, setDragActive] = useState(false);
         const [image, setImage] = useState({ preview: '', data: '' });
@@ -114,7 +119,7 @@ const ImageForm = () => {
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
                                         <button type='submit' onClick={handleSubmit}>שלח</button>
                                         <div>{response}</div>
-                                </form>: <PetDetails pet_type = {pet_type} pet_breeds = {pet_breeds} documentID={documentID}/>)
+                                </form>: <PetDetails pet_type = {pet_type} pet_breeds = {pet_breeds} documentID={documentID} status={status}/>)
                         }
                 </>
         );
