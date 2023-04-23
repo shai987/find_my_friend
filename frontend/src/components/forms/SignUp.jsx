@@ -42,11 +42,11 @@ const SignUp = () => {
                         [e.target.name]: e.target.value,
 
                 });
-                // setFormErrors([]);
+                setFormErrors([]);
                 setFormSuccess("");
         };
 
-        /* const handleErrors = (err) => {
+        const handleErrors = (err) => {
                 if (err.response.data && err.response.data.errors) {
                         // Handle validation errors
                         const { errors } = err.response.data;
@@ -64,7 +64,7 @@ const SignUp = () => {
                         setFormErrors(["Oops, there was an error!"]);
                 }
         };
- */
+
         const handleSubmit = async (e) => {
                 e.preventDefault();
 
@@ -75,20 +75,17 @@ const SignUp = () => {
                                         //  console.log("User not found");
                                         return setFormSuccess("User already exists");
                                 } else {
-                                        console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                        console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
                                         // setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         return navigate("/SignIn");
                                 }
                         });
 
-                        // HTTP req successful
-                        // setFormSuccess("Data received correctly");
-
                         // Reset form data
-                        setFormData(initialFormData);
+                        // setFormData(initialFormData);
                 } catch (err) {
-                        // handleErrors(err);
-                        console.log(err.message);
+                        handleErrors(err);
+                        // console.log(err.message);
                 }
         };
 

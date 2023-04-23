@@ -72,7 +72,9 @@ export const validate = (method) => {
                                         .isEmpty()
                                         .withMessage('Password is required')
                                         .trim()
-                                        .escape(),
+                                        .escape()
+                                        .isLength({ min: 4, max: 26 })
+                                        .withMessage('Min 4 digit for Password'),
                         ];
                 }
                 case "handleSignIn": {
@@ -89,7 +91,9 @@ export const validate = (method) => {
                                         .isEmpty()
                                         .withMessage('Password is required')
                                         .trim()
-                                        .escape(),
+                                        .escape()
+                                        .isLength({ min: 4, max: 26 })
+                                        .withMessage('Min 4 digit for Password'),
                         ];
                 }
         }

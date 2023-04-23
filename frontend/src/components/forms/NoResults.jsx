@@ -1,9 +1,11 @@
-import { useLocation } from "react-router-dom"
+import { useContext } from "react";
 import Image from '../Image';
+import UserContext from "../../context/UserContext";
 
 
 const NoResults = () => {
-        const location = useLocation();
+        const { user } = useContext(UserContext);
+        const status = user.status;
         const image = {
                 src: require('../../assets/images/cat-sitting-alone.jpg'),
                 alt: "dog&cat_image",
@@ -13,15 +15,14 @@ const NoResults = () => {
                         width: '1000px',
                 }
         }
-        
-        const status = location.state.status;
-        let text = status == "lost"?"לצערנו לא נמצאה התאמה! אתם מוזמנים לנסות ולחפש שוב במועד מאוחר יותר":
-        "לצערנו לא נמצאה התאמה! תודה רבה על מאמצכם, במידה ותהיה התאמה בהמשך, הורי החיה יצרו עמכם קשר";
+
+        let text = status === "lost" ? "לצערנו לא נמצאה התאמה! אתם מוזמנים לנסות ולחפש שוב במועד מאוחר יותר" :
+                "לצערנו לא נמצאה התאמה! תודה רבה על מאמצכם, במידה ותהיה התאמה בהמשך, הורי החיה יצרו עמכם קשר";
 
         return (
                 <div>
                         <p>{text}</p>
-                        <Image img={image}/>
+                        <Image img={image} />
                 </div>
         );
 }

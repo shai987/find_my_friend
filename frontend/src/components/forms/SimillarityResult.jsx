@@ -39,9 +39,9 @@ const SimillarityResult = () => {
       </div>
       <div className="section-center">
         {results.map((item, indexResults) => {
-                console.log(indexResults)
-                console.log(item)
-          const {
+          console.log(indexResults)
+          console.log(item)
+          let {
             petName,
             petType,
             petGender,
@@ -62,7 +62,7 @@ const SimillarityResult = () => {
           }
           return (
             <article className={`basicArticle ${position}`} key={indexResults}>
-                {/*<img src={`data:image/png;base64,${img.data}`} alt={petName} className="person-img"/>*/}
+              {/*<img src={`data:image/png;base64,${img.data}`} alt={petName} className="person-img"/>*/}
               <h4>{petName}</h4>
               <p className="text">{petType}</p>
               <p className="text">{petGender}</p>

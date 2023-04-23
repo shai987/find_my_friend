@@ -1,23 +1,26 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
 import Loader from '../Loader';
+import UserContext from "../../context/UserContext";
 
 axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
   // להוסיף useEffect שמטרתו לשאול את המשתמש אם הוא בטוח שברצונו לצאת מהדף מבלי לשלוח את הטופס. אם כן למחוק את המסמך מהמונגו.
-  const { pet_type, pet_breeds, status } = props;
+  const { user } = useContext(UserContext)
+  const { pet_type, pet_breeds } = props;
   const initialFormData = {
+    userEmail: user.email,
     petName: "",
     petType: pet_type,
     petGender: "",
     petBreeds: pet_breeds,
     location: "",
-    notes: "",
-    status: status
+    note: "",
+    status: user.status
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -50,11 +53,7 @@ const PetDetails = (props) => {
         })
       }
       else {
-        navigate('/NoResults', {
-          state: {
-            status: status
-          }
-        })
+        navigate('/NoResults')
       }
     } catch (err) {
       setLoading(false);
@@ -99,7 +98,7 @@ const PetDetails = (props) => {
           <AlertSuccess success={formSuccess} />
           <AlertError errors={formErrors} />
           <div>
-            {/*אם found אז שם חיה לא חובה*/ }
+            {/*אם found אז שם חיה לא חובה*/}
             <label htmlFor="">שם החיה</label>
             <input
               type="text"
@@ -155,7 +154,7 @@ const PetDetails = (props) => {
             />
           </div>
           <div>
-            <label htmlFor="">{status=="lost"?"המקום בו אבד": "המקום בו נמצא"}</label>
+            <label htmlFor="">{user.status === "lost" ? "המקום בו אבד" : "המקום בו נמצא"}</label>
             <input
               type="text"
               name="location"
@@ -165,15 +164,15 @@ const PetDetails = (props) => {
 
             />
             <div>
-            <label htmlFor="">הערות</label>
-            <textarea cols="20" rows="10"
-              name="note"
-              value={formData.note}
-              onInput={handleChange}
-            />
+              <label htmlFor="">הערות</label>
+              <textarea cols="20" rows="10"
+                name="note"
+                value={formData.note}
+                onInput={handleChange}
+              />
+            </div>
           </div>
-          </div>
-          <input type="submit" className="button" value={status=="lost"?"תמצא לי את הילד": "חםש את ההורים"} />
+          <input type="submit" className="button" value={user.status === "lost" ? "תמצא לי את הילד" : "חפש את ההורים"} />
         </form>
       </div>
     </>

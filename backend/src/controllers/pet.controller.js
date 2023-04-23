@@ -80,32 +80,33 @@ export const handlePetDetails = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { petName, petType, petGender, petBreeds, location, status, note } = req.body;
+  const { userEmail, petName, petType, petGender, petBreeds, location, status, note } = req.body;
 
   // get photo file name
   const directoryPath = 'pets';
-  let filenames=[];
-  let fileName ="";
+  let filenames = [];
+  let fileName = "";
   if (fs.existsSync(directoryPath)) {
     filenames = fs.readdirSync(directoryPath);
     fileName = filenames[0]
   } else {
     console.log('Directory does not exist');
   }
-  
+
   let obj = {
     petName: petName,
-        petType: petType,
-        petGender: petGender,
-        petBreeds: petBreeds,
-        location: location,
-        img: {
-          data: fs.readFileSync(`pets/${fileName}`),
-          contentType: "image/png",
-        },
-        note: note,
-        status: status
-        //note:note
+    petType: petType,
+    petGender: petGender,
+    petBreeds: petBreeds,
+    location: location,
+    img: {
+      data: fs.readFileSync(`pets/${fileName}`),
+      contentType: "image/png",
+    },
+    note: note,
+    status: status,
+    userEmail: userEmail,
+    note: note
   };
 
   const newPet = new newPet_model(obj);

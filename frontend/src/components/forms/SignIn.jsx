@@ -39,15 +39,16 @@ const SignIn = () => {
         const [formSuccess, setFormSuccess] = useState("");
         const [formErrors, setFormErrors] = useState([]);
         const navigate = useNavigate();
-        const user = useContext(UserContext);
+        const { user, setUser } = useContext(UserContext);
+
         const handleChange = (e) => {
                 setFormData({
                         ...formData,
                         [e.target.name]: e.target.value,
 
                 });
-                // setFormErrors([]);
-                // setFormSuccess("");
+                setFormErrors([]);
+                setFormSuccess("");
         };
         /*         useEffect(() => {
                         // Checking if user is not loggedIn
@@ -58,24 +59,24 @@ const SignIn = () => {
                         }
                 }, [navigate, isLoggedIn]); */
 
-        /*  const handleErrors = (err) => {
-                 if (err.response.data && err.response.data.errors) {
-                         // Handle validation errors
-                         const { errors } = err.response.data;
-         
-                         let errorMsg = [];
-                         for (let error of errors) {
-                                 const { msg } = error;
-         
-                                 errorMsg.push(msg);
-                         }
-         
-                         setFormErrors(errorMsg);
-                 } else {
-                         // Handle generic error
-                         setFormErrors(["Oops, there was an error!"]);
-                 }
-         }; */
+        const handleErrors = (err) => {
+                if (err.response.data && err.response.data.errors) {
+                        // Handle validation errors
+                        const { errors } = err.response.data;
+
+                        let errorMsg = [];
+                        for (let error of errors) {
+                                const { msg } = error;
+
+                                errorMsg.push(msg);
+                        }
+
+                        setFormErrors(errorMsg);
+                } else {
+                        // Handle generic error
+                        setFormErrors(["Oops, there was an error!"]);
+                }
+        };
 
         const handleSubmit = async (e) => {
                 e.preventDefault();
@@ -83,21 +84,29 @@ const SignIn = () => {
                 try {
                         // Send POST request
                         await axios.post(`/userSignIn?email=${formData.email}&user_password=${formData.user_password}`).then((response) => {
+                                console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
                                 if (response.data.message === "User not found") {
+                                        console.log(response);
                                         console.log("User not found");
                                         setFormSuccess("User not found");
                                 } else {
-                                        console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
-                                        setFormData(response.data)
+                                        //console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                        setFormData(response.data);
+                                        setUser({
+                                                first_name: response.data.first_name,
+                                                last_name: response.data.last_name,
+                                                email: response.data.email
+                                        });
+                                        console.log(user);
                                         // setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         return navigate("/RequestStatus");
                                 }
                         });
 
                         // Reset form data
-                        setFormData(initialFormData);
+                        // setFormData(initialFormData);
                 } catch (err) {
-                        // handleErrors(err);
+                        handleErrors(err);
                         console.log(err.message);
                 }
         };

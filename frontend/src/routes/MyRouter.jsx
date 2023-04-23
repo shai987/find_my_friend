@@ -4,10 +4,11 @@ import {
         Routes,
         Navigate,
         Route,
-        Link
+        Link,
+        useNavigate
 } from 'react-router-dom';
 // import libraries from material-ui
-import { useState } from "react";
+import { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -50,7 +51,16 @@ const MyRouter = () => {
 
         const settings = [
                 { key: 'UserAccount', value: 'אזור אישי' },
-                { key: 'LogOut', value: 'התנתקות' },
+                {
+                        key: 'LogOut',
+                        value: 'התנתקות',
+                        onClick: () => {
+                                const confirm = window.confirm('האם אתה בטוח שברצונך להתנתק?');
+                                if (confirm) {
+                                        window.location.href = '/';
+                                }
+                        },
+                },
         ];
 
         const image = {
@@ -81,13 +91,6 @@ const MyRouter = () => {
 
         const handleCloseUserMenu = () => {
                 setUser(null);
-        };
-
-        //לכפתור התנתקות
-        const [open, setOpen] = useState(false);
-
-        const handleClickOpen = () => {
-                setOpen(true);
         };
 
         return (
@@ -141,12 +144,19 @@ const MyRouter = () => {
                                                                         onClose={handleCloseUserMenu}
                                                                 >
                                                                         {settings.map((setting) => (
-                                                                                <MenuItem key={setting.key} onClick={handleCloseUserMenu}>
+                                                                                <MenuItem key={setting.key} onClick={setting.onClick}>
                                                                                         <Link className='link' to={`/${setting.key}`}>
                                                                                                 <Typography sx={{ color: "black" }}> {setting.value}</Typography>
                                                                                         </Link>
                                                                                 </MenuItem>
                                                                         ))}
+                                                                        {/* {settings.map((setting) => (
+                                                                                <MenuItem key={setting.key} onClick={handleCloseUserMenu}>
+                                                                                        <Link className='link' to={`/${setting.key}`}>
+                                                                                                <Typography sx={{ color: "black" }}> {setting.value}</Typography>
+                                                                                        </Link>
+                                                                                </MenuItem>
+                                                                        ))} */}
                                                                 </Menu>
                                                         </Toolbar>
                                                 </Container>
@@ -156,7 +166,7 @@ const MyRouter = () => {
                                                 <Route path='/UserAccount' element={<UserAccount />}></Route>
                                                 <Route path='/ContactUs' element={<ContactUs />}></Route>
                                                 <Route path='/About' element={<About />}></Route>
-                                                <Route path='/LogOut' element={<LogOut />}></Route>
+                                                {/* <Route path='/LogOut' element={<LogOut />}></Route> */}
                                                 <Route path='/FindMyPetBreeds' element={<FindMyPetBreeds />}></Route>
                                                 <Route path='/UserStatus' element={<UserStatus />}></Route>
                                                 <Route path='/SignIn' element={<SignIn />}></Route>
