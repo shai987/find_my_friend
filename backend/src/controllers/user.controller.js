@@ -2,6 +2,13 @@ import { validationResult } from "express-validator";
 
 import db_user_details from "../sql/sqlConnection.js";
 
+import mongoose from "mongoose";
+
+import { pet_details_schema } from "../models/pet_details.js";
+
+const newPet_model = mongoose.model("newPet", pet_details_schema);
+
+
 // SignUp
 export const handleSignUp = async (req, res) => {
 
@@ -99,10 +106,11 @@ export const handleGetAllUsers = async (req, res) => {
         }
 }
 
-export const handleContactUser = async (req, res) => {
-        const { email } = req.query;
+export const handleContactUser = async (req, res) => {    
+        const { email } = req.body;
+        console.log(email);
         try {
-                db_user_details.query(`SELECT email, first_name, last_name FROM users WHERE email=${email}`, (err, result) => {
+                db_user_details.query('SELECT email, first_name, last_name FROM users WHERE email = ?', [email], (err, result) => {
                         if (err) {
                                 res.send(err.message);
                                 console.log(err.message);
@@ -114,3 +122,21 @@ export const handleContactUser = async (req, res) => {
                 console.log(err.message);
         }
 }
+
+export const handleUserInfo = async (req, res) => {
+        const email  = req.query.email;
+        console.log(req.query);
+        console.log("email: " + email);
+        try {
+                //mongo
+                const query = newPet_model.find({userEmail:email})
+                const result = await query.exec();
+                console.log(result);
+                console.log("r:")
+                res.json(result);
+        }
+        catch (err) {
+                console.log(err.message);
+        }
+}
+

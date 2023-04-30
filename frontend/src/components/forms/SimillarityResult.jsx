@@ -9,6 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import axios from 'axios';
 
+axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
+
 //import {BSON} from 'bson';
 
 const Transition = forwardRef((props, ref) => {
@@ -17,7 +19,6 @@ const Transition = forwardRef((props, ref) => {
 
 const SimillarityResult = () => {
   const location = useLocation();
-  let email = "";
   const [userDetails, setUser] = useState({email: "", first_name: "", last_name: ""});
   const [response, setResponse] = useState("");
 
@@ -50,16 +51,20 @@ const SimillarityResult = () => {
     //e.preventDefault();
     //let formData = new FormData();
     //formData.append('file', image.data);
-
+    setOpen(true);
     try {
             // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
-            const res = await axios.post('/conactParents', email); 
+            const res = await axios.post('/conactParents', userDetails.email); 
             setResponse(res.data);
             console.log(res.data);
             setUser(res.data);
     } catch (err) {
             console.log(err);
     }
+};
+
+const handleClose = () => {
+setOpen(false);
 };
 
   // <img src={`data:image/png;base64,${location.state.similarPets[0].img.data}`} />
@@ -81,8 +86,11 @@ const SimillarityResult = () => {
             location,
             img,
             note,
+            userEmail
           } = item;
-          email = item.userEmail
+          userDetails.email = userEmail;
+          //setUser(userDetails);
+
           let position = "nextSlide";
           if (indexResults === index) {
             position = "activeSlide";
@@ -110,10 +118,10 @@ const SimillarityResult = () => {
                                 open={open}
                                 TransitionComponent={Transition}
                                 keepMounted
-                                //onClose={handleClose}
+                                onClose={handleClose}
                                 aria-describedby="alert-dialog-slide-description"
                         >
-                                <DialogTitle>{`שם: ${userDetails.firstName} ${userDetails.lastName}`}</DialogTitle>
+                                <DialogTitle>{`שם: ${userDetails.first_name} ${userDetails.last_name}`}</DialogTitle>
                         </Dialog>
                 </div>
             </article>

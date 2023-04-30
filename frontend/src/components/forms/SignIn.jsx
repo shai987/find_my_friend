@@ -92,11 +92,15 @@ const SignIn = () => {
                                 } else {
                                         //console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         setFormData(response.data);
-                                        setUser({
+                                        user.first_name = response.data.first_name;
+                                        user.last_name = response.data.last_name;
+                                        user.email = response.data.email;
+                                        setUser(user)
+                                        /*setUser({
                                                 first_name: response.data.first_name,
                                                 last_name: response.data.last_name,
                                                 email: response.data.email
-                                        });
+                                        });*/
                                         console.log(user);
                                         // setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         return navigate("/RequestStatus");

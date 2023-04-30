@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,14 +9,43 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import '../../assets/css/UserAccount.css';
-import requests from '../../services/UserAccountData';
 import cat_dog_hug from '../../assets/images/cat_dog_hug.jpg';
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
+import axios from 'axios';
 
+axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const formattedDate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  return formattedDate;
+}
 
 const UserAccount = () => {
   const { user } = useContext(UserContext);
+
+  const [requests, setRequests] = useState([])
+  //const [response, setResponse] = useState("");
+
+  useEffect( () =>{
+    axios.get('/userInfo', {
+      params: {
+        email:user.email
+      }
+    })
+      .then(response => setRequests(response.data))
+      .catch(error => console.error(error));
+  }, []);
+
+  console.log(requests.length)
+    
+
   return (
     <>
       <div className="userWrapper">
@@ -26,8 +55,9 @@ const UserAccount = () => {
             <img alt="hugcatdog" src={cat_dog_hug} />
             <br></br>
             <Button variant="contained">להוספת פנייה</Button>
-          </section>
+          </section>  
         </div>
+        {requests.length>0 && 
         <TableContainer className="tableWrapper" component={Paper}>
           <Typography
             sx={{ flex: '1 1 100%' }}
@@ -46,29 +76,30 @@ const UserAccount = () => {
                 <TableCell align="center">גזע החיה</TableCell>
                 <TableCell align="center">מצאתי/איבדתי</TableCell>
                 <TableCell align="center">תאריך העלאת הפנייה</TableCell>
-                <TableCell align="center">סטטוס</TableCell>
+                <TableCell align="center">מיקום</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {requests.map((request) => (
+              {requests.map((request, index) => (
                 <TableRow
-                  key={request.name}
+                  key={index}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell align="center">{request.type}</TableCell>
-                  <TableCell align="center">{request.name}</TableCell>
-                  <TableCell align="center">
-                    <img className="imgTable" src={request.image} alt="tableimage" />
-                  </TableCell>
-                  <TableCell align="center">{request.race}</TableCell>
-                  <TableCell align="center">{request.found_lost}</TableCell>
-                  <TableCell align="center">{request.date}</TableCell>
-                  <TableCell align="center">{request.status}</TableCell>
+                  <TableCell align="center">{request.petType}</TableCell>
+                  <TableCell align="center">{request.petName}</TableCell>
+                  <TableCell align="center">תמונה</TableCell>
+                  {/*<TableCell align="center">
+                    <img className="imgTable" src={request.img} alt="tableimage" />
+              </TableCell>*/}
+                  <TableCell align="center">{request.petBreeds}</TableCell>
+                  <TableCell align="center">{request.status == "lost" ? "איבדתי" : "מצאתי"}</TableCell>
+                  <TableCell align="center">{formatDate(request.date)}</TableCell>
+                  <TableCell align="center">{request.location}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer>}
       </div>
     </>
   );
