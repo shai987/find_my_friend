@@ -31,7 +31,6 @@ import FindMyPetBreeds from '../components/navBar/FindMyPetBreeds';
 import UserStatus from '../components/forms/UserStatus';
 import SignIn from '../components/forms/SignIn';
 import SignUp from '../components/forms/SignUp';
-import RequestStatus from '../components/forms/RequestStatus';
 import ImageForm from '../components/forms/ImageForm';
 // import PetDetails from '../components/forms/PetDetails';
 import ScrollToTop from '../components/ScrollToTop';
@@ -46,7 +45,6 @@ const MyRouter = () => {
                 { key: 'ContactUs', value: 'צור קשר' },
                 { key: 'FindMyPetBreeds', value: 'אזור משחקים' },
                 { key: 'UserStatus', value: 'צא לדרך' },
-                { key: 'RequestStatus', value: 'RequestStatus' },
         ];
 
         const settings = [
@@ -171,7 +169,6 @@ const MyRouter = () => {
                                                 <Route path='/UserStatus' element={<UserStatus />}></Route>
                                                 <Route path='/SignIn' element={<SignIn />}></Route>
                                                 <Route path='/SignUp' element={<SignUp />}></Route>
-                                                <Route path='/RequestStatus' element={<RequestStatus />}></Route>
                                                 <Route path='/ImageForm' element={<ImageForm />}></Route>
                                                 <Route path='/SimillarityResult' element={<SimillarityResult />}></Route>
                                                 <Route path='/NoResults' element={<NoResults />}></Route>
