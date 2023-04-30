@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,7 +16,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
-function formatDate(dateString) {
+const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -33,10 +33,10 @@ const UserAccount = () => {
   const [requests, setRequests] = useState([])
   //const [response, setResponse] = useState("");
 
-  useEffect( () =>{
+  useEffect(() => {
     axios.get('/userInfo', {
       params: {
-        email:user.email
+        email: user.email
       }
     })
       .then(response => setRequests(response.data))
@@ -44,7 +44,7 @@ const UserAccount = () => {
   }, []);
 
   console.log(requests.length)
-    
+
 
   return (
     <>
@@ -55,52 +55,52 @@ const UserAccount = () => {
             <img alt="hugcatdog" src={cat_dog_hug} />
             <br></br>
             <Button variant="contained">להוספת פנייה</Button>
-          </section>  
+          </section>
         </div>
-        {requests.length>0 && 
-        <TableContainer className="tableWrapper" component={Paper}>
-          <Typography
-            sx={{ flex: '1 1 100%' }}
-            variant="h5"
-            id="tableTitle"
-            align="center"
-            component="div">
-            טבלת פניות
-          </Typography>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead className="requestTableHead">
-              <TableRow>
-                <TableCell align="center">סוג החיה</TableCell>
-                <TableCell align="center">שם החיה</TableCell>
-                <TableCell align="center">תמונה</TableCell>
-                <TableCell align="center">גזע החיה</TableCell>
-                <TableCell align="center">מצאתי/איבדתי</TableCell>
-                <TableCell align="center">תאריך העלאת הפנייה</TableCell>
-                <TableCell align="center">מיקום</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {requests.map((request, index) => (
-                <TableRow
-                  key={index}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell align="center">{request.petType}</TableCell>
-                  <TableCell align="center">{request.petName}</TableCell>
+        {requests.length > 0 &&
+          <TableContainer className="tableWrapper" component={Paper}>
+            <Typography
+              sx={{ flex: '1 1 100%' }}
+              variant="h5"
+              id="tableTitle"
+              align="center"
+              component="div">
+              טבלת פניות
+            </Typography>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead className="requestTableHead">
+                <TableRow>
+                  <TableCell align="center">סוג החיה</TableCell>
+                  <TableCell align="center">שם החיה</TableCell>
                   <TableCell align="center">תמונה</TableCell>
-                  {/*<TableCell align="center">
+                  <TableCell align="center">גזע החיה</TableCell>
+                  <TableCell align="center">מצאתי/איבדתי</TableCell>
+                  <TableCell align="center">תאריך העלאת הפנייה</TableCell>
+                  <TableCell align="center">מיקום</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {requests.map((request, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align="center">{request.petType}</TableCell>
+                    <TableCell align="center">{request.petName}</TableCell>
+                    <TableCell align="center">תמונה</TableCell>
+                    {/*<TableCell align="center">
                     <img className="imgTable" src={request.img} alt="tableimage" />
               </TableCell>*/}
-                  <TableCell align="center">{request.petBreeds}</TableCell>
-                  <TableCell align="center">{request.status == "lost" ? "איבדתי" : "מצאתי"}</TableCell>
-                  <TableCell align="center">{formatDate(request.date)}</TableCell>
-                  <TableCell align="center">{request.location}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>}
-      </div>
+                    <TableCell align="center">{request.petBreeds}</TableCell>
+                    <TableCell align="center">{request.status == "lost" ? "איבדתי" : "מצאתי"}</TableCell>
+                    <TableCell align="center">{formatDate(request.date)}</TableCell>
+                    <TableCell align="center">{request.location}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>}
+      </div >
     </>
   );
 }
