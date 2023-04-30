@@ -1,11 +1,27 @@
 //good article - https://programmingfields.com/redirect-to-component-with-props-using-usenavigate-hook/
-import React, { useState, useEffect } from "react";
+import React, {forwardRef ,useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../../assets/css/Slider.css";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+import axios from 'axios';
+
 //import {BSON} from 'bson';
+
+const Transition = forwardRef((props, ref) => {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const SimillarityResult = () => {
   const location = useLocation();
+  let email = "";
+  const [userDetails, setUser] = useState({email: "", first_name: "", last_name: ""});
+  const [response, setResponse] = useState("");
+
+  const [open, setOpen] = useState(false);
 
   const [results] = useState(location.state.similarPets);
   console.log(results);
@@ -30,6 +46,22 @@ const SimillarityResult = () => {
     };
   }, [index]);
 
+  const handleClick = async (e) => {
+    //e.preventDefault();
+    //let formData = new FormData();
+    //formData.append('file', image.data);
+
+    try {
+            // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
+            const res = await axios.post('/conactParents', email); 
+            setResponse(res.data);
+            console.log(res.data);
+            setUser(res.data);
+    } catch (err) {
+            console.log(err);
+    }
+};
+
   // <img src={`data:image/png;base64,${location.state.similarPets[0].img.data}`} />
 
   return (
@@ -50,6 +82,7 @@ const SimillarityResult = () => {
             img,
             note,
           } = item;
+          email = item.userEmail
           let position = "nextSlide";
           if (indexResults === index) {
             position = "activeSlide";
@@ -69,6 +102,20 @@ const SimillarityResult = () => {
               <p className="text">{petBreeds}</p>
               <p className="text">{location}</p>
               <p className="text">{note}</p>
+              <div>
+                        <Button onClick={handleClick}>
+                                צור קשר
+                        </Button>
+                        <Dialog
+                                open={open}
+                                TransitionComponent={Transition}
+                                keepMounted
+                                //onClose={handleClose}
+                                aria-describedby="alert-dialog-slide-description"
+                        >
+                                <DialogTitle>{`שם: ${userDetails.firstName} ${userDetails.lastName}`}</DialogTitle>
+                        </Dialog>
+                </div>
             </article>
           );
         })}

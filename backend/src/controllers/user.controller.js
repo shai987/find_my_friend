@@ -98,3 +98,19 @@ export const handleGetAllUsers = async (req, res) => {
                 console.log(err.message);
         }
 }
+
+export const handleContactUser = async (req, res) => {
+        const { email } = req.query;
+        try {
+                db_user_details.query(`SELECT email, first_name, last_name FROM users WHERE email=${email}`, (err, result) => {
+                        if (err) {
+                                res.send(err.message);
+                                console.log(err.message);
+                        }
+                        res.send(result);
+                });
+        }
+        catch (err) {
+                console.log(err.message);
+        }
+}
