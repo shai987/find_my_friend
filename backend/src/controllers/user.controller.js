@@ -106,7 +106,7 @@ export const handleGetAllUsers = async (req, res) => {
         }
 }
 
-export const handleContactUser = async (req, res) => {    
+export const handleContactUser = async (req, res) => {
         const { email } = req.body;
         console.log(email);
         try {
@@ -124,14 +124,14 @@ export const handleContactUser = async (req, res) => {
 }
 
 export const handleUserInfo = async (req, res) => {
-        const email  = req.query.email;
+        const email = req.query.email;
         console.log(req.query);
         console.log("email: " + email);
         try {
                 //mongo
-                const query = newPet_model.find({userEmail:email})
+                const query = newPet_model.find({ userEmail: email })
                 const result = await query.exec();
-                console.log(result);
+                // console.log(result);
                 console.log("r:")
                 res.json(result);
         }
