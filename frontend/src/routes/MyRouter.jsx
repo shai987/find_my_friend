@@ -57,7 +57,7 @@ const MyRouter = () => {
                         onClick: () => {
                                 const confirm = window.confirm('האם אתה בטוח שברצונך להתנתק?');
                                 if (confirm) {
-                                        window.location.href = '/';
+                                        window.location.href = '/UserStatus';
                                 }
                         },
                 },
