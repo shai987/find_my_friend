@@ -7,8 +7,10 @@ const App = () => {
     first_name: "",
     last_name: "",
     email: "",
-    status: ""
-  })
+    status: "",
+    user_password: "",
+  });
+
   return (
     <div className="App">
       <header className="App-header">
