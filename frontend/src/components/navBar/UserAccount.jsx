@@ -1,4 +1,8 @@
-import { useState, useEffect } from 'react';
+// import libraries from react
+import { useState, useEffect, useContext } from 'react';
+// import react-router-dom
+import { Link } from 'react-router-dom';
+// import libraries from material-ui
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,11 +12,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import '../../assets/css/UserAccount.css';
-import cat_dog_hug from '../../assets/images/cat_dog_hug.jpg';
-import { useContext } from "react";
-import UserContext from "../../context/UserContext";
+// import axios
 import axios from 'axios';
+// import our components
+import UserContext from "../../context/UserContext";
+// import our images
+import cat_dog_hug from '../../assets/images/cat_dog_hug.jpg';
+// import css
+import '../../assets/css/UserAccount.css';
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
@@ -54,7 +61,9 @@ const UserAccount = () => {
             <h1>ברוך הבא {user.first_name}</h1>
             <img alt="hugcatdog" src={cat_dog_hug} />
             <br></br>
-            <Button variant="contained">להוספת פנייה</Button>
+            {user.email && <Link to='/RequestStatus'>
+              <Button variant="contained">להוספת פנייה</Button>
+            </Link>}
           </section>
         </div>
         {requests.length > 0 &&
