@@ -6,6 +6,8 @@ import mongoose from "mongoose";
 
 import { pet_details_schema } from "../models/pet_details.js";
 
+import bcrypt from "bcrypt";
+
 const newPet_model = mongoose.model("newPet", pet_details_schema);
 
 
@@ -13,6 +15,8 @@ const newPet_model = mongoose.model("newPet", pet_details_schema);
 export const handleSignUp = async (req, res) => {
 
         const { email, first_name, last_name, user_password } = req.body;
+        // const hash = await bcrypt.hash(user_password, 10);
+
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
                 // Validation errors
@@ -20,7 +24,10 @@ export const handleSignUp = async (req, res) => {
         }
 
         try {
+                // Hash the user's password.
+                // const hash = await bcrypt.hash(user_password, 10);
 
+                // db_user_details.query('SELECT COUNT(*) AS count FROM users WHERE email = ? OR user_password = ?', [email, hash], (err, result) => {
                 db_user_details.query('SELECT COUNT(*) AS count FROM users WHERE email = ? OR user_password = ?', [email, user_password], (err, result) => {
                         if (err) {
                                 res.send(err.message);
@@ -31,6 +38,7 @@ export const handleSignUp = async (req, res) => {
                         }
 
                         else {
+                                // db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, hash], (err, result) => {
                                 db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, user_password], (err, result) => {
                                         if (err) {
                                                 res.send(err.message);
