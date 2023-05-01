@@ -18,9 +18,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import our components
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
-import { UserProvider } from '../../context/UserContext';
 import UserContext from '../../context/UserContext';
-// import libraries
+// import axios
 import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
@@ -86,7 +85,7 @@ const SignIn = () => {
                         await axios.post(`/userSignIn?email=${formData.email}&user_password=${formData.user_password}`).then((response) => {
                                 console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
                                 if (response.data.message === "User not found") {
-                                        console.log(response);
+                                        console.log(formData.user_password);
                                         console.log("User not found");
                                         setFormSuccess("User not found");
                                 } else {
@@ -95,6 +94,8 @@ const SignIn = () => {
                                         user.first_name = response.data.first_name;
                                         user.last_name = response.data.last_name;
                                         user.email = response.data.email;
+                                        user.user_password = response.data.user_password;
+
                                         setUser(user)
                                         /*setUser({
                                                 first_name: response.data.first_name,
