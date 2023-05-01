@@ -57,12 +57,21 @@ const MyRouter = () => {
         ];
 
         const logout = () => {
-                // Clear the user context
-                user.email = null;
-                user.status = null;
-                user.first_name = null;
-                user.last_name = null;
+                console.log(user);
+                // First Option - Clear the user context
+                // user.email = null;
+                // user.status = null;
+                // user.first_name = null;
+                // user.last_name = null;
+                // user.user_password = null;
+
+                // Second Option - Clear the user context
+                for (const prop in user) {
+                        user[prop] = null; // set all properties to null
+                }
                 setUser(user);
+                console.log(user);
+
                 // Redirect the user to the login page
                 window.location.hash = '/UserStatus';
         };
