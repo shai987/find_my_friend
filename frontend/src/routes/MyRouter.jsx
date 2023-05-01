@@ -1,14 +1,14 @@
 // import react-router-dom
 import {
-        BrowserRouter as Router,
+        HashRouter as Router,
         Routes,
         Navigate,
         Route,
         Link,
-        useNavigate
 } from 'react-router-dom';
+// import libraries from react
+import { useState, useContext, forwardRef } from "react";
 // import libraries from material-ui
-import { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -19,6 +19,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Dialog, DialogTitle, DialogActions } from '@mui/material';
+import Slide from '@mui/material/Slide';
 // import our components
 import HomepageContainer from '../components/homePage/HomepageContainer';
 import UserAccount from '../components/navBar/UserAccount';
@@ -33,13 +35,20 @@ import SignIn from '../components/forms/SignIn';
 import SignUp from '../components/forms/SignUp';
 import ImageForm from '../components/forms/ImageForm';
 // import PetDetails from '../components/forms/PetDetails';
+import RequestStatus from '../components/forms/RequestStatus';
 import ScrollToTop from '../components/ScrollToTop';
 import SimillarityResult from '../components/forms/SimillarityResult';
 import NoResults from '../components/forms/NoResults';
+import UserContext from '../context/UserContext';
 // import css
 import '../assets/css/MyRouter.css';
 
+const Transition = forwardRef((props, ref) => {
+        return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const MyRouter = () => {
+
         const pages = [
                 { key: 'About', value: 'אודות' },
                 { key: 'ContactUs', value: 'צור קשר' },
@@ -47,19 +56,16 @@ const MyRouter = () => {
                 { key: 'UserStatus', value: 'צא לדרך' },
         ];
 
-        const settings = [
-                { key: 'UserAccount', value: 'אזור אישי' },
-                {
-                        key: 'LogOut',
-                        value: 'התנתקות',
-                        onClick: () => {
-                                const confirm = window.confirm('האם אתה בטוח שברצונך להתנתק?');
-                                if (confirm) {
-                                        window.location.href = '/UserStatus';
-                                }
-                        },
-                },
-        ];
+        const logout = () => {
+                // Clear the user context
+                user.email = null;
+                user.status = null;
+                user.first_name = null;
+                user.last_name = null;
+                setUser(user);
+                // Redirect the user to the login page
+                window.location.hash = '/UserStatus';
+        };
 
         const image = {
                 src: require('../assets/images/dog.jpg'),
@@ -76,11 +82,13 @@ const MyRouter = () => {
                 }
         }
 
+        const { user, setUser } = useContext(UserContext);
         const [nav, setNav] = useState(null);
-        const [user, setUser] = useState(null);
+        const [user1, setUser1] = useState(null);
+        const [open, setOpen] = useState(false);
 
         const handleOpenUserMenu = (event) => {
-                setUser(event.currentTarget);
+                setUser1(event.currentTarget);
         };
 
         const handleCloseNavMenu = () => {
@@ -88,12 +96,34 @@ const MyRouter = () => {
         };
 
         const handleCloseUserMenu = () => {
-                setUser(null);
+                setUser1(null);
         };
+
+        const handleOpen = () => {
+                setOpen(true);
+        };
+
+        const handleClose = () => {
+                setOpen(false);
+        };
+
+        const handleLogout = () => {
+                logout();
+                handleClose();
+        };
+
+        const settings = [
+                { key: 'UserAccount', value: 'אזור אישי' },
+                {
+                        key: 'LogOut',
+                        value: 'התנתקות',
+                        onClick: handleOpen,
+                },
+        ];
 
         return (
                 <>
-                        <Router>
+                        <Router basename='/'>
                                 <ScrollToTop>
                                         {/* sticky position allows the menu to be displayed even when scrolling */}
                                         <AppBar className="appBar" position="sticky" sx={{ backgroundColor: '#333333' }}>
@@ -128,7 +158,7 @@ const MyRouter = () => {
                                                                 <Menu
                                                                         sx={{ mt: "45px" }}
                                                                         id="menu-appbar"
-                                                                        anchorEl={user}
+                                                                        anchorEl={user1}
                                                                         anchorOrigin={{
                                                                                 vertical: "top",
                                                                                 horizontal: "right",
@@ -138,7 +168,7 @@ const MyRouter = () => {
                                                                                 vertical: "top",
                                                                                 horizontal: "right",
                                                                         }}
-                                                                        open={Boolean(user)}
+                                                                        open={Boolean(user1)}
                                                                         onClose={handleCloseUserMenu}
                                                                 >
                                                                         {settings.map((setting) => (
@@ -148,6 +178,22 @@ const MyRouter = () => {
                                                                                         </Link>
                                                                                 </MenuItem>
                                                                         ))}
+
+                                                                        <Dialog
+                                                                                open={open}
+                                                                                TransitionComponent={Transition}
+                                                                                keepMounted
+                                                                                onClose={handleClose}
+                                                                                aria-describedby="alert-dialog-slide-description"
+                                                                        >
+                                                                                <DialogTitle>{"האם לבצע התנתקות מהאתר?😺"}</DialogTitle>
+                                                                                <DialogActions>
+                                                                                        <Button onClick={handleClose}>ביטול</Button>
+                                                                                        <Button onClick={handleLogout}>כן</Button>
+                                                                                </DialogActions>
+                                                                        </Dialog>
+
+
                                                                         {/* {settings.map((setting) => (
                                                                                 <MenuItem key={setting.key} onClick={handleCloseUserMenu}>
                                                                                         <Link className='link' to={`/${setting.key}`}>
@@ -170,6 +216,7 @@ const MyRouter = () => {
                                                 <Route path='/SignIn' element={<SignIn />}></Route>
                                                 <Route path='/SignUp' element={<SignUp />}></Route>
                                                 <Route path='/ImageForm' element={<ImageForm />}></Route>
+                                                <Route path='/RequestStatus' element={<RequestStatus />}></Route>
                                                 <Route path='/SimillarityResult' element={<SimillarityResult />}></Route>
                                                 <Route path='/NoResults' element={<NoResults />}></Route>
                                                 {/* <Route path='/PetDetails' element={<PetDetails />}></Route> */}
