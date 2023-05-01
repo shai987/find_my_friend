@@ -5,12 +5,20 @@
 // update status - context
 
 // import react-router-dom
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UserContext from "../../context/UserContext";
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 const RequestStatus = () => {
         const { user } = useContext(UserContext);
+        const navigate = useNavigate();
+
+        useEffect(() => {
+                if (!user.email) {
+                        navigate('/UserStatus');
+                }
+        }, [user, navigate]);
+
         return (
                 <>
                         <div>
