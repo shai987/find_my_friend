@@ -10,7 +10,6 @@ import bcrypt from "bcrypt";
 
 const newPet_model = mongoose.model("newPet", pet_details_schema);
 
-
 // SignUp
 export const handleSignUp = async (req, res) => {
 
@@ -24,22 +23,25 @@ export const handleSignUp = async (req, res) => {
         }
 
         try {
-                // Hash the user's password.
-                // const hash = await bcrypt.hash(user_password, 10);
-
-                // db_user_details.query('SELECT COUNT(*) AS count FROM users WHERE email = ? OR user_password = ?', [email, hash], (err, result) => {
-                db_user_details.query('SELECT COUNT(*) AS count FROM users WHERE email = ? OR user_password = ?', [email, user_password], (err, result) => {
+                db_user_details.query('SELECT COUNT(*) AS count FROM users WHERE email = ?', [email], async (err, result) => {
+                        // db_user_details.query('SELECT COUNT(*) AS count FROM users WHERE email = ? OR user_password = ?', [email, user_password], (err, result) => {
                         if (err) {
                                 res.send(err.message);
                                 console.log(err.message);
                         }
+
                         if (result[0].count > 0) {
                                 res.send({ message: "User already exists" });
                         }
 
                         else {
-                                // db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, hash], (err, result) => {
-                                db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, user_password], (err, result) => {
+                                // Hash the user's password
+                                const hash = await bcrypt.hash(user_password, 10);
+                                console.log('shai check');
+                                console.log(hash);
+                                console.log(user_password);
+                                db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, hash], (err, result) => {
+                                        // db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, user_password], (err, result) => {
                                         if (err) {
                                                 res.send(err.message);
                                                 console.log(err.message);
@@ -67,19 +69,28 @@ export const handleSignIn = async (req, res) => {
         }
 
         try {
-                db_user_details.query('SELECT * FROM users WHERE email = ? AND user_password = ?', [email, user_password], (err, result) => {
+                // db_user_details.query('SELECT * FROM users WHERE email = ? AND user_password = ?', [email, user_password], (err, result) => {
+                db_user_details.query('SELECT * FROM users WHERE email = ?', [email], async (err, result) => {
                         if (err) {
                                 res.send(err.message);
                                 console.log(err.message);
                         }
 
                         if (result.length > 0) {
-                                res.send(result[0]);
+                                const isMatch = await bcrypt.compare(user_password, result[0].user_password);
+                                console.log(user_password, result[0].user_password);
+                                if (isMatch) {
+                                        res.send(result[0]);
+                                        console.log(user_password, result[0].user_password);
+                                }
+                                else {
+                                        res.send({ message: "Password is not the same" });
+                                        console.log(user_password, result[0].user_password, isMatch);
+                                }
                         } else {
                                 res.send({ message: "User not found" });
                         }
                 });
-
         }
         catch (err) {
                 res.send(err.message);
@@ -87,7 +98,7 @@ export const handleSignIn = async (req, res) => {
         }
 };
 
-// Delete all
+// Delete all users
 export const handleDeleteAllUser = async (req, res) => {
 
         db_user_details.query("DELETE FROM users", (err, result) => {
