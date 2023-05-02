@@ -49,14 +49,6 @@ const SignIn = () => {
                 setFormErrors([]);
                 setFormSuccess("");
         };
-        /*         useEffect(() => {
-                        // Checking if user is not loggedIn
-                        if (!isLoggedIn) {
-                                navigate("/");
-                        } else {
-                                navigate("/login");
-                        }
-                }, [navigate, isLoggedIn]); */
 
         const handleErrors = (err) => {
                 if (err.response.data && err.response.data.errors) {
@@ -88,7 +80,11 @@ const SignIn = () => {
                                         console.log(formData.user_password);
                                         console.log("User not found");
                                         setFormSuccess("User not found");
-                                } else {
+                                }
+                                else if (response.data.message === "Password is not the same") {
+                                        setFormSuccess("Password is not the same");
+                                }
+                                else {
                                         //console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         setFormData(response.data);
                                         user.first_name = response.data.first_name;
