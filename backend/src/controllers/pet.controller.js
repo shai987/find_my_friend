@@ -4,9 +4,12 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import * as fsExtra from "fs-extra";
+import mime from 'mime-types';
 import { pet_details_schema } from "../models/pet_details.js";
 import { validationResult } from "express-validator";
 import { } from "dotenv/config";
+
+
 
 const localhost = process.env.LOCAL_HOST;
 const flask_port = process.env.FLASK_PORT || 5000;
@@ -93,6 +96,9 @@ export const handlePetDetails = async (req, res) => {
     console.log('Directory does not exist');
   }
 
+  const imagePath = `${directoryPath}/${fileName}`;
+  const contentType = mime.lookup(path.extname(imagePath));
+
   let obj = {
     petName: petName,
     petType: petType,
@@ -101,7 +107,7 @@ export const handlePetDetails = async (req, res) => {
     location: location,
     img: {
       data: fs.readFileSync(`pets/${fileName}`),
-      contentType: "image/png",
+      contentType: contentType
     },
     note: note,
     status: status,

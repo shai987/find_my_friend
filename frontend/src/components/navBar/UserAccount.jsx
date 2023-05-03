@@ -36,6 +36,7 @@ const formatDate = (dateString) => {
 
 const UserAccount = () => {
   const { user } = useContext(UserContext);
+  //const [imageUrl, setImageUrl] = useState(null);
 
   const [requests, setRequests] = useState([])
   //const [response, setResponse] = useState("");
@@ -51,7 +52,6 @@ const UserAccount = () => {
   }, []);
 
   console.log(requests.length)
-
 
   return (
     <>
@@ -96,10 +96,7 @@ const UserAccount = () => {
                   >
                     <TableCell align="center">{request.petType}</TableCell>
                     <TableCell align="center">{request.petName}</TableCell>
-                    <TableCell align="center">תמונה</TableCell>
-                    {/*<TableCell align="center">
-                    <img className="imgTable" src={request.img} alt="tableimage" />
-              </TableCell>*/}
+                    <TableCell align="center"><img src={`data:${request.img.contentType};base64,${request.img.data.data}`} alt={request.petName} className="person-img" width="30"/></TableCell>
                     <TableCell align="center">{request.petBreeds}</TableCell>
                     <TableCell align="center">{request.status == "lost" ? "איבדתי" : "מצאתי"}</TableCell>
                     <TableCell align="center">{formatDate(request.date)}</TableCell>
