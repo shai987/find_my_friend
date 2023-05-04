@@ -12,6 +12,13 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import our components
 import { AlertError } from "../views/AlertError";
@@ -34,6 +41,7 @@ const SignUp = () => {
         const [formData, setFormData] = useState(initialFormData);
         const [formSuccess, setFormSuccess] = useState("");
         const [formErrors, setFormErrors] = useState([]);
+        const [showPassword, setShowPassword] = useState(false);
         const navigate = useNavigate();
 
         const handleChange = (e) => {
@@ -44,6 +52,14 @@ const SignUp = () => {
                 });
                 setFormErrors([]);
                 setFormSuccess("");
+        };
+
+        const handleClickShowPassword = () => {
+                setShowPassword((show) => !show);
+        }
+
+        const handleMouseDownPassword = (event) => {
+                event.preventDefault();
         };
 
         const handleErrors = (err) => {
@@ -184,7 +200,7 @@ const SignUp = () => {
                                                                 />
                                                         </Grid>
                                                         <Grid item xs={12}>
-                                                                <TextField
+                                                                {/* <TextField
                                                                         sx={{
                                                                                 "& label": {
                                                                                         left: "unset",
@@ -205,7 +221,47 @@ const SignUp = () => {
                                                                         autoComplete="new-password"
                                                                         value={formData.user_password}
                                                                         onChange={handleChange}
-                                                                />
+                                                                /> */}
+                                                                <FormControl
+                                                                        sx={{
+                                                                                width: '50ch',
+                                                                                "& label": {
+                                                                                        left: "unset",
+                                                                                        right: "1.75rem",
+                                                                                        transformOrigin: "right",
+                                                                                },
+                                                                                "& legend": {
+                                                                                        textAlign: "right",
+                                                                                        fontSize: "0.6rem",
+                                                                                },
+                                                                        }} variant="outlined">
+                                                                        <InputLabel htmlFor="outlined-adornment-password">סיסמא</InputLabel>
+                                                                        <OutlinedInput
+                                                                                spellCheck="false"
+                                                                                margin="dense"
+                                                                                required
+                                                                                fullWidth
+                                                                                name="user_password"
+                                                                                label="סיסמא"
+                                                                                autoComplete="current-password"
+                                                                                value={formData.user_password}
+                                                                                onChange={handleChange}
+                                                                                id="outlined-adornment-password"
+                                                                                type={showPassword ? 'text' : 'password'}
+                                                                                endAdornment={
+                                                                                        <InputAdornment position="end">
+                                                                                                <IconButton
+                                                                                                        aria-label="toggle password visibility"
+                                                                                                        onClick={handleClickShowPassword}
+                                                                                                        onMouseDown={handleMouseDownPassword}
+                                                                                                        edge="end"
+                                                                                                >
+                                                                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                                                                </IconButton>
+                                                                                        </InputAdornment>
+                                                                                }
+                                                                        />
+                                                                </FormControl>
                                                         </Grid>
                                                 </Grid>
                                                 <Button
