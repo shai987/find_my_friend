@@ -20,6 +20,7 @@ import UserContext from "../../context/UserContext";
 import cat_dog_hug from '../../assets/images/cat_dog_hug.jpg';
 // import css
 import '../../assets/css/UserAccount.css';
+import { Buffer } from "buffer";
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
@@ -96,7 +97,13 @@ const UserAccount = () => {
                   >
                     <TableCell align="center">{request.petType}</TableCell>
                     <TableCell align="center">{request.petName}</TableCell>
-                    <TableCell align="center"><img src={`data:${request.img.contentType};base64,${request.img.data.data}`} alt={request.petName} className="person-img" width="30"/></TableCell>
+                    <TableCell align="center"><img
+                      src={`data:${request.img.contentType};base64,${Buffer.from(request.img.data.data).toString('base64')}`}
+                      title={request.petName}
+                      alt={request.petName}
+                      className="person-img"
+                      width="30"
+                    /></TableCell>
                     <TableCell align="center">{request.petBreeds}</TableCell>
                     <TableCell align="center">{request.status == "lost" ? "איבדתי" : "מצאתי"}</TableCell>
                     <TableCell align="center">{formatDate(request.date)}</TableCell>
