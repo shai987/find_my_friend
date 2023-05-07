@@ -6,11 +6,13 @@
 
 // import react-router-dom
 import { Link, useNavigate } from 'react-router-dom';
-import UserContext from "../../context/UserContext";
+import { AuthContext } from '../../context/AuthContext';
+import { UserRequestContext } from '../../context/UserRequestContext';
 import { useContext, useEffect } from 'react';
 
 const RequestStatus = () => {
-        const { user } = useContext(UserContext);
+        const { user } = useContext(AuthContext);
+        const {request, updateStatus} = useContext(UserRequestContext);
         const navigate = useNavigate();
 
         useEffect(() => {
@@ -22,14 +24,13 @@ const RequestStatus = () => {
         return (
                 <>
                         <div>
-                                <h1>hi {user.first_name}</h1>
                                 <button>
-                                        <Link className='link' to='/ImageForm' state={{ status: "lost" }}>איבדתי</Link>
+                                        <Link className='link' to='/ImageForm' onClick={updateStatus("lost")} state={{ status: "lost" }}>איבדתי</Link>
                                 </button>
                                 <br />
 
                                 <button>
-                                        <Link className='link' to='/ImageForm' state={{ status: "found" }}>מצאתי</Link>
+                                        <Link className='link' to='/ImageForm' onClick={updateStatus("found")} state={{ status: "found" }}>מצאתי</Link>
                                 </button>
                         </div>
                 </>

@@ -1,22 +1,18 @@
 import MyRouter from "./routes/MyRouter";
 import { useState } from 'react';
-import { UserProvider } from "./context/UserContext";
+import UserRequestContextProvider from "./context/UserRequestContext";
+import AuthContextProvider from "./context/AuthContext";
 
 const App = () => {
-  const [user, setUser] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    status: "",
-    user_password: "",
-  });
 
   return (
     <div className="App">
       <header className="App-header">
-        <UserProvider value={{ user, setUser }}>
-          <MyRouter />
-        </UserProvider>
+        <AuthContextProvider>
+          <UserRequestContextProvider>
+            <MyRouter />
+            </UserRequestContextProvider>
+        </AuthContextProvider>
       </header>
     </div>
   );

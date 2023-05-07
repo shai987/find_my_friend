@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Image from '../Image';
-import UserContext from "../../context/UserContext";
+import UserContext from "../../context/UserRequestContext";
 
 
 const NoResults = () => {

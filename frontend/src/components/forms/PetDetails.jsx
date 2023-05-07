@@ -4,13 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
 import Loader from '../Loader';
-import UserContext from "../../context/UserContext";
+import { AuthContext } from "../../context/AuthContext";
+import { UserRequestContext } from "../../context/UserRequestContext";
 
 axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
   // להוסיף useEffect שמטרתו לשאול את המשתמש אם הוא בטוח שברצונו לצאת מהדף מבלי לשלוח את הטופס. אם כן למחוק את המסמך מהמונגו.
-  const { user } = useContext(UserContext)
+  const {user} = useContext(AuthContext)
+  const { request } = useContext(UserRequestContext)
   const { pet_type, pet_breeds } = props;
   const initialFormData = {
     userEmail: user.email,
@@ -20,7 +22,7 @@ const PetDetails = (props) => {
     petBreeds: pet_breeds,
     location: "",
     note: "",
-    status: user.status
+    status: request.status
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -154,7 +156,7 @@ const PetDetails = (props) => {
             />
           </div>
           <div>
-            <label htmlFor="">{user.status === "lost" ? "המקום בו אבד" : "המקום בו נמצא"}</label>
+            <label htmlFor="">{request.status === "lost" ? "המקום בו אבד" : "המקום בו נמצא"}</label>
             <input
               type="text"
               name="location"
@@ -172,7 +174,7 @@ const PetDetails = (props) => {
               />
             </div>
           </div>
-          <input type="submit" className="button" value={user.status === "lost" ? "תמצא לי את הילד" : "חפש את ההורים"} />
+          <input type="submit" className="button" value={request.status === "lost" ? "תמצא לי את הילד" : "חפש את ההורים"} />
         </form>
       </div>
     </>

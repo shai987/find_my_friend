@@ -25,7 +25,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import our components
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
-import UserContext from '../../context/UserContext';
+import { AuthContext } from '../../context/AuthContext';
 // import axios
 import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
@@ -46,7 +46,7 @@ const SignIn = () => {
         const [formErrors, setFormErrors] = useState([]);
         const [showPassword, setShowPassword] = useState(false);
         const navigate = useNavigate();
-        const { user, setUser } = useContext(UserContext);
+        const { user, login } = useContext(AuthContext);
 
         const handleChange = (e) => {
                 setFormData({
@@ -104,12 +104,14 @@ const SignIn = () => {
                                 else {
                                         //console.log(`User found, name: ${ response.data.first_name } ${ response.data.last_name } `);
                                         setFormData(response.data);
-                                        user.first_name = response.data.first_name;
+                                        /*user.first_name = response.data.first_name;
                                         user.last_name = response.data.last_name;
                                         user.email = response.data.email;
                                         user.user_password = response.data.user_password;
+                                        setUser(user)*/
 
-                                        setUser(user)
+                                        login(response.data.first_name, response.data.last_name, response.data.email,response.data.user_password)
+
                                         /*setUser({
                                                 first_name: response.data.first_name,
                                                 last_name: response.data.last_name,

@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import Loader from '../Loader';
 import PetDetails from "./PetDetails";
-import UserContext from "../../context/UserContext";
+//import UserContext from "../../context/UserRequestContext";
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 
@@ -26,9 +26,9 @@ const ImageForm = () => {
         const [loading, setLoading] = useState(false);
 
         //context
-        const { user, setUser } = useContext(UserContext);
+        /*const { user, setUser } = useContext(UserContext);
         user.status = status;
-        setUser(user);
+        setUser(user);*/
 
 
         const [pet_type, setPetType] = useState("");

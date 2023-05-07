@@ -5,12 +5,12 @@ import { useState, useContext, useEffect } from "react";
 // import css
 import '../../assets/css/basic.css';
 import '../../assets/css/UserStatus.css';
-import UserContext from "../../context/UserContext";
+import { AuthContext } from '../../context/AuthContext';
 
 
 const UserStatus = () => {
 
-        const { user } = useContext(UserContext)
+        const { user } = useContext(AuthContext)
         const navigate = useNavigate();
 
         useEffect(() => {

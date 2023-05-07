@@ -39,7 +39,7 @@ import RequestStatus from '../components/forms/RequestStatus';
 import ScrollToTop from '../components/ScrollToTop';
 import SimillarityResult from '../components/forms/SimillarityResult';
 import NoResults from '../components/forms/NoResults';
-import UserContext from '../context/UserContext';
+import { AuthContext } from '../context/AuthContext';
 // import css
 import '../assets/css/MyRouter.css';
 
@@ -56,7 +56,7 @@ const MyRouter = () => {
                 { key: 'UserStatus', value: 'צא לדרך' },
         ];
 
-        const logout = () => {
+        /*const logout = () => {
                 console.log(user);
                 // First Option - Clear the user context
                 // user.email = null;
@@ -74,7 +74,7 @@ const MyRouter = () => {
 
                 // Redirect the user to the login page
                 window.location.hash = '/UserStatus';
-        };
+        };*/
 
         const image = {
                 src: require('../assets/images/dog.jpg'),
@@ -91,7 +91,7 @@ const MyRouter = () => {
                 }
         }
 
-        const { user, setUser } = useContext(UserContext);
+        const { user, logout } = useContext(AuthContext);
         const [nav, setNav] = useState(null);
         const [user1, setUser1] = useState(null);
         const [open, setOpen] = useState(false);
@@ -118,6 +118,8 @@ const MyRouter = () => {
 
         const handleLogout = () => {
                 logout();
+                // Redirect the user to the login page
+                window.location.hash = '/UserStatus';
                 handleClose();
         };
 

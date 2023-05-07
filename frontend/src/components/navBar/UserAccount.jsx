@@ -15,7 +15,7 @@ import Paper from '@mui/material/Paper';
 // import axios
 import axios from 'axios';
 // import our components
-import UserContext from "../../context/UserContext";
+import { AuthContext } from '../../context/AuthContext';
 // import our images
 import cat_dog_hug from '../../assets/images/cat_dog_hug.jpg';
 // import css
@@ -36,7 +36,7 @@ const formatDate = (dateString) => {
 }
 
 const UserAccount = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AuthContext);
   //const [imageUrl, setImageUrl] = useState(null);
 
   const [requests, setRequests] = useState([])
