@@ -14,7 +14,7 @@ const UserStatus = () => {
         const navigate = useNavigate();
 
         useEffect(() => {
-                if (user.email) {
+                if (user.isLoggedIn) {
                   navigate('/RequestStatus');
                 }
         }, [user, navigate]);

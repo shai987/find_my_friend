@@ -1,5 +1,5 @@
 // import from react
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 // import react-router-dom
 import { Link, useNavigate } from 'react-router-dom';
 // import libraries from material-ui
@@ -20,6 +20,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AuthContext } from '../../context/AuthContext';
 // import our components
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
@@ -42,6 +43,7 @@ const SignUp = () => {
         const [formSuccess, setFormSuccess] = useState("");
         const [formErrors, setFormErrors] = useState([]);
         const [showPassword, setShowPassword] = useState(false);
+        const { user, signUp } = useContext(AuthContext) 
         const navigate = useNavigate();
 
         const handleChange = (e) => {
@@ -92,7 +94,8 @@ const SignUp = () => {
                                         return setFormSuccess("User already exists");
                                 } else {
                                         console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
-                                        // setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
+                                        signUp(formData.first_name, formData.last_name, formData.email, formData.password);
+                                        //setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         return navigate("/SignIn");
                                 }
                         });
