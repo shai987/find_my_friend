@@ -5,7 +5,7 @@ const initRequest = {
   }
 
 const getInitialState = () => {
-    const user = localStorage.getItem("request");
+    const user = sessionStorage.getItem("request");
     return user ? JSON.parse(user) : initRequest
 }
 
@@ -20,7 +20,7 @@ const UserRequestContextProvider = (props) => {
             sessionStorage.setItem("request",JSON.stringify(request));
         }
         else{
-            setRequest(JSON.parse(localStorage.getItem("request")));
+            setRequest(JSON.parse(sessionStorage.getItem("request")));
         }
     }
 
