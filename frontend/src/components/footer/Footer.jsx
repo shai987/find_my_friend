@@ -18,6 +18,7 @@ const Footer = () => {
                                                 px: 2,
                                                 mt: 'auto',
                                                 backgroundColor: '#333333'
+                                                
                                         }}
                                 >
                                         <Container maxWidth="sm">
