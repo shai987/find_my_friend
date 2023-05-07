@@ -60,7 +60,7 @@ export const handleSignUp = async (req, res) => {
 
 // SignIn
 export const handleSignIn = async (req, res) => {
-        const { email, user_password } = req.query;
+        const { email, user_password } = req.body;
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
