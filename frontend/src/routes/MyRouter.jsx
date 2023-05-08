@@ -81,8 +81,8 @@ const MyRouter = () => {
                 alt: "dog_image",
                 title: "חזרה לדף הבית",
                 style: {
-                        height: '50px',
-                        width: '50px',
+                        height: '66px',
+                        width: '70px',
                         borderRadius: '50%',
                         border: '2px solid #333',
                         backgroundColor: '#fff',
