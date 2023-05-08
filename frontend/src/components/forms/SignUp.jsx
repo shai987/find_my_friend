@@ -43,7 +43,7 @@ const SignUp = () => {
         const [formSuccess, setFormSuccess] = useState("");
         const [formErrors, setFormErrors] = useState([]);
         const [showPassword, setShowPassword] = useState(false);
-        const { user, signUp } = useContext(AuthContext) 
+        const { user, signUp } = useContext(AuthContext)
         const navigate = useNavigate();
 
         const handleChange = (e) => {
@@ -93,8 +93,8 @@ const SignUp = () => {
                                         //  console.log("User not found");
                                         return setFormSuccess("User already exists");
                                 } else {
-                                        console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
                                         signUp(formData.first_name, formData.last_name, formData.email, formData.password);
+                                        console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
                                         //setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         return navigate("/SignIn");
                                 }

@@ -102,7 +102,7 @@ const SignIn = () => {
                                         setFormSuccess("Password is not the same");
                                 }
                                 else {
-                                        //console.log(`User found, name: ${ response.data.first_name } ${ response.data.last_name } `);
+                                        console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         setFormData(response.data);
                                         /*user.first_name = response.data.first_name;
                                         user.last_name = response.data.last_name;
