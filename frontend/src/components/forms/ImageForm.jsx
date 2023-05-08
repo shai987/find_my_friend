@@ -1,27 +1,51 @@
-import "../../assets/css/ImageForm.css"
-import { useState, useRef } from "react";
+import "../../assets/css/ImageForm.css";
+import { useState, useRef, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import Loader from '../Loader';
 import PetDetails from "./PetDetails";
+//import UserContext from "../../context/UserRequestContext";
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 
 // drag drop file component
 const ImageForm = () => {
+        const location = useLocation();
+        //console.log(location.state.status)
+        const status = location.state.status;
+        //console.log(status);
         // drag state
         const [dragActive, setDragActive] = useState(false);
         const [image, setImage] = useState({ preview: '', data: '' });
         const [response, setResponse] = useState("");
-        const [dragText, setDragText] = useState("Drag and drop your file here or")
-        const [uploadText, setUploadText] = useState("Upload a file")
-        const [documentID, setDocumentID] = useState("")
+        const [dragText, setDragText] = useState("Drag and drop your file here or");
+        const [uploadText, setUploadText] = useState("Upload a file");
+        const [documentID, setDocumentID] = useState("");
         // ref
         const inputRef = useRef(null);
         const [loading, setLoading] = useState(false);
-        
-        const[pet_type, setPetType] = useState(""); 
-        const[pet_breeds, setPetBreeds]=useState("");
 
+        //context
+        /*const { user, setUser } = useContext(UserContext);
+        user.status = status;
+        setUser(user);*/
+
+
+        const [pet_type, setPetType] = useState("");
+        const [pet_breeds, setPetBreeds] = useState("");
+
+        /*useEffect(() => {
+                
+                // Return a cleanup function
+                return async () => {
+                        try { 
+                                await axios.get('/deleteImage');
+                        } catch (err) {
+                                console.log(err);
+                        }
+                };
+              }, []);
+*/
         // handle drag events
         const handleDrag = (e) => {
                 e.preventDefault();
@@ -44,19 +68,22 @@ const ImageForm = () => {
                                 data: e.dataTransfer.files[0]
                         }
                         setImage(img)
+                        setDragText("")
+                        setUploadText("")
                 }
         };
 
         // triggers when file is selected with click
         const handleChange = (e) => {
                 e.preventDefault();
-                const img = {
-                        preview: URL.createObjectURL(e.target.files[0]),
-                        data: e.target.files[0],
-                }
-                setImage(img)
                 if (e.target.files && e.target.files[0]) {
-                        // handleFiles(e.target.files);
+                        const img = {
+                                preview: URL.createObjectURL(e.target.files[0]),
+                                data: e.target.files[0],
+                        }
+                        setImage(img)
+                        setDragText("")
+                        setUploadText("")
                 }
         };
 
@@ -67,8 +94,6 @@ const ImageForm = () => {
 
         const handleSubmit = async (e) => {
                 e.preventDefault();
-                setDragText("");
-                setUploadText("");
                 let formData = new FormData();
                 formData.append('file', image.data);
 
@@ -78,7 +103,6 @@ const ImageForm = () => {
                         const res = await axios.post('/uploadImage', formData);
                         setPetType(res.data.pet_type);
                         setPetBreeds(res.data.breeds);
-                        setDocumentID(res.data.document_id);
                         setResponse(res.data);
                         setLoading(false);
                 } catch (err) {
@@ -90,8 +114,8 @@ const ImageForm = () => {
         return (
                 <>
                         {loading ? <Loader /> :
-                                (!response? <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={handleSubmit}>
-                                        <input ref={inputRef} type="file" id="input-file-upload" onChange={handleChange} />
+                                (!response ? <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
+                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
                                                         {image.preview && <img src={image.preview} width='300' height='300' />}
@@ -100,9 +124,9 @@ const ImageForm = () => {
                                                 </div>
                                         </label>
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
-                                        <button type='submit'>שלח</button>
+                                        <button type='submit' onClick={handleSubmit}>שלח</button>
                                         <div>{response}</div>
-                                </form>: <PetDetails pet_type = {pet_type} pet_breeds = {pet_breeds} documentID={documentID}/>)
+                                </form> : <PetDetails pet_type={pet_type} pet_breeds={pet_breeds} documentID={documentID} status={status} />)
                         }
                 </>
         );

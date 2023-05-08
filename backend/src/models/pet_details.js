@@ -5,13 +5,20 @@ export const pet_details_schema = new mongoose.Schema({
         petType: String,
         petGender: String,
         petBreeds: String,
-        location: String, 
+        location: String,
         img:
         {
                 data: Buffer,
                 contentType: String
         },
-        userEmail: String
+        userEmail: String,
+        status: String,
+        note: String,
+        date: {
+                type: Date,
+                // `Date.now()` returns the current unix timestamp as a number
+                default: Date.now
+        }
 })
 
 // const newPet = mongoose.model("newPet", newPet_schema);

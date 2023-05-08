@@ -1,11 +1,18 @@
-import {useState, useEffect} from "react";
 import MyRouter from "./routes/MyRouter";
+import { useState } from 'react';
+import UserRequestContextProvider from "./context/UserRequestContext";
+import AuthContextProvider from "./context/AuthContext";
 
-const App = () => { 
+const App = () => {
+
   return (
     <div className="App">
       <header className="App-header">
-       <MyRouter />
+        <AuthContextProvider>
+          <UserRequestContextProvider>
+            <MyRouter />
+          </UserRequestContextProvider>
+        </AuthContextProvider>
       </header>
     </div>
   );
