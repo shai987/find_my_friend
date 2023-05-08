@@ -10,7 +10,9 @@ const HomepageContainer = () => {
                         <>
                                 <Welcome />
                                 <br />
+                                <br />
                                 <HowTheSiteWork />
+                                <br />
                                 <br />
                                 <Statistics />
                                 <br />

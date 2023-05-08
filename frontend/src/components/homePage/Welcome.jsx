@@ -3,21 +3,20 @@ import Image from '../Image';
 
 const Welcome = () => {
         const image = {
-                src: require('../../assets/images/3.png'),
+                src: require('../../assets/images/welcome7.jpg'),
                 alt: "dog&cat_image",
-                title: "This is a dog cat img",
+                title: "Find my friend banner",
                 style: {
-                        height: '500px',
-                        width: '1000px',
+                        height: '580px',
+                        width: '1679px',
                 }
         }
         return (
-                <div className="Welcome" >
+                
+                <div>
                         {/* <img src={require('../assets/images/dog_cat.jpeg')} alt="dog&cat_image"></img> */}
                         <Image img={image} />
-                        <article className="textttt">
-                                {/* <p id='pCheck'>החבר שלך אבד? תן למודל הפסיכי לעזור לך</p> */}
-                        </article>
+                        
                 </div>
         );
 }

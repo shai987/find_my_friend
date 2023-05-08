@@ -1,12 +1,28 @@
-.DivSiteWork {
+
+.processFinding {
         text-align: center;
 }
 
-#petFind img {
-        height: 200px;
-        width: 250px;
-        margin-top: 10px;
-        margin-bottom: 70px;
-        margin-right: 100px;
-        margin-left: 100px;
+
+.processFinding img {
+        height: 130px;
+        width: 130px;
+}
+
+
+#bigDivProcessFinding {
+        display: flex;
+        justify-content: space-between;
+        padding: 30px;
+}
+
+.arrowStyle {
+        height: 30px;
+        width: 30px;
+        margin-top: 50px;
+
+}
+
+h1{
+        text-align: center;
 }
