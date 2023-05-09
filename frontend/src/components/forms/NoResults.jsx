@@ -1,15 +1,27 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Image from '../Image';
 import UserContext from "../../context/UserRequestContext";
-
+import { useLocation } from "react-router-dom";
 
 const NoResults = () => {
         const { user } = useContext(UserContext);
+        const location = useLocation();
+        const [petType] = useState(location.state.petType);
+
         const status = user.status;
-        const image = {
+        const cat = {
                 src: require('../../assets/images/cat-sitting-alone.jpg'),
-                alt: "dog&cat_image",
-                title: "This is a cat img",
+                alt: "Sad cat img",
+                title: "Sad cat img",
+                style: {
+                        height: '500px',
+                        width: '1000px',
+                }
+        }
+        const dog = {
+                src: require('../../assets/images/sad_dog.jpg'),
+                alt: "Sad dog img",
+                title: "Sad dog img",
                 style: {
                         height: '500px',
                         width: '1000px',
@@ -22,7 +34,7 @@ const NoResults = () => {
         return (
                 <div>
                         <p>{text}</p>
-                        <Image img={image} />
+                        <Image img={petType === "cat" ? cat : dog} />
                 </div>
         );
 }
