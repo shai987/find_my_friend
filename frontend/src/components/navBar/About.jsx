@@ -40,35 +40,44 @@ const About = () => {
                                 <Grid container item xs={10}>
                                         &nbsp; &nbsp; &nbsp; &nbsp;
                                         <Cards
+                                                imageSrc={Almog}
+                                                title="אלמוג"
+                                                alt="תמונה של אחד ממקימי האתר"
+                                                studentName="אלמוג כהן"
+                                                studentDescription="סטודנטית שנה ג' בתואר במדעי המידע"
+                                                githubLink="https://github.com/almogc95"
+                                                linkedinLink="https://www.linkedin.com/in/almog-cohen14/"
+                                        />
+                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <Cards
+                                                imageSrc={Ron}
+                                                title="רון"
+                                                alt="תמונה של אחד ממקימי האתר"
+                                                studentName="רון אלי"
+                                                studentDescription=" סטודנט שנה ג' בתואר במדעי המידע"
+                                                githubLink="https://github.com/RonEli23"
+                                                linkedinLink="https://www.linkedin.com/in/ron-eli-ba47a9226/"
+                                        />
+                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <Cards
                                                 imageSrc={Shaika}
                                                 title="שי"
                                                 alt="תמונה של אחד ממקימי האתר"
                                                 studentName="שי גפן"
                                                 studentDescription="סטודנט שנה ג' בתואר במדעי המידע"
+                                                githubLink="https://github.com/shai987"
+                                                linkedinLink="https://www.linkedin.com/in/shai-geffen-24373721a/"
+
                                         />
                                         &nbsp; &nbsp; &nbsp; &nbsp;
                                         <Cards
-                                                imageSrc={Shaika}
-                                                title=""
+                                                imageSrc={AdiLiel2}
+                                                title="עדי ליאל"
                                                 alt="תמונה של אחד ממקימי האתר"
-                                                studentName="שי גפן"
-                                                studentDescription=" שגדגשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשדשד ש גדש דגגגגגגגגגגגסטודנט שנה ג' בתואר במדעי המידע"
-                                        />
-                                        &nbsp; &nbsp; &nbsp; &nbsp;
-                                        <Cards
-                                                imageSrc={Shaika}
-                                                title="שי"
-                                                alt="תמונה של אחד ממקימי האתר"
-                                                studentName="שי גפן"
-                                                studentDescription="סטודנט שנה ג' בתואר במדעי המידע"
-                                        />
-                                        &nbsp; &nbsp; &nbsp; &nbsp;
-                                        <Cards
-                                                imageSrc={Shaika}
-                                                title="שי"
-                                                alt="תמונה של אחד ממקימי האתר"
-                                                studentName="שי גפן"
-                                                studentDescription="סטודנט שנה ג' בתואר במדעי המידע"
+                                                studentName="עדי ליאל מימון"
+                                                studentDescription="סטודנטית שנה ג' בתואר במדעי המידע"
+                                                githubLink="https://github.com/adi-liel"
+                                                linkedinLink="https://www.linkedin.com/in/adi-liel-maimon/"
                                         />
                                 </Grid>
                         </div>
