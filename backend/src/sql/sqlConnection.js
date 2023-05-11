@@ -4,31 +4,60 @@ const db_user_details = mysql.createConnection({
         host: process.env.HOST,
         user: process.env.USER,
         password: process.env.PASSWORD,
-        // database: process.env.DATABASE,
 });
 
-// Connect to the MySQL
+const database_name = process.env.DATABASE;
+
+// Connect to MySQL server
 db_user_details.connect((err) => {
         if (err) throw err;
         console.log("Connected to MySQL database");
 
-        // Create users_details database if it doesn't exist
-        db_user_details.query('CREATE DATABASE IF NOT EXISTS users_details', (err, result) => {
+        // Query to get list of all the databases of the user
+        db_user_details.query('SHOW DATABASES', (err, result) => {
                 if (err) throw err;
-                console.log('Database created or already exists');
+
+                // Extract the database names from the result
+                const databases = result.map(result => result.Database);
+
+                // Check if the user exists
+                if (databases.includes(database_name)) {
+                        console.log("Database already exists");
+                }
+
+                // Create users_details database if it doesn't exist
+                else {
+                        const user_details_database = 'CREATE DATABASE IF NOT EXISTS users_details';
+                        db_user_details.query(user_details_database, (err, result) => {
+                                if (err) throw err;
+                                console.log("Database created");
+                        });
+                }
 
                 // Use the database
-                db_user_details.query('USE users_details', (err, result) => {
+                db_user_details.query(`USE ${database_name}`, (err, result) => {
                         if (err) throw err;
 
-                        // Create user table if it doesn't exist
-                        // const sql = 'CREATE TABLE IF NOT EXISTS users (email VARCHAR(40) PRIMARY KEY, first_name VARCHAR(20) NOT NULL, last_name VARCHAR(20) NOT NULL, user_password varchar(255) UNIQUE NOT NULL)';
-                        //  for encryption user_password
-                        const sql = 'CREATE TABLE IF NOT EXISTS users (email VARCHAR(40) PRIMARY KEY, first_name VARCHAR(20) NOT NULL, last_name VARCHAR(20) NOT NULL, user_password varchar(255) NOT NULL)';
-
-                        db_user_details.query(sql, (err, result) => {
+                        // Query to get list of all the tables of the user
+                        db_user_details.query('SHOW TABLES', (err, result) => {
                                 if (err) throw err;
-                                console.log("Table created or already exists");
+
+                                // Extract the table names from the result
+                                const tables = result.map(row => Object.values(row)[0]);
+
+                                // Check if the user exists
+                                if (tables.includes('users')) {
+                                        console.log("Table already exists");
+                                }
+
+                                // Create user_table if it doesn't exist
+                                else {
+                                        const user_table = 'CREATE TABLE IF NOT EXISTS users (email VARCHAR(40) PRIMARY KEY, first_name VARCHAR(20) NOT NULL, last_name VARCHAR(20) NOT NULL, user_password varchar(255) NOT NULL)';
+                                        db_user_details.query(user_table, (err, result) => {
+                                                if (err) throw err;
+                                                console.log("Table created");
+                                        });
+                                }
                         });
                 });
         });
