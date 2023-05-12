@@ -37,8 +37,7 @@ const About = () => {
                         </div>
                         <h1>על הצוות</h1>
                         <div>
-                                <Grid container item xs={10}>
-                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                <Grid container item xs={10} justifyContent="center" sx={{ ml: 'auto', mr: "auto" }}>
                                         <Cards
                                                 imageSrc={Almog}
                                                 title="אלמוג"
@@ -48,17 +47,15 @@ const About = () => {
                                                 githubLink="https://github.com/almogc95"
                                                 linkedinLink="https://www.linkedin.com/in/almog-cohen14/"
                                         />
-                                        &nbsp; &nbsp; &nbsp; &nbsp;
                                         <Cards
                                                 imageSrc={Ron}
                                                 title="רון"
                                                 alt="תמונה של אחד ממקימי האתר"
                                                 studentName="רון אלי"
-                                                studentDescription=" סטודנט שנה ג' בתואר במדעי המידע"
+                                                studentDescription="סטודנט שנה ג' בתואר במדעי המידע"
                                                 githubLink="https://github.com/RonEli23"
                                                 linkedinLink="https://www.linkedin.com/in/ron-eli-ba47a9226/"
                                         />
-                                        &nbsp; &nbsp; &nbsp; &nbsp;
                                         <Cards
                                                 imageSrc={Shaika}
                                                 title="שי"
@@ -69,7 +66,7 @@ const About = () => {
                                                 linkedinLink="https://www.linkedin.com/in/shai-geffen-24373721a/"
 
                                         />
-                                        &nbsp; &nbsp; &nbsp; &nbsp;
+
                                         <Cards
                                                 imageSrc={AdiLiel2}
                                                 title="עדי ליאל"
@@ -120,7 +117,7 @@ const About = () => {
                                         </div>
                                 </div>
                         </div> */}
-                </div>
+                </div >
         );
 }
 export default About;
