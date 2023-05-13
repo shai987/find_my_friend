@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import Image from '../Image';
-import UserContext from "../../context/UserRequestContext";
+import { UserRequestContext } from "../../context/UserRequestContext";
 import { useLocation } from "react-router-dom";
 
 const NoResults = () => {
-        const { user } = useContext(UserContext);
+        const { request } = useContext(UserRequestContext);
         const location = useLocation();
         const [petType] = useState(location.state.petType);
 
-        const status = user.status;
+        const status = request.status;
         const cat = {
                 src: require('../../assets/images/cat-sitting-alone.jpg'),
                 alt: "Sad cat img",

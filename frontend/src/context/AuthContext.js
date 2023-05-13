@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const initUesr = {
     first_name: "",
@@ -10,6 +10,7 @@ const initUesr = {
 
 const getInitialState = () => {
     const user = sessionStorage.getItem("user");
+    console.log(user);
     return user ? JSON.parse(user) : initUesr;
 }
 
@@ -18,9 +19,17 @@ export const AuthContext = createContext()
 const AuthContextProvider = (props) => {
     const [user, setUser] = useState(getInitialState);
     console.log(user);
+
+    useEffect(() => {
+        sessionStorage.setItem("user", JSON.stringify(user));
+    }, [user]);
+
+
     const login = (first_name, last_name, email, user_password) => {
+
         // Not working
         // user = { first_name, last_name, email, user_password, isLoggedIn: true };
+        // setUser(user);
 
         user.first_name = first_name;
         user.last_name = last_name;
@@ -30,19 +39,12 @@ const AuthContextProvider = (props) => {
         setUser(user);
 
         sessionStorage.setItem("user", JSON.stringify(user));
-        /*if(localStorage.getItem("user") === null){
-            localStorage.setItem("user",JSON.stringify(user));
-        }
-        else{
-            setUser(JSON.parse(localStorage.getItem("user")));
-        }*/
     }
 
     const logout = () => {
         setUser({})
-        sessionStorage.setItem("user", JSON.stringify(initUesr));
-        // sessionStorage.setItem("user", JSON.stringify(user));
-
+        // sessionStorage.setItem("user", JSON.stringify(initUesr));
+        sessionStorage.setItem("user", JSON.stringify(user));
     }
 
     const signUp = (first_name, last_name, email, user_password) => {
@@ -57,11 +59,6 @@ const AuthContextProvider = (props) => {
         // user = { first_name, last_name, email, user_password };
         // setUser(user);
 
-        // Second Option - not worked very good
-        // for (const prop in user) {
-        //     user[prop] = { first_name, last_name, email, user_password };
-        // }
-        // setUser(user);
         sessionStorage.setItem("user", JSON.stringify(user));
     }
 

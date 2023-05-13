@@ -1,12 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const initRequest = {
     status: ""
 }
 
 const getInitialState = () => {
-    const user = sessionStorage.getItem("request");
-    return user ? JSON.parse(user) : initRequest;
+    const request = sessionStorage.getItem("request");
+    return request ? JSON.parse(request) : initRequest;
 }
 
 export const UserRequestContext = createContext();
@@ -14,15 +14,14 @@ export const UserRequestContext = createContext();
 const UserRequestContextProvider = (props) => {
     const [request, setRequest] = useState(getInitialState);
 
+    useEffect(() => {
+        sessionStorage.setItem("request", JSON.stringify(request));
+    }, [request]);
+
     const updateStatus = (status) => {
-        // setRequest(status);
-        setRequest({ status: status }); // maybe it is the problem
-        if (sessionStorage.getItem("request") === null) {
-            sessionStorage.setItem("request", JSON.stringify(request));
-        }
-        else {
-            setRequest(JSON.parse(sessionStorage.getItem("request")));
-        }
+        request.status = status;
+        setRequest(request);
+        sessionStorage.setItem("request", JSON.stringify(request));
     }
 
     return (

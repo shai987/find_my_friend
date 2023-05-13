@@ -14,6 +14,8 @@ const PetDetails = (props) => {
   const { user } = useContext(AuthContext)
   const { request } = useContext(UserRequestContext)
   const { pet_type, pet_breeds } = props;
+
+
   const initialFormData = {
     userEmail: user.email,
     petName: "",
@@ -57,7 +59,7 @@ const PetDetails = (props) => {
       else {
         navigate('/NoResults', {
           state: {
-            petType: res.data.petType
+            petType: pet_type
           }
         })
       }
