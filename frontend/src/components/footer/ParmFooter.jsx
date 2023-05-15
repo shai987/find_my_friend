@@ -37,12 +37,12 @@ const ParmFooter = () => {
                                         </a>
                                 </div>
                                 <div className='position-social_media'>
-                                        <Link to="/">
+                                        <a href="https://github.com/shai987/find_my_friend">
                                                 <figure className='figure_style'>
                                                         <img className='footer_img' src={social_media} alt="pen" />
                                                         <figcaption>חפשו אותנו ברשתות החברתיות</figcaption>
                                                 </figure>
-                                        </Link>
+                                        </a>
                                 </div>
 
                         </div>
