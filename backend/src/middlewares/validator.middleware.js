@@ -75,6 +75,15 @@ export const validate = (method) => {
                                         .escape()
                                         .isLength({ min: 4, max: 26 })
                                         .withMessage('Min 4 digit for Password'),
+                                body('phone_number')
+                                        .not()
+                                        .isEmpty()
+                                        .withMessage('Phone number is required')
+                                        .trim()
+                                        .escape()
+                                        .isLength({ min: 10, max: 10 })
+                                        .withMessage('Exactly 10 digit for Phone number'),
+
                         ];
                 }
                 case "handleSignIn": {

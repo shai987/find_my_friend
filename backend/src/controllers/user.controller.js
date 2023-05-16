@@ -13,7 +13,7 @@ const newPet_model = mongoose.model("newPet", pet_details_schema);
 // SignUp
 export const handleSignUp = async (req, res) => {
 
-        const { email, first_name, last_name, user_password } = req.body;
+        const { email, first_name, last_name, phone_number, user_password } = req.body;
         // const hash = await bcrypt.hash(user_password, 10);
 
         const errors = validationResult(req);
@@ -40,7 +40,7 @@ export const handleSignUp = async (req, res) => {
                                 console.log('shai check');
                                 console.log(hash);
                                 console.log(user_password);
-                                db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, hash], (err, result) => {
+                                db_user_details.query('INSERT INTO users (email, first_name, last_name, phone_number, user_password) VALUES (?,?,?,?,?)', [email, first_name, last_name, phone_number, hash], (err, result) => {
                                         // db_user_details.query('INSERT INTO users (email, first_name, last_name, user_password) VALUES (?,?,?,?)', [email, first_name, last_name, user_password], (err, result) => {
                                         if (err) {
                                                 res.send(err.message);
@@ -129,7 +129,7 @@ export const handleContactUser = async (req, res) => {
         const { email } = req.body;
         console.log(email);
         try {
-                db_user_details.query('SELECT email, first_name, last_name FROM users WHERE email = ?', [email], (err, result) => {
+                db_user_details.query('SELECT email, first_name, last_name, phone_number FROM users WHERE email = ?', [email], (err, result) => {
                         if (err) {
                                 res.send(err.message);
                                 console.log(err.message);
