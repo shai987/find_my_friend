@@ -36,14 +36,15 @@ const SignUp = () => {
                 first_name: "",
                 last_name: "",
                 email: "",
-                user_password: "",
+                phone_number: "",
+                user_password: ""
         };
 
         const [formData, setFormData] = useState(initialFormData);
         const [formSuccess, setFormSuccess] = useState("");
         const [formErrors, setFormErrors] = useState([]);
         const [showPassword, setShowPassword] = useState(false);
-        const { user, signUp } = useContext(AuthContext)
+        const { user, signUp } = useContext(AuthContext);
         const navigate = useNavigate();
 
         const handleChange = (e) => {
@@ -93,7 +94,7 @@ const SignUp = () => {
                                         //  console.log("User not found");
                                         return setFormSuccess("User already exists");
                                 } else {
-                                        signUp(formData.first_name, formData.last_name, formData.email, formData.password);
+                                        signUp(formData.first_name, formData.last_name, formData.email, formData.phone_number, formData.password);
                                         console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
                                         //setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         return navigate("/SignIn");
@@ -203,28 +204,6 @@ const SignUp = () => {
                                                                 />
                                                         </Grid>
                                                         <Grid item xs={12}>
-                                                                {/* <TextField
-                                                                        sx={{
-                                                                                "& label": {
-                                                                                        left: "unset",
-                                                                                        right: "1.75rem",
-                                                                                        transformOrigin: "right",
-                                                                                },
-                                                                                "& legend": {
-                                                                                        textAlign: "right",
-                                                                                        fontSize: "0.6rem",
-                                                                                },
-                                                                        }}
-                                                                        required
-                                                                        fullWidth
-                                                                        name="user_password"
-                                                                        label="סיסמא"
-                                                                        type="password"
-                                                                        id="password"
-                                                                        autoComplete="new-password"
-                                                                        value={formData.user_password}
-                                                                        onChange={handleChange}
-                                                                /> */}
                                                                 <FormControl
                                                                         sx={{
                                                                                 width: '50ch',
@@ -266,7 +245,32 @@ const SignUp = () => {
                                                                         />
                                                                 </FormControl>
                                                         </Grid>
+                                                        <Grid item xs={12}>
+                                                                <TextField
+                                                                        sx={{
+                                                                                "& label": {
+                                                                                        left: "unset",
+                                                                                        right: "1.75rem",
+                                                                                        transformOrigin: "right",
+                                                                                },
+                                                                                "& legend": {
+                                                                                        textAlign: "right",
+                                                                                        fontSize: "0.6rem",
+                                                                                },
+                                                                        }}
+                                                                        dir='ltr'
+                                                                        required
+                                                                        fullWidth
+                                                                        id="phone_number"
+                                                                        label="מספר טלפון"
+                                                                        name="phone_number"
+                                                                        autoComplete="phone"
+                                                                        value={formData.phone_number}
+                                                                        onChange={handleChange}
+                                                                />
+                                                        </Grid>
                                                 </Grid>
+
                                                 <Button
                                                         type="submit"
                                                         fullWidth

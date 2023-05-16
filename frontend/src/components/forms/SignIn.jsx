@@ -37,6 +37,7 @@ const SignIn = () => {
         const initialFormData = {
                 email: "",
                 user_password: "",
+                phone_number: "",
                 first_name: "",
                 last_name: "",
         };
@@ -110,7 +111,7 @@ const SignIn = () => {
                                         user.user_password = response.data.user_password;
                                         setUser(user)*/
 
-                                        login(response.data.first_name, response.data.last_name, response.data.email, response.data.user_password)
+                                        login(response.data.first_name, response.data.last_name, response.data.email, response.data.phone_number/* , response.data.user_password */)
 
                                         /*setUser({
                                                 first_name: response.data.first_name,
