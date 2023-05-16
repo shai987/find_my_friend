@@ -7,16 +7,15 @@ const Welcome = () => {
                 alt: "dog&cat_image",
                 title: "Find my friend banner",
                 style: {
-                        height: '580px',
-                        width: '1679px',
+                        width: '100%',
                 }
         }
         return (
-                
+
                 <div>
                         {/* <img src={require('../assets/images/dog_cat.jpeg')} alt="dog&cat_image"></img> */}
                         <Image img={image} />
-                        
+
                 </div>
         );
 }
