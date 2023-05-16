@@ -37,7 +37,7 @@ const ParmFooter = () => {
                                         </a>
                                 </div>
                                 <div className='position-social_media'>
-                                        <a href="https://github.com/shai987/find_my_friend">
+                                        <a href="https://github.com/shai987/find_my_friend" target="_blank" rel="noopener noreferrer">
                                                 <figure className='figure_style'>
                                                         <img className='footer_img' src={social_media} alt="pen" />
                                                         <figcaption>חפשו אותנו ברשתות החברתיות</figcaption>
