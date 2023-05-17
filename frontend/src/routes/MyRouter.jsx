@@ -7,7 +7,7 @@ import {
         Link,
 } from 'react-router-dom';
 // import libraries from react
-import { useState, useContext, forwardRef } from "react";
+import { useState, useContext, forwardRef, useEffect } from "react";
 // import libraries from material-ui
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -56,29 +56,24 @@ const MyRouter = () => {
                 { key: 'UserStatus', value: 'צא לדרך' },
         ];
 
-        /*const logout = () => {
-                console.log(user);
-                // First Option - Clear the user context
-                // user.email = null;
-                // user.status = null;
-                // user.first_name = null;
-                // user.last_name = null;
-                // user.user_password = null;
-
-                // Second Option - Clear the user context
-                for (const prop in user) {
-                        user[prop] = null; // set all properties to null
-                }
-                setUser(user);
-                console.log(user);
-
-                // Redirect the user to the login page
-                window.location.hash = '/UserStatus';
-        };*/
-
         const image = {
                 src: require('../assets/images/dog.jpg'),
                 alt: "dog_image",
+                title: "חזרה לדף הבית",
+                style: {
+                        height: '66px',
+                        width: '70px',
+                        borderRadius: '50%',
+                        border: '2px solid #333',
+                        backgroundColor: '#fff',
+                        color: 'blue',
+                        cursor: 'pointer',
+                }
+        }
+
+        const Shaika = {
+                src: require('../assets/images/Shaika.jpg'),
+                alt: "Shaika",
                 title: "חזרה לדף הבית",
                 style: {
                         height: '66px',
@@ -123,6 +118,12 @@ const MyRouter = () => {
                 handleClose();
         };
 
+        // useEffect(() => {
+        //         if (user.isLoggedIn) {
+
+        //         }
+        // }, [user, Shaika]);
+
         const settings = [
                 { key: 'UserAccount', value: 'אזור אישי' },
                 {
@@ -156,17 +157,17 @@ const MyRouter = () => {
                                                                         </MenuItem>
                                                                 ))}
 
-                                                                <div id='iconPosition'>
+                                                                {user.isLoggedIn && <div id='iconPosition'>
                                                                         <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
                                                                                 <IconButton onClick={handleOpenUserMenu} sx={{
                                                                                         p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
                                                                                 }}>
-                                                                                        <Avatar alt="Shaika" src={require("../assets/images/Shaika.jpg")} />
+                                                                                        <Image img={Shaika} />
                                                                                 </IconButton>
                                                                         </Tooltip>
-                                                                </div>
+                                                                </div>}
 
-                                                                <Menu
+                                                                {user.isLoggedIn && <Menu
                                                                         sx={{ mt: "45px" }}
                                                                         id="menu-appbar"
                                                                         anchorEl={user1}
@@ -203,16 +204,7 @@ const MyRouter = () => {
                                                                                         <Button onClick={handleLogout}>כן</Button>
                                                                                 </DialogActions>
                                                                         </Dialog>
-
-
-                                                                        {/* {settings.map((setting) => (
-                                                                                <MenuItem key={setting.key} onClick={handleCloseUserMenu}>
-                                                                                        <Link className='link' to={`/${setting.key}`}>
-                                                                                                <Typography sx={{ color: "black" }}> {setting.value}</Typography>
-                                                                                        </Link>
-                                                                                </MenuItem>
-                                                                        ))} */}
-                                                                </Menu>
+                                                                </Menu>}
                                                         </Toolbar>
                                                 </Container>
                                         </AppBar>
@@ -230,8 +222,6 @@ const MyRouter = () => {
                                                 <Route path='/RequestStatus' element={<RequestStatus />}></Route>
                                                 <Route path='/SimillarityResult' element={<SimillarityResult />}></Route>
                                                 <Route path='/NoResults' element={<NoResults />}></Route>
-                                                {/* <Route path='/PetDetails' element={<PetDetails />}></Route> */}
-
                                                 {/* If the user go to not exsist path it would take him back to "/" */}
                                                 <Route path="*" element={<Navigate to="/" />}></Route>
                                         </Routes>
