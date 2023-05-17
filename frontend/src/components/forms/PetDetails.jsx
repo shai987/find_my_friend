@@ -1,20 +1,22 @@
 import { useState, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
-import Loader from '../Loader';
+import Loader from "../Loader";
 import { AuthContext } from "../../context/AuthContext";
 import { UserRequestContext } from "../../context/UserRequestContext";
+import '../../assets/css/petDetails.css';
+/*import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';*/
 
 axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
   // להוסיף useEffect שמטרתו לשאול את המשתמש אם הוא בטוח שברצונו לצאת מהדף מבלי לשלוח את הטופס. אם כן למחוק את המסמך מהמונגו.
-  const { user } = useContext(AuthContext)
-  const { request } = useContext(UserRequestContext)
+  const { user } = useContext(AuthContext);
+  const { request } = useContext(UserRequestContext);
   const { pet_type, pet_breeds } = props;
-
 
   const initialFormData = {
     userEmail: user.email,
@@ -24,7 +26,7 @@ const PetDetails = (props) => {
     petBreeds: pet_breeds,
     location: "",
     note: "",
-    status: request.status
+    status: request.status,
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -38,7 +40,9 @@ const PetDetails = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (loading) { <Loader /> }
+    if (loading) {
+      <Loader />;
+    }
     try {
       // Send POST request
       const res = await axios.post("/petDetails", formData);
@@ -50,24 +54,23 @@ const PetDetails = (props) => {
       if (res.data.length !== 0) {
         //setSimilarPets(res.data);
         //setMessage("V")
-        navigate('/SimillarityResult', {
+        navigate("/SimillarityResult", {
           state: {
-            similarPets: res.data
-          }
-        })
-      }
-      else {
-        navigate('/NoResults', {
+            similarPets: res.data,
+          },
+        });
+      } else {
+        navigate("/NoResults", {
           state: {
-            petType: pet_type
-          }
-        })
+            petType: pet_type,
+          },
+        });
       }
     } catch (err) {
       setLoading(false);
       handleErrors(err);
     }
-  }
+  };
 
   const handleErrors = (err) => {
     if (err.response.data && err.response.data.errors) {
@@ -92,7 +95,6 @@ const PetDetails = (props) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-
     });
     setFormErrors([]);
     setFormSuccess("");
@@ -107,6 +109,109 @@ const PetDetails = (props) => {
           <AlertError errors={formErrors} />
           <div>
             {/*אם found אז שם חיה לא חובה*/}
+            <input
+              type="text"
+              placeholder="שם החיה"
+              name="petName"
+              value={formData.petName}
+              onInput={handleChange}
+            />
+          </div>
+          <div>
+            <p>סוג החיה</p>
+            
+                <label htmlFor="">חתול</label>
+                <input
+                  type="radio"
+                  name="petType"
+                  value="cat"
+                  checked={formData.petType === "cat"}
+                  onChange={handleChange}
+                />
+             
+                <label htmlFor="">כלב</label>
+                <input
+                  type="radio"
+                  name="petType"
+                  value="dog"                
+                  checked={formData.petType === "dog"}
+                  onChange={handleChange}
+                />
+          </div>
+          <div>
+            <p>מין החיה</p>
+            <label htmlFor="">נקבה</label>
+            <input
+              type="radio"
+              name="petGender"
+              value="F"
+              onChange={handleChange}
+            />
+            <label htmlFor="">זכר</label>
+            <input
+              type="radio"
+              name="petGender"
+              className="input"
+              value="M"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="">גזע החיה</label>
+            <textarea
+              disabled
+              cols="20"
+              rows="10"
+              name="petBreeds"
+              value={formData.petBreeds}
+              onInput={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="">
+              {request.status === "lost" ? "המקום בו אבד" : "המקום בו נמצא"}
+            </label>
+            <input
+              type="text"
+              name="location"
+              className="input"
+              value={formData.location}
+              onInput={handleChange}
+            />
+            <div>
+              <label htmlFor="">הערות</label>
+              <textarea
+                cols="20"
+                rows="10"
+                name="note"
+                value={formData.note}
+                onInput={handleChange}
+              />
+            </div>
+          </div>
+          <input
+            type="submit"
+            className="button"
+            value={
+              request.status === "lost" ? "תמצא לי את הילד" : "חפש את ההורים"
+            }
+          />
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default PetDetails;
+
+/*
+<div>
+        <form onSubmit={handleSubmit} className="form">
+          <h1>טופס מילוי פרטים</h1>
+          <AlertSuccess success={formSuccess} />
+          <AlertError errors={formErrors} />
+          <div>
+           //
             <label htmlFor="">שם החיה</label>
             <input
               type="text"
@@ -183,8 +288,4 @@ const PetDetails = (props) => {
           <input type="submit" className="button" value={request.status === "lost" ? "תמצא לי את הילד" : "חפש את ההורים"} />
         </form>
       </div>
-    </>
-  );
-};
-
-export default PetDetails;
+*/

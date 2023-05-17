@@ -96,7 +96,7 @@ setOpen(false);
             position = "activeSlide";
           }
           if (
-            indexResults === index - 1 ||
+            indexResults === index -1 ||
             (index === 0 && indexResults === results.length - 1)
           ) {
             position = "lastSlide";
@@ -122,7 +122,11 @@ setOpen(false);
                                 aria-describedby="alert-dialog-slide-description"
                         >
                                 <DialogTitle>{`שם: ${userDetails.first_name} ${userDetails.last_name}`}</DialogTitle>
-                        </Dialog>
+                                {userDetails.phone_number&&
+                                 <DialogTitle>{`טלפון: ${userDetails.phone_number}`}</DialogTitle>
+                                }
+                                
+                         </Dialog>
                 </div>
             </article>
           );
