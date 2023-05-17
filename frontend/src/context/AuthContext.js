@@ -6,7 +6,8 @@ const initUesr = {
     email: "",
     phone_number: "",
     // user_password: "",
-    isLoggedIn: false
+    isLoggedIn: false,
+    // isrender: false,
 }
 
 const getInitialState = () => {
@@ -38,6 +39,7 @@ const AuthContextProvider = (props) => {
         user.phone_number = phone_number;
         // user.user_password = user_password;
         user.isLoggedIn = true;
+        // user.isrender = true;
         setUser(user);
 
         sessionStorage.setItem("user", JSON.stringify(user));
@@ -45,7 +47,6 @@ const AuthContextProvider = (props) => {
 
     const logout = () => {
         setUser({})
-        // sessionStorage.setItem("user", JSON.stringify(initUesr));
         sessionStorage.setItem("user", JSON.stringify(user));
     }
 

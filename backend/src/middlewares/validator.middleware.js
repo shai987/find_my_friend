@@ -81,9 +81,10 @@ export const validate = (method) => {
                                         .withMessage('Phone number is required')
                                         .trim()
                                         .escape()
+                                        .isNumeric()
+                                        .withMessage('ניתן להכניס רק מספרים')
                                         .isLength({ min: 10, max: 10 })
                                         .withMessage('Exactly 10 digit for Phone number'),
-
                         ];
                 }
                 case "handleSignIn": {

@@ -1,6 +1,7 @@
 // import react-router-dom
 import {
         HashRouter as Router,
+        // BrowserRouter as Router,
         Routes,
         Navigate,
         Route,
@@ -61,28 +62,14 @@ const MyRouter = () => {
                 alt: "dog_image",
                 title: "חזרה לדף הבית",
                 style: {
-                        height: '66px',
+                        height: '69px',
                         width: '70px',
                         borderRadius: '50%',
                         border: '2px solid #333',
                         backgroundColor: '#fff',
                         color: 'blue',
                         cursor: 'pointer',
-                }
-        }
-
-        const Shaika = {
-                src: require('../assets/images/Shaika.jpg'),
-                alt: "Shaika",
-                title: "חזרה לדף הבית",
-                style: {
-                        height: '66px',
-                        width: '70px',
-                        borderRadius: '50%',
-                        border: '2px solid #333',
-                        backgroundColor: '#fff',
-                        color: 'blue',
-                        cursor: 'pointer',
+                        marginTop: '8px',
                 }
         }
 
@@ -118,12 +105,6 @@ const MyRouter = () => {
                 handleClose();
         };
 
-        // useEffect(() => {
-        //         if (user.isLoggedIn) {
-
-        //         }
-        // }, [user, Shaika]);
-
         const settings = [
                 { key: 'UserAccount', value: 'אזור אישי' },
                 {
@@ -157,17 +138,26 @@ const MyRouter = () => {
                                                                         </MenuItem>
                                                                 ))}
 
-                                                                {user.isLoggedIn && <div id='iconPosition'>
+                                                                {/*מכאן זה אייקון של משתמש והתפריט שלו */}
+                                                                {/*  {user.isLoggedIn &&  */}<div id='iconPosition'>
                                                                         <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
                                                                                 <IconButton onClick={handleOpenUserMenu} sx={{
                                                                                         p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
                                                                                 }}>
-                                                                                        <Image img={Shaika} />
+                                                                                        {user.isLoggedIn ? < Avatar alt={`${user.first_name}`} title={`${user.first_name} ${user.last_name}`} sx={{ width: '65px', height: '65px', my: -1.5, backgroundColor: '#FF8A00', border: '2px solid #fff', }} src={`https://anonymous-animals.azurewebsites.net/avatar/:${user.email}`} /> : < Avatar alt="no one" />}
+
                                                                                 </IconButton>
                                                                         </Tooltip>
-                                                                </div>}
 
-                                                                {user.isLoggedIn && <Menu
+                                                                        {/* <Typography sx={{
+                                                                                direction: 'ltr', ml: '-70px', my: '7px', fontSize: '13px'
+
+                                                                        }}> {user.first_name + ' ' + user.last_name}</Typography> */}
+                                                                </div>{/* } */}
+
+
+
+                                                                {/* {user.isLoggedIn && */} <Menu
                                                                         sx={{ mt: "45px" }}
                                                                         id="menu-appbar"
                                                                         anchorEl={user1}
@@ -204,7 +194,7 @@ const MyRouter = () => {
                                                                                         <Button onClick={handleLogout}>כן</Button>
                                                                                 </DialogActions>
                                                                         </Dialog>
-                                                                </Menu>}
+                                                                </Menu>{/* } */}
                                                         </Toolbar>
                                                 </Container>
                                         </AppBar>
@@ -223,7 +213,7 @@ const MyRouter = () => {
                                                 <Route path='/SimillarityResult' element={<SimillarityResult />}></Route>
                                                 <Route path='/NoResults' element={<NoResults />}></Route>
                                                 {/* If the user go to not exsist path it would take him back to "/" */}
-                                                <Route path="*" element={<Navigate to="/" />}></Route>
+                                                <Route path="*" element={<Navigate to="#" />}></Route>
                                         </Routes>
                                         <Footer />
                                 </ScrollToTop>
