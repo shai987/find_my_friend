@@ -5,9 +5,8 @@ const initUesr = {
     last_name: "",
     email: "",
     phone_number: "",
-    // user_password: "",
     isLoggedIn: false,
-    // isrender: false,
+    isRender: false,
 }
 
 const getInitialState = () => {
@@ -27,21 +26,14 @@ const AuthContextProvider = (props) => {
     }, [user]);
 
 
-    const login = (first_name, last_name, email, phone_number /* user_password */) => {
-
-        // Not working
-        // user = { first_name, last_name, email, isLoggedIn: true, phone_number };
-        // setUser(user);
-
+    const login = (first_name, last_name, email, phone_number) => {
         user.first_name = first_name;
         user.last_name = last_name;
         user.email = email;
         user.phone_number = phone_number;
-        // user.user_password = user_password;
         user.isLoggedIn = true;
-        // user.isrender = true;
+        user.isRender = true;
         setUser(user);
-
         sessionStorage.setItem("user", JSON.stringify(user));
     }
 
@@ -50,19 +42,12 @@ const AuthContextProvider = (props) => {
         sessionStorage.setItem("user", JSON.stringify(user));
     }
 
-    const signUp = (first_name, last_name, email, phone_number/*  user_password */) => {
-        // First Option
+    const signUp = (first_name, last_name, email, phone_number) => {
         user.first_name = first_name;
         user.last_name = last_name;
         user.email = email;
         user.phone_number = phone_number;
-        // user.user_password = user_password;
         setUser(user);
-
-        // Not working
-        // user = { first_name, last_name, email, phone_number };
-        // setUser(user);
-
         sessionStorage.setItem("user", JSON.stringify(user));
     }
 
