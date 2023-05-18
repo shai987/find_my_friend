@@ -142,6 +142,7 @@ const MyRouter = () => {
                                                                                 <IconButton onClick={handleOpenUserMenu} sx={{
                                                                                         p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
                                                                                 }}>
+                                                                                        {/* pets icons - https://github.com/Ivanmtta/anonymous-animals-api */}
                                                                                         {user.isLoggedIn ? < Avatar alt={`${user.first_name}`} title={`${user.first_name} ${user.last_name}`} sx={{ width: '65px', height: '65px', my: -1.5, backgroundColor: '#FF8A00', border: '2px solid #fff', }} src={`https://anonymous-animals.azurewebsites.net/avatar/:${user.email}`} /> : < Avatar alt="no one" />}
 
                                                                                 </IconButton>
