@@ -1,6 +1,6 @@
 import express from 'express';
 import router from './src/routes/route.js';
-import cors from 'cors'
+import cors from 'cors';
 import { } from 'dotenv/config';
 import mongoose from 'mongoose';
 
@@ -18,6 +18,6 @@ app.use('/route', router);
 const connection = async () => {
         const uri = uri_mongo;
         await mongoose.connect(uri);
-        app.listen(port, () => console.log(`Listen on port ${port}`))
+        app.listen(port, () => console.log(`Listen on port ${port}`));
 }
 connection().catch(err => console.log(err.message));
