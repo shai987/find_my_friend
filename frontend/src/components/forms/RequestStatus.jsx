@@ -10,41 +10,26 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext, useEffect } from "react";
 import { Button, Container, Grid } from '@mui/material';
 
-// let flag = true;
-// let flag2 = true;
-
 const RequestStatus = () => {
 
         const { user } = useContext(AuthContext);
         const navigate = useNavigate();
-        
+
         useEffect(() => {
-        if (!user.email) {
-                // flag = false;
-                // flag2 = false;
-                user.isrender = false;
-                navigate('/UserStatus');
-        }
+                if (!user.email) {
+                        user.isRender = false;
+                        navigate('/UserStatus');
+                }
 
-        // if (user.isLoggedIn && flag && flag2) {
-        //         window.location.pathname = '/RequestStatus';
-        //                 if (flag) {
-        //                         flag = false;
-        //                         flag2 = false;
-        //                         window.history.pushState({}, "", "/#/RequestStatus");
-        //                 }
-        // }
-
-        // if (user.isLoggedIn) {
-        //         window.location.pathname = '/RequestStatus';
-        //                 if ( user.isrender) {
-        //                         user.isrender = false;
-        //                         window.history.pushState({}, "", "/#/RequestStatus");
-        //                 }
-        // }
-        
+                if (user.isLoggedIn) {
+                        window.location.pathname = '/RequestStatus';
+                        if (user.isRender) {
+                                user.isRender = false;
+                                window.history.pushState({}, "", "/#/RequestStatus");
+                        }
+                }
         }, [user, navigate]);
-        
+
         return (
                 <>
                         <Container sx={{ mt: "200px" }}>
@@ -88,32 +73,3 @@ const RequestStatus = () => {
 };
 
 export default RequestStatus;
-
-/*
-<div>
-                                <button>
-                                        <Link className='link' to='/ImageForm' state={{ status: "lost" }}>איבדתי</Link>
-                                </button>
-                                <br />
-
-                                <button>
-                                        <Link className='link' to='/ImageForm' state={{ status: "found" }}>מצאתי</Link>
-                                </button>
-                        </div>*/
-                        
- // if (user.isLoggedIn && flag && flag2) {
-                //         window.location.pathname = '/RequestStatus';
-                //         if (flag) {
-                //                 flag = false;
-                //                 flag2 = false;
-                //                 window.history.pushState({}, "", "/#/RequestStatus");
-                //         }
-                // }
-
-                // if (user.isLoggedIn) {
-                //         if (flag) {
-                //                 flag = false;
-                //                 window.location.pathname = '/RequestStatus';
-                //                 window.history.pushState({}, "", "/#/RequestStatus");
-                //         }
-                // }
