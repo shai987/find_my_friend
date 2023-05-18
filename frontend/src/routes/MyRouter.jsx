@@ -8,7 +8,7 @@ import {
         Link,
 } from 'react-router-dom';
 // import libraries from react
-import { useState, useContext, forwardRef, useEffect } from "react";
+import { useState, useContext, forwardRef } from "react";
 // import libraries from material-ui
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -28,14 +28,12 @@ import UserAccount from '../components/navBar/UserAccount';
 import ContactUs from '../components/navBar/ContactUs';
 import About from '../components/navBar/About';
 import Footer from '../components/footer/Footer';
-import LogOut from '../components/navBar/LogOut';
 import Image from '../components/Image';
 import FindMyPetBreeds from '../components/navBar/FindMyPetBreeds';
 import UserStatus from '../components/forms/UserStatus';
 import SignIn from '../components/forms/SignIn';
 import SignUp from '../components/forms/SignUp';
 import ImageForm from '../components/forms/ImageForm';
-// import PetDetails from '../components/forms/PetDetails';
 import RequestStatus from '../components/forms/RequestStatus';
 import ScrollToTop from '../components/ScrollToTop';
 import SimillarityResult from '../components/forms/SimillarityResult';
@@ -108,7 +106,7 @@ const MyRouter = () => {
         const settings = [
                 { key: 'UserAccount', value: 'אזור אישי' },
                 {
-                        key: 'LogOut',
+                        key: '',
                         value: 'התנתקות',
                         onClick: handleOpen,
                 },
@@ -139,7 +137,7 @@ const MyRouter = () => {
                                                                 ))}
 
                                                                 {/*מכאן זה אייקון של משתמש והתפריט שלו */}
-                                                                {/*  {user.isLoggedIn &&  */}<div id='iconPosition'>
+                                                                {user.isLoggedIn && <div id='iconPosition'>
                                                                         <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
                                                                                 <IconButton onClick={handleOpenUserMenu} sx={{
                                                                                         p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
@@ -153,11 +151,9 @@ const MyRouter = () => {
                                                                                 direction: 'ltr', ml: '-70px', my: '7px', fontSize: '13px'
 
                                                                         }}> {user.first_name + ' ' + user.last_name}</Typography> */}
-                                                                </div>{/* } */}
+                                                                </div>}
 
-
-
-                                                                {/* {user.isLoggedIn && */} <Menu
+                                                                {user.isLoggedIn && <Menu
                                                                         sx={{ mt: "45px" }}
                                                                         id="menu-appbar"
                                                                         anchorEl={user1}
@@ -194,7 +190,7 @@ const MyRouter = () => {
                                                                                         <Button onClick={handleLogout}>כן</Button>
                                                                                 </DialogActions>
                                                                         </Dialog>
-                                                                </Menu>{/* } */}
+                                                                </Menu>}
                                                         </Toolbar>
                                                 </Container>
                                         </AppBar>
@@ -203,7 +199,6 @@ const MyRouter = () => {
                                                 <Route path='/UserAccount' element={<UserAccount />}></Route>
                                                 <Route path='/ContactUs' element={<ContactUs />}></Route>
                                                 <Route path='/About' element={<About />}></Route>
-                                                {/* <Route path='/LogOut' element={<LogOut />}></Route> */}
                                                 <Route path='/FindMyPetBreeds' element={<FindMyPetBreeds />}></Route>
                                                 <Route path='/UserStatus' element={<UserStatus />}></Route>
                                                 <Route path='/SignIn' element={<SignIn />}></Route>
