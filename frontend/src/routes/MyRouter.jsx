@@ -42,8 +42,6 @@ import { AuthContext } from '../context/AuthContext';
 // import css
 import '../assets/css/MyRouter.css';
 
-import { IconName } from "react-icons/fa";
-
 const Transition = forwardRef((props, ref) => {
         return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -187,7 +185,7 @@ const MyRouter = () => {
                                                                                 onClose={handleClose}
                                                                                 aria-describedby="alert-dialog-slide-description"
                                                                         >
-                                                                                <DialogTitle>{"האם לבצע התנתקות מהאתר?🐾" + `< FaBeer />`}</DialogTitle>
+                                                                                <DialogTitle>{"האם לבצע התנתקות מהאתר?🐾"}</DialogTitle>
                                                                                 <DialogActions>
                                                                                         <Button onClick={handleClose}>ביטול</Button>
                                                                                         <Button onClick={handleLogout}>כן</Button>
