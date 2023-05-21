@@ -8,6 +8,7 @@ import mime from 'mime-types';
 import { pet_details_schema } from "../models/pet_details.js";
 import { validationResult } from "express-validator";
 import { } from "dotenv/config";
+import { ObjectID } from "bson";
 
 
 
@@ -132,13 +133,20 @@ export const handlePetDetails = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.length);
         const docs_arr = [];
         for (let i = 0; i < response.data.length; i++) {
-          const queryDoc = newPet_model.findById( response.data[i])
-          console.log(queryDoc);
-          docs_arr.push(queryDoc)
-        }
+          newPet_model.findById(response.data[i]) //הבעיה זה הא-סינכרוניות
+          .then((doc) => {
+            if (doc) {
+              console.log("hi")
+              //console.log('Found document:', doc);
+              docs_arr.push(doc)
+            } else {
+              console.log('Document not found');
+            }
+        })}
+        console.log(docs_arr);
         res.json(docs_arr);
 
       });
