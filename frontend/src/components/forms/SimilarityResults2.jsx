@@ -1,19 +1,19 @@
-import React, {forwardRef, useState, useEffect, useContext } from "react";
+import React, { forwardRef, useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Link } from 'react-router-dom';
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import Box from '@mui/material/Box';
 import axios from "axios";
 import "../../assets/css/Similarity2.css";
 import { AuthContext } from '../../context/AuthContext';
 
 
 const Transition = forwardRef((props, ref) => {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const SimillarityResult2 = () => {
   const location = useLocation();
@@ -41,96 +41,103 @@ const SimillarityResult2 = () => {
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % sliders.length);
-  }; 
+  };
   // % for returning to the beginning when it reaches the end of the array
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? sliders.length - 1 : prevIndex - 1
-    ); 
+    );
   };
-// if the first item is presented move to the last item of the array
-const handleClick = async (e) => {
+  // if the first item is presented move to the last item of the array
+  const handleClick = async (e) => {
     //e.preventDefault();
     //let formData = new FormData();
     //formData.append('file', image.data);
     setOpen(true);
     try {
-            // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
-            console.log(sliders[currentIndex].userEmail)
-            const res = await axios.post('/conactParents', {email: sliders[currentIndex].userEmail}); 
-            console.log(res.data);
-            setUser(res.data);
+      // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
+      console.log(sliders[currentIndex].userEmail);
+      const res = await axios.post('/conactParents', { email: sliders[currentIndex].userEmail });
+      console.log(res.data);
+      setUser(res.data);
     } catch (err) {
-            console.log(err);
+      console.log(err);
     }
-};
+  };
 
-const handleClose = () => {
-setOpen(false);
-};
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-return (
+  return (
     <>
-   <article className="con">
-      <div>
+      <article className="con">
+        <div>
 
-        {sliders.length > 1 && (
-          <button onClick={nextSlide} className="right-button"><i className="fa fa-angle-double-right" /></button>
-        )}
+          {sliders.length > 1 && (
+            <button onClick={nextSlide} className="right-button"><i className="fa fa-angle-double-right" /></button>
+          )}
         </div>
         <div>
-        {sliders.length > 0 && (
-          <div>
-            {/*<img
+          {sliders.length > 0 && (
+            <div>
+              {/*<img
                       src={`data:${sliders[currentIndex].img.contentType};base64,${Buffer.from(sliders[currentIndex].img.data.data).toString('base64')}`}
                       title={sliders[currentIndex].petName}
                       alt={sliders[currentIndex].petName}
                       className="person-img"
                       width="30"
         />*/}
-            <h2>{sliders[currentIndex].petName}</h2>
-            <p>סוג החיה: {sliders[currentIndex].petType == "dog" ? "כלב" : "חתול"}</p>
-            <p >מין: {sliders[currentIndex].petGender == "M" ? "זכר" : "נקבה"}</p>
-            <p >גזע: {sliders[currentIndex].petBreeds}</p>
-            <p> מיקום: {sliders[currentIndex].location} </p>
-            {sliders[currentIndex].note&&<p >{sliders[currentIndex].note}</p>}
-            <div>
-                        <Button onClick={handleClick}>
-                                צור קשר
-                        </Button>
-                        <Dialog
-                                open={open}
-                                TransitionComponent={Transition}
-                                keepMounted
-                                onClose={handleClose}
-                                aria-describedby="alert-dialog-slide-description"
-                        >
-                                <DialogTitle>{`שם: ${userDetails.first_name} ${userDetails.last_name}`}</DialogTitle>
-                                <DialogTitle>{`דוא"ל: ${userDetails.email}`}</DialogTitle>
-                                {userDetails.phone_number&&
-                                 <DialogTitle>{`טלפון: ${userDetails.phone_number}`}</DialogTitle>
-                                }
-                                
-                         </Dialog>
-                </div>
-          </div>
-        )}
+              <h2>{sliders[currentIndex].petName}</h2>
+              <p>סוג החיה: {sliders[currentIndex].petType == "dog" ? "כלב" : "חתול"}</p>
+              <p >מין: {sliders[currentIndex].petGender == "M" ? "זכר" : "נקבה"}</p>
+              <p >גזע: {sliders[currentIndex].petBreeds}</p>
+              <p> מיקום: {sliders[currentIndex].location} </p>
+              {sliders[currentIndex].note && <p >{sliders[currentIndex].note}</p>}
+              <div>
+                <Button onClick={handleClick}>
+                  צור קשר
+                </Button>
+                <Dialog
+                  open={open}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={handleClose}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <DialogTitle>{`שם: ${userDetails.first_name} ${userDetails.last_name}`}</DialogTitle>
+                  <DialogTitle>{`דוא"ל: `}
+                    <a href={`mailto:${userDetails.email}`}>{userDetails.email}</a>
+                  </DialogTitle>
+                  {userDetails.phone_number &&
+                    <DialogTitle>{`טלפון: `}
+                      <a href={`tel:${userDetails.phone_number}`}>{userDetails.phone_number}</a>
+                    </DialogTitle>
+                  }
+                </Dialog>
+              </div>
+            </div>
+          )}
         </div>
         <div>
-        {sliders.length > 1 && (
-          <button onClick={prevSlide}  className="left-button"><i className="fa fa-angle-double-left" /></button>
-        )}
-      </div>
-   </article>
-   <br></br>
-   <div className="btnX">
-   {user.email && <Link to='/UserAccount'>
-              <Button variant="contained">למעבר לאזור האישי</Button>
-            </Link>}
-   </div>
+          {sliders.length > 1 && (
+            <button onClick={prevSlide} className="left-button"><i className="fa fa-angle-double-left" /></button>
+          )}
+        </div>
+      </article>
+      <br></br>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {user.isLoggedIn && <Link to='/UserAccount'>
+          <Button variant="contained" >למעבר לאזור האישי</Button>
+        </Link>}
+      </Box >
     </>
-)
+  )
 
 };
 

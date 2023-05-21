@@ -57,43 +57,34 @@ const PetDetails2 = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user.email) {
-            user.isRender = false;
-            navigate('/UserStatus');
+    if (!user.isLoggedIn) {
+      navigate('/UserStatus');
     }
+  }, [user, navigate]);
 
-    if (user.isLoggedIn) {
-            window.location.pathname = '/RequestStatus';
-            if (user.isRender) {
-                    user.isRender = false;
-                    window.history.pushState({}, "", "/#/RequestStatus");
-            }
-    }
-}, [user, navigate]);
+  useEffect(() => {
 
-useEffect(() => {
-      
-}, [nameErr]);
+  }, [nameErr]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!formData.petName || !formData.location || !formData.petGender){
-        if(!formData.petName){
-            setText("אוי, נראה ששכחת להזין שם חיה")
-            setNameErr(true)
-        }
-        else if(!formData.location){
-            setText("אוי, נראה ששכחת להזין מיקום")
-            setLocationError(true)
-        }
-        else if(!formData.petGender){
-            setText("אוי, נראה ששכחת להזין את מין החיה")
-            setGenderError(true)
-        }
-        setFlag(true)
-        return
+    if (!formData.petName || !formData.location || !formData.petGender) {
+      if (!formData.petName) {
+        setText("אוי, נראה ששכחת להזין שם חיה")
+        setNameErr(true)
+      }
+      else if (!formData.location) {
+        setText("אוי, נראה ששכחת להזין מיקום")
+        setLocationError(true)
+      }
+      else if (!formData.petGender) {
+        setText("אוי, נראה ששכחת להזין את מין החיה")
+        setGenderError(true)
+      }
+      setFlag(true)
+      return
     }
-    
+
     setLoading(true);
     if (loading) {
       <Loader />;
@@ -176,7 +167,7 @@ useEffect(() => {
               מילוי פרטים מזהים
             </Typography>
             {flag && <div><br></br><br></br> <Alert severity="error">{textErr}</Alert></div>}
-           
+
 
             <Box
               component="form"
@@ -184,9 +175,9 @@ useEffect(() => {
               noValidate
               sx={{ mt: 1 }}
             >
-              
+
               <TextField
-                error = {nameErr}
+                error={nameErr}
                 margin="normal"
                 required
                 fullWidth
@@ -196,7 +187,7 @@ useEffect(() => {
                 autoComplete="petName"
                 autoFocus
                 value={formData.petName}
-                onChange={handleChange}          
+                onChange={handleChange}
               />
 
               <FormControl required>
@@ -280,11 +271,11 @@ useEffect(() => {
               <Button
                 type="submit"
                 variant="contained"
-                sx={{ mt: 3, mb: 2, display: "block", margin: "0 auto", backgroundColor: "hsl(113, 34%, 42%)"}}>
-                    {request.status === "lost"
-                      ? "תמצא לי את הילד"
-                      : "חפש את ההורים"}
-                </Button>
+                sx={{ mt: 3, mb: 2, display: "block", margin: "0 auto", backgroundColor: "hsl(113, 34%, 42%)" }}>
+                {request.status === "lost"
+                  ? "תמצא לי את הילד"
+                  : "חפש את ההורים"}
+              </Button>
             </Box>
           </Box>
         </Container>

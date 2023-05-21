@@ -1,7 +1,7 @@
 // import libraries from react
 import { useState, useEffect, useContext } from 'react';
 // import react-router-dom
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import libraries from material-ui
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
@@ -36,10 +36,11 @@ const formatDate = (dateString) => {
 }
 
 const UserAccount = () => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   //const [imageUrl, setImageUrl] = useState(null);
 
-  const [requests, setRequests] = useState([])
+  const [requests, setRequests] = useState([]);
   //const [response, setResponse] = useState("");
 
   useEffect(() => {
@@ -52,7 +53,13 @@ const UserAccount = () => {
       .catch(error => console.error(error));
   }, []);
 
-  console.log(requests.length)
+  console.log(requests.length);
+
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   return (
     <>
