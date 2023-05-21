@@ -150,7 +150,72 @@ export default SimillarityResult;
 
 
 
+/*
+const staticSliders = [
+    {
+      name: 'Slider 1'
+    },
+    {
+      name: 'Slider 2'
+    },
+    {
+      name: 'Slider 3'
+    },
+  ];
 
+  const [sliders] = useState(staticSliders);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    sliders.length > 1 &&
+      setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % sliders.length);
+      }, 6000); 
+// % moves to the beginning of the array when it reaches the end of the array
+    return () => clearInterval();
+  }, [sliders.length]); 
+// whenever there's a change in the length of the results the setinterval is executed
+
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % sliders.length);
+  }; 
+  // % for returning to the beginning when it reaches the end of the array
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? sliders.length - 1 : prevIndex - 1
+    ); 
+  };
+// if the first item is presented move to the last item of the array
+  console.log(sliders[currentIndex]);
+
+  return (
+    <>
+   <div className="con">
+      <div>
+        {sliders.length > 1 && (
+          <button onClick={nextSlide} className="right-button"><i className="fa fa-angle-double-right" /></button>
+        )}
+        </div>
+        <div>
+        {sliders.length > 0 && (
+          <div>
+            <h2>{sliders[currentIndex].name}</h2>
+          </div>
+        )}
+        </div>
+        <div>
+        {sliders.length > 1 && (
+          <button onClick={prevSlide}  className="left-button"><i className="fa fa-angle-double-left" /></button>
+        )}
+      </div>
+   </div>
+    </>
+  );
+
+
+*/
 
 
 

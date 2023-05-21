@@ -16,12 +16,12 @@ const RequestStatus = () => {
         const navigate = useNavigate();
 
         useEffect(() => {
-                if (!user.email) {
+                if (!user.isLoggedIn) {
                         user.isRender = false;
                         navigate('/UserStatus');
                 }
 
-                if (user.isLoggedIn) {
+                else {
                         window.location.pathname = '/RequestStatus';
                         if (user.isRender) {
                                 user.isRender = false;
@@ -37,6 +37,7 @@ const RequestStatus = () => {
                                         <Grid item>
                                                 <Button
                                                         variant="contained"
+                                                        color="success"
                                                         sx={{
                                                                 width: "200px",
                                                                 height: "80px",

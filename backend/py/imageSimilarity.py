@@ -8,6 +8,7 @@ import bson.json_util as json_util
 from io import BytesIO
 from PIL import Image
 from scipy.spatial import distance
+from bson.json_util import dumps
 
 # connection URL and database name
 url = 'mongodb://127.0.0.1:27017'
@@ -47,7 +48,6 @@ class imageSimilarityClass :
                 metric = 'cosine'
                 dir_list = os.listdir("../pets")
                 test_image_address = f"../pets/{dir_list[0]}"
-                print(test_image_address)
                 test_image = self.imagePreprocessing(test_image_address)
                 print(petType)
                 if(status == "found"):
@@ -57,13 +57,12 @@ class imageSimilarityClass :
                 
                 filter = {'petType': petType, "status": status}
                 # get a cursor to iterate over the documents in the collection
-                cursor = collection.find(filter)
-                matching_docs = []
+                documents = list(collection.find(filter))
+                #cursor = collection.find(filter)
+                matching_docs_ids = []
                 # iterate over the documents and process one image at a time
-                for doc in cursor:
+                for doc in documents:
                         # get the image buffer from the document
-                        print(type(doc["_id"]))
-                        print(type(docID))
                         if str(doc["_id"]) == docID:
                                 continue
                         image_buffer = doc['img']['data']
@@ -71,10 +70,15 @@ class imageSimilarityClass :
                         dc = distance.cdist([test_image], [matching_image], metric)[0]
                         result = dc[0]
                         if(result < 0.4): 
-                                matching_docs.append(doc) 
+
+                                matching_docs_ids.append(str(doc["_id"])) 
+                                print(doc["_id"])
                         print(result)              
                                 # resultArray.append(result) 
-                result_json = json.loads(json_util.dumps(matching_docs))
+               #result_json = json.loads(json_util.dumps(matching_docs))
+                
+                result_json = dumps(matching_docs_ids)
+                print(result_json)
                 return result_json     
 
 

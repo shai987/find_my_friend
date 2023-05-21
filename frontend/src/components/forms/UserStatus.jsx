@@ -41,6 +41,7 @@ const UserStatus = () => {
           <Grid item>
             <Button
               variant="contained"
+              color="success"
               sx={{
                 width: '200px',
                 height: '80px',
