@@ -152,7 +152,7 @@ export const handleUserInfo = async (req, res) => {
                 const query = newPet_model.find({ userEmail: email })
                 const result = await query.exec();
                 // console.log(result);
-                console.log("r:")
+                console.log(result)
                 res.json(result);
         }
         catch (err) {

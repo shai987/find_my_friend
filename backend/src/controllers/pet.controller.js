@@ -133,7 +133,14 @@ export const handlePetDetails = async (req, res) => {
       )
       .then((response) => {
         console.log(response.data);
-        res.json(response.data);
+        const docs_arr = [];
+        for (let i = 0; i < response.data.length; i++) {
+          const queryDoc = newPet_model.findById( response.data[i])
+          console.log(queryDoc);
+          docs_arr.push(queryDoc)
+        }
+        res.json(docs_arr);
+
       });
   } catch (err) {
     res.json(err.message);

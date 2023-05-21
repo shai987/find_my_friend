@@ -94,6 +94,7 @@ const SimillarityResult2 = () => {
               <p >מין: {sliders[currentIndex].petGender == "M" ? "זכר" : "נקבה"}</p>
               <p >גזע: {sliders[currentIndex].petBreeds}</p>
               <p> מיקום: {sliders[currentIndex].location} </p>
+              {console.log(sliders[currentIndex].img)}
               {sliders[currentIndex].note && <p >{sliders[currentIndex].note}</p>}
               <div>
                 <Button onClick={handleClick}>

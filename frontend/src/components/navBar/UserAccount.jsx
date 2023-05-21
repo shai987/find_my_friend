@@ -104,6 +104,7 @@ const UserAccount = () => {
                   >
                     <TableCell align="center">{request.petType}</TableCell>
                     <TableCell align="center">{request.petName}</TableCell>
+                    {console.log(request.img)}
                     <TableCell align="center"><img
                       src={`data:${request.img.contentType};base64,${Buffer.from(request.img.data.data).toString('base64')}`}
                       title={request.petName}
