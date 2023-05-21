@@ -126,15 +126,16 @@ export const handleGetAllUsers = async (req, res) => {
 }
 
 export const handleContactUser = async (req, res) => {
+        console.log(req.body)
         const { email } = req.body;
-        console.log(email);
         try {
                 db_user_details.query('SELECT email, first_name, last_name, phone_number FROM users WHERE email = ?', [email], (err, result) => {
                         if (err) {
                                 res.send(err.message);
                                 console.log(err.message);
                         }
-                        res.send(result);
+                        console.log(result[0])
+                        res.send(result[0]);
                 });
         }
         catch (err) {

@@ -7,6 +7,8 @@ import Loader from "../Loader";
 import { AuthContext } from "../../context/AuthContext";
 import { UserRequestContext } from "../../context/UserRequestContext";
 import '../../assets/css/petDetails.css';
+
+
 /*import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';*/
 
@@ -54,7 +56,8 @@ const PetDetails = (props) => {
       if (res.data.length !== 0) {
         //setSimilarPets(res.data);
         //setMessage("V")
-        navigate("/SimillarityResult", {
+        console.log(res.data)
+        navigate("/SimillarityResult2", {
           state: {
             similarPets: res.data,
           },
@@ -65,7 +68,7 @@ const PetDetails = (props) => {
             petType: pet_type,
           },
         });
-      }
+      }p
     } catch (err) {
       setLoading(false);
       handleErrors(err);
@@ -204,88 +207,4 @@ const PetDetails = (props) => {
 
 export default PetDetails;
 
-/*
-<div>
-        <form onSubmit={handleSubmit} className="form">
-          <h1>טופס מילוי פרטים</h1>
-          <AlertSuccess success={formSuccess} />
-          <AlertError errors={formErrors} />
-          <div>
-           //
-            <label htmlFor="">שם החיה</label>
-            <input
-              type="text"
-              name="petName"
-              value={formData.petName}
-              onInput={handleChange}
-            />
-          </div>
-          <div>
-            <p>סוג החיה</p>
-            <label htmlFor="">חתול</label>
-            <input
-              type="radio"
-              name="petType"
-              value="cat"
-              checked={formData.petType === "cat"}
-              onChange={handleChange}
 
-            />
-            <label htmlFor="">כלב</label>
-            <input
-              type="radio"
-              name="petType"
-              value="dog"
-              checked={formData.petType === "dog"}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <p>מין החיה</p>
-            <label htmlFor="">נקבה</label>
-            <input
-              type="radio"
-              name="petGender"
-              value="F"
-              onChange={handleChange}
-            />
-            <label htmlFor="">זכר</label>
-            <input
-              type="radio"
-              name="petGender"
-              className="input"
-              value="M"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="">גזע החיה</label>
-            <textarea disabled cols="20" rows="10"
-              name="petBreeds"
-              value={formData.petBreeds}
-              onInput={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="">{request.status === "lost" ? "המקום בו אבד" : "המקום בו נמצא"}</label>
-            <input
-              type="text"
-              name="location"
-              className="input"
-              value={formData.location}
-              onInput={handleChange}
-
-            />
-            <div>
-              <label htmlFor="">הערות</label>
-              <textarea cols="20" rows="10"
-                name="note"
-                value={formData.note}
-                onInput={handleChange}
-              />
-            </div>
-          </div>
-          <input type="submit" className="button" value={request.status === "lost" ? "תמצא לי את הילד" : "חפש את ההורים"} />
-        </form>
-      </div>
-*/

@@ -37,6 +37,7 @@ import ImageForm from '../components/forms/ImageForm';
 import RequestStatus from '../components/forms/RequestStatus';
 import ScrollToTop from '../components/ScrollToTop';
 import SimillarityResult from '../components/forms/SimillarityResult';
+import SimillarityResult2 from '../components/forms/SimilarityResults2';
 import NoResults from '../components/forms/NoResults';
 import { AuthContext } from '../context/AuthContext';
 // import css
@@ -207,6 +208,7 @@ const MyRouter = () => {
                                                 <Route path='/ImageForm' element={<ImageForm />}></Route>
                                                 <Route path='/RequestStatus' element={<RequestStatus />}></Route>
                                                 <Route path='/SimillarityResult' element={<SimillarityResult />}></Route>
+                                                <Route path='/SimillarityResult2' element={<SimillarityResult2/>}></Route>
                                                 <Route path='/NoResults' element={<NoResults />}></Route>
                                                 {/* If the user go to not exsist path it would take him back to "/" */}
                                                 <Route path="*" element={<Navigate to="#" />}></Route>

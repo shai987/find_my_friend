@@ -47,7 +47,6 @@ class imageSimilarityClass :
                 metric = 'cosine'
                 dir_list = os.listdir("../pets")
                 test_image_address = f"../pets/{dir_list[0]}"
-                print(test_image_address)
                 test_image = self.imagePreprocessing(test_image_address)
                 print(petType)
                 if(status == "found"):
