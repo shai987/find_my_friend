@@ -9,10 +9,12 @@ from io import BytesIO
 from PIL import Image
 from scipy.spatial import distance
 from bson.json_util import dumps
+from dotenv import load_dotenv
+load_dotenv()
 
 # connection URL and database name
-url = 'mongodb://127.0.0.1:27017'
-db_name = 'findMyFriend'
+url = os.getenv("URL")
+db_name = os.getenv("DB_NAME")
 
 # connect to the database
 client = pymongo.MongoClient(url)
