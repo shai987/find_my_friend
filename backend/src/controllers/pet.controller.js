@@ -125,34 +125,58 @@ export const handlePetDetails = async (req, res) => {
   try {
 
     // flask
-    axios
-      .get(
-        `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}&docID=${documentID}&status=${status}`,
-        {
-          responseType: "json",
-        }
-      )
-      .then((response) => {
-        console.log(response.data.length);
-        const docs_arr = [];
-        for (let i = 0; i < response.data.length; i++) {
-          newPet_model.findById(response.data[i]) //הבעיה זה הא-סינכרוניות
-          .then((doc) => {
-            if (doc) {
-              console.log("hi")
-              //console.log('Found document:', doc);
-              docs_arr.push(doc)
-            } else {
-              console.log('Document not found');
-            }
-        })}
-        console.log(docs_arr);
-        res.json(docs_arr);
-
-      });
+    const response = axios.get(
+      `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}&docID=${documentID}&status=${status}`,
+      {
+        responseType: "json",
+      }
+    );
+    console.log(response.data.length);
+    const docs_arr = [];
+    for (let i = 0; i < response.data.length; i++) {
+      const doc = await newPet_model.findById(response.data[i]);
+      if (doc) {
+        console.log("hi")
+        //console.log('Found document:', doc);
+        docs_arr.push(doc)
+      } else {
+        console.log('Document not found');
+      }
+    }
+    console.log(docs_arr);
+    res.json(docs_arr);
   } catch (err) {
     res.json(err.message);
   }
+
+  //   axios
+  //     .get(
+  //       `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}&docID=${documentID}&status=${status}`,
+  //       {
+  //         responseType: "json",
+  //       }
+  //     )
+  //     .then((response) => {
+  //       console.log(response.data.length);
+  //       const docs_arr = [];
+  //       for (let i = 0; i < response.data.length; i++) {
+  //         newPet_model.findById(response.data[i]) //הבעיה זה הא-סינכרוניות
+  //         .then((doc) => {
+  //           if (doc) {
+  //             console.log("hi")
+  //             //console.log('Found document:', doc);
+  //             docs_arr.push(doc)
+  //           } else {
+  //             console.log('Document not found');
+  //           }
+  //       })}
+  //       console.log(docs_arr);
+  //       res.json(docs_arr);
+
+  //     });
+  // } catch (err) {
+  //   res.json(err.message);
+  // }
 
   //res.status(200).json({ message: "The server received the data" });
 };
