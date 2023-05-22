@@ -1,3 +1,6 @@
+import { Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+
 import '../../assets/css/HowTheSiteWork.css'
 const HowTheSiteWork = () => {
         return (
@@ -34,6 +37,15 @@ const HowTheSiteWork = () => {
                                         <p>חזרו עם בעל החיים <br></br>בבטחה הביתה</p>
                                 </div>
                         </div>
+                        <br></br>
+                        <div id="startSearchDiv">
+                                <h2>שנתחיל בחיפושים?</h2>
+                                <br></br>
+                                <Button id="buttonStart" component={Link}
+                                        to="/UserStatus"><b>צא לדרך!</b>
+                                </Button>
+                        </div>
+
                 </>
         );
 }

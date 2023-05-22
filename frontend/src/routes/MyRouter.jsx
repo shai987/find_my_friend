@@ -186,7 +186,7 @@ const MyRouter = () => {
                                                                                 onClose={handleClose}
                                                                                 aria-describedby="alert-dialog-slide-description"
                                                                         >
-                                                                                <DialogTitle>{"האם לבצע התנתקות מהאתר?😺"}</DialogTitle>
+                                                                                <DialogTitle>{"האם לבצע התנתקות מהאתר?🐾"}</DialogTitle>
                                                                                 <DialogActions>
                                                                                         <Button onClick={handleClose}>ביטול</Button>
                                                                                         <Button onClick={handleLogout}>כן</Button>
