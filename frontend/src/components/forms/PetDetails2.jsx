@@ -177,6 +177,17 @@ const PetDetails2 = (props) => {
             >
 
               <TextField
+                sx={{
+                  "& label": {
+                    left: "unset",
+                    right: "1.75rem",
+                    transformOrigin: "right",
+                  },
+                  "& legend": {
+                    textAlign: "right",
+                    fontSize: "0.7rem",
+                  },
+                }}
                 error={nameErr}
                 margin="normal"
                 required
@@ -229,6 +240,17 @@ const PetDetails2 = (props) => {
               </FormControl>
 
               <TextField
+                sx={{
+                  "& label": {
+                    left: "unset",
+                    right: "1.75rem",
+                    transformOrigin: "right",
+                  },
+                  "& legend": {
+                    textAlign: "right",
+                    fontSize: "0.7rem",
+                  },
+                }}
                 variant="outlined"
                 multiline
                 rows={3}
@@ -242,6 +264,17 @@ const PetDetails2 = (props) => {
               />
 
               <TextField
+                sx={{
+                  "& label": {
+                    left: "unset",
+                    right: "1.75rem",
+                    transformOrigin: "right",
+                  },
+                  "& legend": {
+                    textAlign: "right",
+                    fontSize: "0.7rem",
+                  },
+                }}
                 margin="normal"
                 required
                 fullWidth
@@ -257,6 +290,17 @@ const PetDetails2 = (props) => {
               />
 
               <TextField
+                sx={{
+                  "& label": {
+                    left: "unset",
+                    right: "1.75rem",
+                    transformOrigin: "right",
+                  },
+                  "& legend": {
+                    textAlign: "right",
+                    fontSize: "0.65rem",
+                  },
+                }}
                 margin="normal"
                 fullWidth
                 id="note"
