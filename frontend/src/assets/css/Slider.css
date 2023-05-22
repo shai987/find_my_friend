@@ -1,26 +1,12 @@
 
 .title h2, .person-img h4 {
-  letter-spacing: 1.6px;
-  text-transform: capitalize;
-  line-height: 1.25;
-  margin-bottom: 12px;
-}
+  margin-bottom: 20px;
+} 
 
 .section {
   width: 90vw;
   margin: 80px auto;
-  max-width: 1170px;
-}
-
-@media screen and (min-width: 992px) {
-  .section {
-    width: 95vw;
-  }
-}
-
-.icon {
-  font-size: 48px;
-  color: hsl(188, 13%, 55%);
+  max-width: 1200px;
 }
 
 .section-center {
@@ -42,7 +28,6 @@
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: all 0.3s linear;
 }
 
 article.activeSlide {
@@ -63,7 +48,6 @@ article.nextSlide {
   margin-bottom: 16px;
   width: 150px;
   height: 150px;
-  object-fit: cover;
   border: 4px solid hsl(210, 31%, 80%);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -74,44 +58,31 @@ article h4 {
 }
 
 .title {
-  text-transform: capitalize;
   margin-bottom: 12px;
   color: hsl(209, 34%, 30%);
-}
-
-.title {
   text-align: center;
   margin-bottom: 32px;
-}
-
-.title h2 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
 }
 
 .text {
   max-width: 560px;
   margin: 0 auto;
   margin-top: 32px;
-  line-height: 2;
 }
 
 .prev,
 .next {
-  position: absolute;
+  width: 32px;
+  height: 32px;
+  font-size: 24px;
+  border-radius: 4px;
   top: 200px;
-  transform: translateY(-50%);
   background: hsl(210, 22%, 49%);
-  color: #fff;
-  width: 20px;
-  height: 20px;
+  color: hsl(0, 0%, 100%);
+  position: absolute; 
   display: grid;
   place-items: center;
   border-color: transparent;
-  font-size: 16px;
-  border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s linear;
 }
@@ -129,15 +100,4 @@ article h4 {
   right: 0;
 }
 
-@media (min-width: 800px) {
-  .text {
-    max-width: 720px;
-  }
 
-  .prev,
-  .next {
-    width: 32px;
-    height: 32px;
-    font-size: 24px;
-  }
-}
