@@ -72,13 +72,10 @@ class imageSimilarityClass :
                         dc = distance.cdist([test_image], [matching_image], metric)[0]
                         result = dc[0]
                         if(result < 0.4): 
-
                                 matching_docs_ids.append(str(doc["_id"])) 
                                 print(doc["_id"])
                         print(result)              
-                                # resultArray.append(result) 
-               #result_json = json.loads(json_util.dumps(matching_docs))
-                
+                               
                 result_json = dumps(matching_docs_ids)
                 print(result_json)
                 return result_json     

@@ -4,13 +4,11 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import * as fsExtra from "fs-extra";
-import mime from 'mime-types';
+import mime from "mime-types";
 import { pet_details_schema } from "../models/pet_details.js";
 import { validationResult } from "express-validator";
-import { } from "dotenv/config";
+import {} from "dotenv/config";
 import { ObjectID } from "bson";
-
-
 
 const localhost = process.env.LOCAL_HOST;
 const flask_port = process.env.FLASK_PORT || 5000;
@@ -84,17 +82,26 @@ export const handlePetDetails = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { userEmail, petName, petType, petGender, petBreeds, location, status, note } = req.body;
+  const {
+    userEmail,
+    petName,
+    petType,
+    petGender,
+    petBreeds,
+    location,
+    status,
+    note,
+  } = req.body;
 
   // get photo file name
-  const directoryPath = 'pets';
+  const directoryPath = "pets";
   let filenames = [];
   let fileName = "";
   if (fs.existsSync(directoryPath)) {
     filenames = fs.readdirSync(directoryPath);
-    fileName = filenames[0]
+    fileName = filenames[0];
   } else {
-    console.log('Directory does not exist');
+    console.log("Directory does not exist");
   }
 
   const imagePath = `${directoryPath}/${fileName}`;
@@ -108,12 +115,12 @@ export const handlePetDetails = async (req, res) => {
     location: location,
     img: {
       data: fs.readFileSync(`pets/${fileName}`),
-      contentType: contentType
+      contentType: contentType,
     },
     note: note,
     status: status,
     userEmail: userEmail,
-    note: note
+    note: note,
   };
 
   const newPet = new newPet_model(obj);
@@ -123,61 +130,31 @@ export const handlePetDetails = async (req, res) => {
 
   // Handle the data:
   try {
-
     // flask
-    const response = axios.get(
+    const response = await axios.get(
       `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}&docID=${documentID}&status=${status}`,
       {
         responseType: "json",
       }
     );
-    console.log(response.data.length);
-    const docs_arr = [];
-    for (let i = 0; i < response.data.length; i++) {
-      const doc = await newPet_model.findById(response.data[i]);
-      if (doc) {
-        console.log("hi")
-        //console.log('Found document:', doc);
-        docs_arr.push(doc)
-      } else {
-        console.log('Document not found');
-      }
+    console.log("length is" + response.data.length);
+    // We got an array of docs IDs, so we need to retreive each one.
+    // In order to achieve that, the most efficient way is by using the Promise.all func (because retreiving a doc returns a promise)
+    // the method returns a single promise
+    // at the the end we get an array of docs
+    try {
+      const docPromises = response.data.map(async (docId) => {
+        const doc = await newPet_model.findById(docId);
+        return doc ? doc : "Document not found";
+      });
+      const docs_arr = await Promise.all(docPromises);
+      res.json(docs_arr);
+    } catch (err) {
+      res.json(err.message);
     }
-    console.log(docs_arr);
-    res.json(docs_arr);
   } catch (err) {
     res.json(err.message);
   }
 
-  //   axios
-  //     .get(
-  //       `http://${localhost}${flask_port}/flask/imageSimilarity?petType=${petType}&docID=${documentID}&status=${status}`,
-  //       {
-  //         responseType: "json",
-  //       }
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data.length);
-  //       const docs_arr = [];
-  //       for (let i = 0; i < response.data.length; i++) {
-  //         newPet_model.findById(response.data[i]) //הבעיה זה הא-סינכרוניות
-  //         .then((doc) => {
-  //           if (doc) {
-  //             console.log("hi")
-  //             //console.log('Found document:', doc);
-  //             docs_arr.push(doc)
-  //           } else {
-  //             console.log('Document not found');
-  //           }
-  //       })}
-  //       console.log(docs_arr);
-  //       res.json(docs_arr);
-
-  //     });
-  // } catch (err) {
-  //   res.json(err.message);
-  // }
-
   //res.status(200).json({ message: "The server received the data" });
 };
-

@@ -62,9 +62,6 @@ const PetDetails2 = (props) => {
     }
   }, [user, navigate]);
 
-  useEffect(() => {
-
-  }, [nameErr]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -143,7 +140,7 @@ const PetDetails2 = (props) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });
+    });  
     setFormErrors([]);
     setFormSuccess("");
   };
