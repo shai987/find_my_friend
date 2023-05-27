@@ -47,5 +47,8 @@ For Flask server you need to change the directory of the project:
 ```bash
 cd backend/py
 ```
-Then you need to specified your file path to the location of the Python executable file on your PC chained with your project path:
+Then you need to specified your file path to the location of the Python executable file on your PC + your project path.
+For example:
+```bash
 "C:\Users\USER\AppData\Local\Programs\Python\Python310\python.exe" "C:\Users\USER\Desktop\final_project_react\find_my_friend\backend\py\flask_server.py"
+```
