@@ -40,7 +40,7 @@ pip install -r requirements.txt
 ```bash
 cd frontend
 ```
-2. 
+  2. Run react server:
 ```bash
 npm start
 ```
