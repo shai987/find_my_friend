@@ -6,16 +6,25 @@
 In this project you need to install:
 
 ### `frontend`
+For react you need to change the directory of the project:
+```bash
+cd frontend
+```
+Then:
 ```bash
 npm install
 ```
 
 ### `backecnd`
-For nodejs you need to run:
+For nodejs you need to change the directory of the project:
+```bash
+cd backecnd
+```
+Then:
 ```bash
 npm install
 ```
-In order to get all python Libraries you need to run:
+For python need to change the directory of the project:
 ```bash
 cd backend/py
 pip install -r requirements.txt
