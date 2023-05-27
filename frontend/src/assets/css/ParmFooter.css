@@ -2,7 +2,7 @@
        direction: ltr;
        margin-right: 30%;
        color: #ffffff;
-       font-size: smaller;
+       font-size: 14px;
 }
 
 .footer_img {
@@ -23,6 +23,7 @@ figcaption {
        text-align: center;
        direction: rtl;
        margin: -20px;
+       font-size: 16px;
 }
 
 a {
