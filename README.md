@@ -36,6 +36,7 @@ pip install -r requirements.txt
 ## Usage
 
 Run react server:
+1. change directory:
 ```bash
 npm start
 ```
@@ -43,7 +44,8 @@ Run nodejs server:
 ```bash
 node app
 ```
-For Flask server you need to change the directory of the project:
+Run flask server: 
+For this you need to change the directory of the project:
 ```bash
 cd backend/py
 ```
