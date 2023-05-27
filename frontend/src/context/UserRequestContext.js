@@ -1,11 +1,12 @@
 import { createContext, useState, useEffect } from "react";
+import Cookies from 'js-cookie';
 
 const initRequest = {
     status: ""
 }
 
 const getInitialState = () => {
-    const request = sessionStorage.getItem("request");
+    const request = Cookies.get("request");
     return request ? JSON.parse(request) : initRequest;
 }
 
@@ -15,13 +16,13 @@ const UserRequestContextProvider = (props) => {
     const [request, setRequest] = useState(getInitialState);
 
     useEffect(() => {
-        sessionStorage.setItem("request", JSON.stringify(request));
+        Cookies.set("request", JSON.stringify(request));
     }, [request]);
 
     const updateStatus = (status) => {
         request.status = status;
         setRequest(request);
-        sessionStorage.setItem("request", JSON.stringify(request));
+        Cookies.set("request", JSON.stringify(request));
     }
 
     return (

@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import "../../assets/css/Similarity2.css";
 import { AuthContext } from '../../context/AuthContext';
+import { Buffer } from "buffer";
+
 
 
 const Transition = forwardRef((props, ref) => {
@@ -82,13 +84,13 @@ const SimillarityResult2 = () => {
         <div>
           {sliders.length > 0 && (
             <div>
-              {/*<img
+              <img
                       src={`data:${sliders[currentIndex].img.contentType};base64,${Buffer.from(sliders[currentIndex].img.data.data).toString('base64')}`}
                       title={sliders[currentIndex].petName}
                       alt={sliders[currentIndex].petName}
                       className="person-img"
                       width="30"
-        />*/}
+        />
               <h2>{sliders[currentIndex].petName}</h2>
               <p>סוג החיה: {sliders[currentIndex].petType == "dog" ? "כלב" : "חתול"}</p>
               <p >מין: {sliders[currentIndex].petGender == "M" ? "זכר" : "נקבה"}</p>

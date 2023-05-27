@@ -15,6 +15,8 @@ import Paper from '@mui/material/Paper';
 // import axios
 import axios from 'axios';
 // import our components
+import { AlertError } from "../views/AlertError";
+import { AlertSuccess } from "../views/AlertSuccess";
 import { AuthContext } from '../../context/AuthContext';
 // import our images
 import cat_dog_hug from '../../assets/images/cat_dog_hug.jpg';
@@ -37,11 +39,10 @@ const formatDate = (dateString) => {
 
 const UserAccount = () => {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
-  //const [imageUrl, setImageUrl] = useState(null);
-
+  const { user, logout } = useContext(AuthContext);
   const [requests, setRequests] = useState([]);
-  //const [response, setResponse] = useState("");
+  const [formErrors, setFormErrors] = useState([]);
+  const [formSuccess, setFormSuccess] = useState("");
 
   useEffect(() => {
     axios.get('/userInfo', {
@@ -61,8 +62,46 @@ const UserAccount = () => {
     }
   }, [user, navigate]);
 
+  const handleDelete = async () => {
+    const confirmed = window.confirm(`היי ${user.first_name} ${user.last_name} האם אתה/את בטוחים שברצונכם למחוק את המשתמש? פעולה זו היא סופית ולא ניתנת לשחזור! `);
+    if (confirmed) {
+      try {
+        const response = await axios.post('/deleteUser', { email: user.email });
+        if (response.data.message) {
+          setFormSuccess("problem");
+        } else {
+          logout();
+          navigate("/UserStatus");
+        }
+      } catch (error) {
+        handleErrors(error);
+        console.log(error.message);
+      }
+    }
+  };
+
+  const handleErrors = (err) => {
+    if (err.response.data && err.response.data.errors) {
+      // Handle validation errors
+      const { errors } = err.response.data;
+
+      let errorMsg = [];
+      for (let error of errors) {
+        const { msg } = error;
+
+        errorMsg.push(msg);
+      }
+
+      setFormErrors(errorMsg);
+    } else {
+      // Handle generic error
+      setFormErrors(["Oops, there was an error!"]);
+    }
+  };
   return (
     <>
+      <AlertSuccess success={formSuccess} />
+      <AlertError errors={formErrors} />
       <div className="userWrapper">
         <div className="userHeading">
           <section className="userText">
@@ -72,6 +111,8 @@ const UserAccount = () => {
             {user.email && <Link to='/RequestStatus'>
               <Button variant="contained">להוספת פנייה</Button>
             </Link>}
+            <br /><br />
+            <Button onClick={handleDelete} variant="contained">מחיקת המשתמש</Button>
           </section>
         </div>
         {requests.length > 0 &&

@@ -1,7 +1,12 @@
+// import libraries from react
 import { useContext, useState } from "react";
+// import react-router-dom
+import { Link, useLocation } from 'react-router-dom';
+// import our components
 import Image from '../Image';
 import { UserRequestContext } from "../../context/UserRequestContext";
-import { useLocation } from "react-router-dom";
+// import css
+import '../../assets/css/NoResults.css';
 
 const NoResults = () => {
         const { request } = useContext(UserRequestContext);
@@ -14,8 +19,8 @@ const NoResults = () => {
                 alt: "Sad cat img",
                 title: "Sad cat img",
                 style: {
-                        height: '500px',
-                        width: '1000px',
+                        height: '300px',
+                        width: '400px',
                 }
         }
         const dog = {
@@ -23,8 +28,8 @@ const NoResults = () => {
                 alt: "Sad dog img",
                 title: "Sad dog img",
                 style: {
-                        height: '500px',
-                        width: '1000px',
+                        height: '300px',
+                        width: '400px',
                 }
         }
 
@@ -32,9 +37,16 @@ const NoResults = () => {
                 "לצערנו לא נמצאה התאמה! תודה רבה על מאמצכם, במידה ותהיה התאמה בהמשך, הורי החיה יצרו עמכם קשר";
 
         return (
-                <div>
+                <div className="basic">
                         <p>{text}</p>
                         <Image img={petType === "cat" ? cat : dog} />
+                        <br></br>
+                        <Link to="/UserAccount">
+                                <button className="buttonMoveToUserAccount" >
+                                        <b>למעבר לאזור האישי</b>
+                                </button>
+                        </Link>
+
                 </div>
         );
 }

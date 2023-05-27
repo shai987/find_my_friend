@@ -109,6 +109,20 @@ export const handleDeleteAllUser = async (req, res) => {
         });
 }
 
+// Delete user
+export const handleDeleteUser = async (req, res) => {
+        const { email } = req.body;
+        db_user_details.query("DELETE FROM users WHERE email = ?", [email], (err, result) => {
+                if (err) {
+                        res.send(err.message);
+                        console.log(err.message);
+                }
+                else {
+                        res.send(result);
+                }
+        });
+}
+
 // Get all users
 export const handleGetAllUsers = async (req, res) => {
         try {

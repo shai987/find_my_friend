@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import Cookies from 'js-cookie';
 
 const initUesr = {
     first_name: "",
@@ -10,7 +11,7 @@ const initUesr = {
 }
 
 const getInitialState = () => {
-    const user = sessionStorage.getItem("user");
+    const user = Cookies.get("user");
     console.log(user);
     return user ? JSON.parse(user) : initUesr;
 }
@@ -22,7 +23,7 @@ const AuthContextProvider = (props) => {
     console.log(user);
 
     useEffect(() => {
-        sessionStorage.setItem("user", JSON.stringify(user));
+        Cookies.set("user", JSON.stringify(user));
     }, [user]);
 
 
@@ -34,12 +35,13 @@ const AuthContextProvider = (props) => {
         user.isLoggedIn = true;
         user.isRender = true;
         setUser(user);
-        sessionStorage.setItem("user", JSON.stringify(user));
+        Cookies.set("user", JSON.stringify(user));
     }
 
     const logout = () => {
         setUser({})
-        sessionStorage.setItem("user", JSON.stringify(user));
+        Cookies.set("user", JSON.stringify(user));
+
     }
 
     const signUp = (first_name, last_name, email, phone_number) => {
@@ -48,7 +50,7 @@ const AuthContextProvider = (props) => {
         user.email = email;
         user.phone_number = phone_number;
         setUser(user);
-        sessionStorage.setItem("user", JSON.stringify(user));
+        Cookies.set("user", JSON.stringify(user));
     }
 
     return (
