@@ -3,7 +3,7 @@
 
 ## Installation
 
-In this project you need to run:
+In this project you need to install:
 
 ### `frontend`
 ```bash
@@ -11,11 +11,11 @@ npm install
 ```
 
 ### `backecnd`
-for nodejs you need to install:
+For nodejs you need to run:
 ```bash
 npm install
 ```
-in order to get all python Libraries you need to run:
+In order to get all python Libraries you need to run:
 ```bash
 cd backend/py pip install -r requirements.txt
 ```
