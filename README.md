@@ -27,6 +27,9 @@ npm install
 For python need to change the directory of the project:
 ```bash
 cd backend/py
+```
+Then:
+```bash
 pip install -r requirements.txt
 ```
 
