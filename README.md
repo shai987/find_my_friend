@@ -17,6 +17,7 @@ npm install
 ```
 In order to get all python Libraries you need to run:
 ```bash
-cd backend/py pip install -r requirements.txt
+cd backend/py
+pip install -r requirements.txt
 ```
 
