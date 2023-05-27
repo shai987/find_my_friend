@@ -35,8 +35,12 @@ pip install -r requirements.txt
 
 ## Usage
 
-Run react server:
+- Run react server:
 1. change directory:
+```bash
+cd frontend
+```
+2. 
 ```bash
 npm start
 ```
