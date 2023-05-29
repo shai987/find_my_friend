@@ -49,16 +49,16 @@ pip install -r requirements.txt
   ```bash
   cd frontend
   ```
- 2. Run nodejs server:
+  2. Run nodejs server:
   ```bash
   node app
   ```
 - Run flask server: 
-1. change directory:
+  1. change directory:
   ```bash
   cd backend/py
   ```
- 2. Run flask server:
+  2. Run flask server:
   ```bash
   python flask_server.py
   ```
