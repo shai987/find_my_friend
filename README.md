@@ -44,17 +44,21 @@ pip install -r requirements.txt
   ```bash
   npm start
   ```
-Run nodejs server:
-```bash
-node app
-```
-Run flask server: 
-For this you need to change the directory of the project:
-```bash
-cd backend/py
-```
-Then you need to specified your file path to the location of the Python executable file on your PC + your project path.
-For example:
-```bash
-"C:\Users\USER\AppData\Local\Programs\Python\Python310\python.exe" "C:\Users\USER\Desktop\final_project_react\find_my_friend\backend\py\flask_server.py"
-```
+- Run nodejs server:
+  1. change directory:
+  ```bash
+  cd frontend
+  ```
+ 2. Run nodejs server:
+  ```bash
+  node app
+  ```
+- Run flask server: 
+1. change directory:
+  ```bash
+  cd backend/py
+  ```
+ 2. Run flask server:
+  ```bash
+  python flask_server.py
+  ```
