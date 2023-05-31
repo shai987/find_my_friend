@@ -1,10 +1,8 @@
 import "../../assets/css/ImageForm.css";
-import { useState, useRef, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useRef } from "react";
 import axios from 'axios';
 import Loader from '../Loader';
 import PetDetails2 from "./PetDetails2";
-import { UserRequestContext } from '../../context/UserRequestContext';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 
@@ -23,11 +21,6 @@ const ImageForm = () => {
 
         const [pet_type, setPetType] = useState("");
         const [pet_breeds, setPetBreeds] = useState("");
-
-        const { updateStatus } = useContext(UserRequestContext);
-        const location = useLocation();
-        const [status] = useState(location.state.status);
-        updateStatus(status);
 
         // handle drag events
         const handleDrag = (e) => {

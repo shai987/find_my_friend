@@ -9,24 +9,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useEffect } from "react";
 import { Button, Container, Grid } from '@mui/material';
+import { UserRequestContext } from '../../context/UserRequestContext';
 
 const RequestStatus = () => {
 
         const { user } = useContext(AuthContext);
+        const { updateStatus } = useContext(UserRequestContext);
         const navigate = useNavigate();
+
 
         useEffect(() => {
                 if (!user.isLoggedIn) {
-                        user.isRender = false;
                         navigate('/UserStatus');
-                }
-
-                else {
-                        window.location.pathname = '/RequestStatus';
-                        if (user.isRender) {
-                                user.isRender = false;
-                                window.history.pushState({}, "", "/#/RequestStatus");
-                        }
                 }
         }, [user, navigate]);
 
@@ -47,6 +41,7 @@ const RequestStatus = () => {
                                                         component={Link}
                                                         to="/ImageForm"
                                                         state={{ status: "lost" }}
+                                                        onClick={updateStatus("איבדתי")}
                                                 >
                                                         איבדתי
                                                 </Button>
@@ -63,6 +58,7 @@ const RequestStatus = () => {
                                                         component={Link}
                                                         to="/ImageForm"
                                                         state={{ status: "found" }}
+                                                        onClick={updateStatus("מצאתי")}
                                                 >
                                                         מצאתי
                                                 </Button>
