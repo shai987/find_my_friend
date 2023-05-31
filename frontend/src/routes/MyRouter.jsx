@@ -111,6 +111,8 @@ const MyRouter = () => {
                         value: 'התנתקות',
                         onClick: handleOpen,
                 },
+                { key: 'UserStatus', value: 'צא לדרך' },
+
         ];
 
         return (
@@ -138,7 +140,7 @@ const MyRouter = () => {
                                                                 ))}
 
                                                                 {/*מכאן זה אייקון של משתמש והתפריט שלו */}
-                                                                {user.isLoggedIn && <div id='iconPosition'>
+                                                                <div id='iconPosition'>
                                                                         <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
                                                                                 <IconButton onClick={handleOpenUserMenu} sx={{
                                                                                         p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
@@ -153,7 +155,7 @@ const MyRouter = () => {
                                                                                 direction: 'ltr', ml: '-70px', my: '7px', fontSize: '13px'
 
                                                                         }}> {user.first_name + ' ' + user.last_name}</Typography> */}
-                                                                </div>}
+                                                                </div>
 
                                                                 {user.isLoggedIn && <Menu
                                                                         sx={{ mt: "45px" }}
@@ -208,7 +210,7 @@ const MyRouter = () => {
                                                 <Route path='/ImageForm' element={<ImageForm />}></Route>
                                                 <Route path='/RequestStatus' element={<RequestStatus />}></Route>
                                                 <Route path='/SimillarityResult' element={<SimillarityResult />}></Route>
-                                                <Route path='/SimillarityResult2' element={<SimillarityResult2/>}></Route>
+                                                <Route path='/SimillarityResult2' element={<SimillarityResult2 />}></Route>
                                                 <Route path='/NoResults' element={<NoResults />}></Route>
                                                 {/* If the user go to not exsist path it would take him back to "/" */}
                                                 <Route path="*" element={<Navigate to="#" />}></Route>
