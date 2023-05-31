@@ -7,7 +7,6 @@ const initUesr = {
     email: "",
     phone_number: "",
     isLoggedIn: false,
-    isRender: false,
 }
 
 const getInitialState = () => {
@@ -28,13 +27,15 @@ const AuthContextProvider = (props) => {
 
 
     const login = (first_name, last_name, email, phone_number) => {
-        user.first_name = first_name;
-        user.last_name = last_name;
-        user.email = email;
-        user.phone_number = phone_number;
-        user.isLoggedIn = true;
-        user.isRender = true;
-        setUser(user);
+        const updatedUser = {
+            ...user,
+            first_name,
+            last_name,
+            email,
+            phone_number,
+            isLoggedIn: true,
+        };
+        setUser(updatedUser);
         Cookies.set("user", JSON.stringify(user));
     }
 
@@ -45,11 +46,15 @@ const AuthContextProvider = (props) => {
     }
 
     const signUp = (first_name, last_name, email, phone_number) => {
-        user.first_name = first_name;
-        user.last_name = last_name;
-        user.email = email;
-        user.phone_number = phone_number;
-        setUser(user);
+        const newUser = {
+            ...user,
+            first_name,
+            last_name,
+            email,
+            phone_number,
+            isLoggedIn: true,
+        };
+        setUser(newUser);
         Cookies.set("user", JSON.stringify(user));
     }
 
