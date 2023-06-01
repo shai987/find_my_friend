@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import axios from 'axios';
 import Loader from '../Loader';
 import PetDetails2 from "./PetDetails2";
+import Button from '@mui/material/Button';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 
@@ -99,8 +100,8 @@ const ImageForm = () => {
                                                 </div>
                                         </label>
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
-                                        <button type='submit' onClick={handleSubmit}>שלח</button>
-                                        <div>{response}</div>
+                                        <br></br>
+                                        <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
                                 </form> : <PetDetails2 pet_type={pet_type} pet_breeds={pet_breeds} />)
                         }
                 </>

@@ -2,6 +2,7 @@ import "../../assets/css/FindMyPetBreeds.css";
 import { useState, useRef } from "react";
 import axios from 'axios';
 import Loader from '../Loader';
+import Button from '@mui/material/Button';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 // drag drop file component
@@ -44,13 +45,14 @@ const FindMyPetBreeds = () => {
         // triggers when file is selected with click
         const handleChange = (e) => {
                 e.preventDefault();
-                const img = {
-                        preview: URL.createObjectURL(e.target.files[0]),
-                        data: e.target.files[0],
-                }
-                setImage(img);
                 if (e.target.files && e.target.files[0]) {
-                        // handleFiles(e.target.files);
+                        const img = {
+                                preview: URL.createObjectURL(e.target.files[0]),
+                                data: e.target.files[0],
+                        }
+                        setImage(img)
+                        setDragText("")
+                        setUploadText("")
                 }
         };
 
@@ -61,8 +63,8 @@ const FindMyPetBreeds = () => {
 
         const handleSubmit = async (e) => {
                 e.preventDefault();
-                setDragText("");
-                setUploadText("");
+                //setDragText("");
+                //setUploadText("");
                 let formData = new FormData();
                 formData.append('file', image.data);
 
@@ -81,8 +83,8 @@ const FindMyPetBreeds = () => {
         return (
                 <>
                         {loading ? <Loader /> :
-                                (<form id="form-file-upload" onDragEnter={handleDrag} onSubmit={handleSubmit}>
-                                        <input ref={inputRef} type="file" id="input-file-upload" onChange={handleChange} />
+                                (<form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
+                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
                                                         {image.preview && <img src={image.preview} width='300' height='300' />}
@@ -91,7 +93,9 @@ const FindMyPetBreeds = () => {
                                                 </div>
                                         </label>
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
-                                        <button type='submit'>שלח</button>
+                                        <br></br>
+                                        <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
+                                        <br></br><br></br>
                                         <div>{response}</div>
                                 </form>)
                         }
