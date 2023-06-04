@@ -72,10 +72,15 @@ const FindMyPetBreeds = () => {
                         setLoading(true);
                         // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
                         const res = await axios.post('/uploadImage', formData);
-                        setResponse(`Pet Type: ${res.data.pet_type},\nBreeds: ${res.data.breeds}`);
+                        setResponse(res);
+                        console.log(res);
+                        if (res.data.length !== 0) {
+                                setResponse(`סוג החיה: ${res.data.pet_type == "dog"?"כלב":"חתול"},\nגזע: ${res.data.breeds}`);
+                        }
                         setLoading(false);
                 } catch (err) {
                         setLoading(false);
+                        setResponse(`אוי! נראה ששכחת להעלות תמונה`)
                         console.log(err);
                 }
         };
@@ -96,7 +101,9 @@ const FindMyPetBreeds = () => {
                                         <br></br>
                                         <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
                                         <br></br><br></br>
+
                                         <div>{response}</div>
+                                        
                                 </form>)
                         }
                 </>

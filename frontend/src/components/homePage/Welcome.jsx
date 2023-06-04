@@ -7,7 +7,7 @@ const Welcome = () => {
                 alt: "dog&cat_image",
                 title: "Find my friend banner",
                 style: {
-                        width: '100%',
+                        width: '100vw',
                 }
         }
         return (

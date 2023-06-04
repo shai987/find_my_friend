@@ -45,13 +45,20 @@ export const handlePetImage = async (req, res) => {
          } */
   try {
     uploadFile(req, res, async (err) => {
+      if (!req.file) {
+        // No file was uploaded, handle the error
+        return res.status(400).send('No file was uploaded.');
+      }
+
       if (err instanceof multer.MulterError) {
+        // A Multer error occurred when uploading.
         if (!err.message) {
           err.message = err.code;
         }
-        res.send("User not saved, file upload failed" + err.message);
+        res.send("file upload failed" + err.message);
       } else if (err) {
-        res.send("User not saved, file upload failed");
+        // An unknown error occurred when uploading.
+        res.send("file upload failed");
       } else {
         try {
           axios

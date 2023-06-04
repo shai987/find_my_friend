@@ -16,12 +16,15 @@ const ImageForm = () => {
         const [response, setResponse] = useState("");
         const [dragText, setDragText] = useState("Drag and drop your file here or");
         const [uploadText, setUploadText] = useState("Upload a file");
+
         // ref
         const inputRef = useRef(null);
         const [loading, setLoading] = useState(false);
 
         const [pet_type, setPetType] = useState("");
         const [pet_breeds, setPetBreeds] = useState("");
+
+        const [errMassage, setErrMassage] = useState("");
 
         // handle drag events
         const handleDrag = (e) => {
@@ -83,6 +86,7 @@ const ImageForm = () => {
                         setLoading(false);
                 } catch (err) {
                         setLoading(false);
+                        setErrMassage(`אוי! נראה ששכחת להעלות תמונה`)
                         console.log(err);
                 }
         };
@@ -102,7 +106,10 @@ const ImageForm = () => {
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
                                         <br></br>
                                         <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
-                                </form> : <PetDetails2 pet_type={pet_type} pet_breeds={pet_breeds} />)
+                                        <br></br>
+                                        <p>{errMassage}</p>
+                                </form> 
+                                : <PetDetails2 pet_type={pet_type} pet_breeds={pet_breeds} />)
                         }
                 </>
         );
