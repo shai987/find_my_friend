@@ -24,9 +24,20 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
   const ext = path.extname(file.originalname);
-  if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
-    cb(null, false);
+  console.log(file);
+  if (!file) {
+    cb(new multer.MulterError("NO_FILE", "No file was uploaded."), false);
+  } else if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
+    // Reject the file
+    cb(
+      new multer.MulterError(
+        "INVALID_FILE_TYPE",
+        "Invalid file type. Please upload a JPEG or PNG image."
+      ),
+      false
+    );
   } else {
+    // Accept the file
     cb(null, true);
   }
 };
@@ -37,44 +48,41 @@ const uploadFile = multer({ storage: storage, fileFilter: fileFilter }).single(
 
 export const handlePetImage = async (req, res) => {
   fsExtra.emptyDirSync("pets");
-  /*  const errors = validationResult(req);
-         if (!errors.isEmpty()) {
-                 // Validation errors
-                 console.log("ops")
-                 return res.status(400).json({ errors: errors.array() });
-         } */
+
   try {
     uploadFile(req, res, async (err) => {
-      if (!req.file) {
+      /*if (!req.file) {
         // No file was uploaded, handle the error
-        return res.status(400).send('No file was uploaded.');
-      }
+        const error = new Error('No file was uploaded.');
+        error.status = 400;
+        throw error;
+      }*/
 
       if (err instanceof multer.MulterError) {
         // A Multer error occurred when uploading.
+        console.log("multer err");
         if (!err.message) {
           err.message = err.code;
         }
-        res.send("file upload failed" + err.message);
+        res.status(400).send(err.message);
       } else if (err) {
         // An unknown error occurred when uploading.
-        res.send("file upload failed");
-      } else {
-        try {
-          axios
-            .get(
-              `http://${localhost}${flask_port}/flask/pets_details?name=${req.file.originalname}`,
-              {
-                responseType: "json",
-              }
-            )
-            .then((response) => {
-              console.log(response.data);
-              res.json(response.data);
-            });
-        } catch (err) {
-          res.json(err.message);
-        }
+        res.status(400).send("file upload failed");
+      }
+      try {
+        axios
+          .get(
+            `http://${localhost}${flask_port}/flask/pets_details?name=${req.file.originalname}`,
+            {
+              responseType: "json",
+            }
+          )
+          .then((response) => {
+            console.log(response.data);
+            res.json(response.data);
+          });
+      } catch (err) {
+        res.json(err.message);
       }
     });
   } catch {

@@ -78,10 +78,14 @@ const FindMyPetBreeds = () => {
                                 setResponse(`סוג החיה: ${res.data.pet_type == "dog"?"כלב":"חתול"},\nגזע: ${res.data.breeds}`);
                         }
                         setLoading(false);
-                } catch (err) {
+                } catch (error) {
                         setLoading(false);
-                        setResponse(`אוי! נראה ששכחת להעלות תמונה`)
-                        console.log(err);
+                        if (error.response && error.response.status === 400) {
+                                setResponse(error.response.data)
+                        }
+                        else{
+                                setResponse('An error occurred during file upload.');
+                        } 
                 }
         };
 
@@ -89,7 +93,7 @@ const FindMyPetBreeds = () => {
                 <>
                         {loading ? <Loader /> :
                                 (<form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
-                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
+                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file"/>
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
                                                         {image.preview && <img src={image.preview} width='300' height='300' />}
