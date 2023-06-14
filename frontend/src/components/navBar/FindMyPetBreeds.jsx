@@ -80,12 +80,14 @@ const FindMyPetBreeds = () => {
                         setLoading(false);
                 } catch (error) {
                         setLoading(false);
-                        if (error.response && error.response.status === 400) {
+                        console.log(error);
+                        setResponse("error")
+                        /*if (error.response) {
                                 setResponse(error.response.data)
                         }
                         else{
                                 setResponse('An error occurred during file upload.');
-                        } 
+                        } */
                 }
         };
 

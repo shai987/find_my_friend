@@ -14,6 +14,7 @@ const localhost = process.env.LOCAL_HOST;
 const flask_port = process.env.FLASK_PORT || 5000;
 
 const newPet_model = mongoose.model("newPet", pet_details_schema);
+const maxSize = 1 * 1024 * 1024; //1MB
 
 const storage = multer.diskStorage({
   destination: "pets",
@@ -23,53 +24,43 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
+  console.log(file ? "file" : "no file");
   const ext = path.extname(file.originalname);
   console.log(file);
-  if (!file) {
-    cb(new multer.MulterError("NO_FILE", "No file was uploaded."), false);
-  } else if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
+  if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
+    console.log("rej");
     // Reject the file
-    cb(
-      new multer.MulterError(
-        "INVALID_FILE_TYPE",
-        "Invalid file type. Please upload a JPEG or PNG image."
-      ),
-      false
-    );
+    cb(new Error("Invalid file type. Please upload a JPEG or PNG image."));
   } else {
     // Accept the file
+    console.log("Accept");
     cb(null, true);
   }
 };
 
-const uploadFile = multer({ storage: storage, fileFilter: fileFilter }).single(
-  "file"
-);
+const limits = { fileSize: maxSize };
+
+const uploadFile = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: limits,
+}).single("file");
 
 export const handlePetImage = async (req, res) => {
   fsExtra.emptyDirSync("pets");
 
   try {
+    console.log("handle");
     uploadFile(req, res, async (err) => {
-      /*if (!req.file) {
+      if (!req.file) {
         // No file was uploaded, handle the error
-        const error = new Error('No file was uploaded.');
+        const error = new Error("No file was uploaded.");
         error.status = 400;
         throw error;
-      }*/
-
-      if (err instanceof multer.MulterError) {
-        // A Multer error occurred when uploading.
-        console.log("multer err");
-        if (!err.message) {
-          err.message = err.code;
-        }
-        res.status(400).send(err.message);
-      } else if (err) {
-        // An unknown error occurred when uploading.
-        res.status(400).send("file upload failed");
-      }
+      } 
+      else if (err) return res.status(400).send({errors})
       try {
+        console.log("handle2");
         axios
           .get(
             `http://${localhost}${flask_port}/flask/pets_details?name=${req.file.originalname}`,
