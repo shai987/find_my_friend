@@ -7,7 +7,7 @@ import * as fsExtra from "fs-extra";
 import mime from "mime-types";
 import { pet_details_schema } from "../models/pet_details.js";
 import { validationResult } from "express-validator";
-import {} from "dotenv/config";
+import { } from "dotenv/config";
 import { ObjectID } from "bson";
 
 const localhost = process.env.LOCAL_HOST;
@@ -48,35 +48,40 @@ const uploadFile = multer({
 
 export const handlePetImage = async (req, res) => {
   fsExtra.emptyDirSync("pets");
-
   try {
-    console.log("handle");
     uploadFile(req, res, async (err) => {
+      if (err instanceof multer.MulterError) {
+        // some multer error occured
+        console.log({ error: "File upload failed." });
+        return res.send({ error: "File upload failed." });
+      } else if (err) {
+        // err contains something, it is not 'undefined', so some unknown
+        // (non multer) error occurred when uploading            
+        console.log({ error: "Internal server error." });
+        return res.send({ error: "Internal server error." });
+      }
+
       if (!req.file) {
-        // No file was uploaded, handle the error
-        const error = new Error("No file was uploaded.");
-        error.status = 400;
-        throw error;
-      } 
-      else if (err) return res.status(400).send({errors})
+        // No file was uploaded
+        console.log({ error: "No file was uploaded." });
+        return res.send({ error: "No file was uploaded." });
+      }
+
       try {
-        console.log("handle2");
-        axios
-          .get(
-            `http://${localhost}${flask_port}/flask/pets_details?name=${req.file.originalname}`,
-            {
-              responseType: "json",
-            }
-          )
-          .then((response) => {
-            console.log(response.data);
-            res.json(response.data);
-          });
+        const response = await axios.get(
+          `http://${localhost}${flask_port}/flask/pets_details?name=${req.file.originalname}`,
+          {
+            responseType: "json",
+          }
+        );
+        console.log(response.data);
+        res.json(response.data);
       } catch (err) {
         res.json(err.message);
       }
     });
-  } catch {
+  } catch (err) {
+    console.log(err);
     res.sendStatus(500);
   }
 };
