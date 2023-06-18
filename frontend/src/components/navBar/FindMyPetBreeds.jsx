@@ -13,6 +13,8 @@ const FindMyPetBreeds = () => {
         const [response, setResponse] = useState("");
         const [dragText, setDragText] = useState("Drag and drop your file here or");
         const [uploadText, setUploadText] = useState("Upload a file");
+        const [errMassage, setErrMassage] = useState("");
+
         // ref
         const inputRef = useRef(null);
         const [loading, setLoading] = useState(false);
@@ -70,18 +72,34 @@ const FindMyPetBreeds = () => {
 
                 try {
                         setLoading(true);
-                        // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
                         const res = await axios.post('/uploadImage', formData);
-                        setResponse(res);
-                        console.log(res);
-                        if (res.data.length !== 0) {
-                                setResponse(`סוג החיה: ${res.data.pet_type == "dog"?"כלב":"חתול"},\nגזע: ${res.data.breeds}`);
+                        if (res.data.error === "No file was uploaded.") {
+                                setErrMassage(`אוי! נראה ששכחת להעלות תמונה`);
+                                setLoading(false);
                         }
+                        else if (res.data.error === "Internal server error.") {
+                                setErrMassage(`סוג לא נכון`);
+                                setLoading(false);
+                        }
+                        else if (res.data.error === "File upload failed.") {
+                                setErrMassage(`גדול מידי`);
+                                setLoading(false);
+                        }
+                        else {
+                                setErrMassage('');
+                                setResponse(`סוג החיה: ${res.data.pet_type == "dog" ? "כלב" : "חתול"},\nגזע: ${res.data.breeds}`);
+                                setLoading(false);
+                        }
+                        // setResponse(res);
+                        // console.log(res);
+                        // if (res.data.length !== 0) {
+                        //         setResponse(`סוג החיה: ${res.data.pet_type == "dog" ? "כלב" : "חתול"},\nגזע: ${res.data.breeds}`);
+                        // }
+                        // setLoading(false);
+                } catch (err) {
                         setLoading(false);
-                } catch (error) {
-                        setLoading(false);
-                        console.log(error);
-                        setResponse("error")
+                        console.log(err);
+                        setErrMassage(err.message);
                         /*if (error.response) {
                                 setResponse(error.response.data)
                         }
@@ -95,7 +113,7 @@ const FindMyPetBreeds = () => {
                 <>
                         {loading ? <Loader /> :
                                 (<form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
-                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file"/>
+                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
                                                         {image.preview && <img src={image.preview} width='300' height='300' />}
@@ -107,9 +125,10 @@ const FindMyPetBreeds = () => {
                                         <br></br>
                                         <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
                                         <br></br><br></br>
+                                        <p>{errMassage}</p>
 
                                         <div>{response}</div>
-                                        
+
                                 </form>)
                         }
                 </>
