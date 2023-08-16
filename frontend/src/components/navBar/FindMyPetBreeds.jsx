@@ -74,15 +74,15 @@ const FindMyPetBreeds = () => {
                         setLoading(true);
                         const res = await axios.post('/uploadImage', formData);
                         if (res.data.error === "No file was uploaded.") {
-                                setErrMassage(`אוי! נראה ששכחת להעלות תמונה`);
+                                setErrMassage(`אופס! נראה ששכחת להעלות תמונה`);
                                 setLoading(false);
                         }
                         else if (res.data.error === "Internal server error.") {
-                                setErrMassage(`סוג לא נכון`);
+                                setErrMassage(`.אופס! נראה שהעלת סוג קובץ לא נכון\n .jpg, jpeg, png :יש לעלות קבצים מסוג`);
                                 setLoading(false);
                         }
                         else if (res.data.error === "File upload failed.") {
-                                setErrMassage(`גדול מידי`);
+                                setErrMassage(`1 MB אופס! יש לעלות קובץ עד`);
                                 setLoading(false);
                         }
                         else {
@@ -127,7 +127,7 @@ const FindMyPetBreeds = () => {
                                         <br></br><br></br>
                                         <p>{errMassage}</p>
 
-                                        <div>{response}</div>
+                                        <div dir="rtl">{response}</div>
 
                                 </form>)
                         }
