@@ -48,7 +48,7 @@ const PetDetails2 = (props) => {
   const [formErrors, setFormErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [flag, setFlag] = useState(false);
-  const [nameErr, setNameErr] = useState(false);
+  const [nameError, setNameError] = useState(false);
   const [genderError, setGenderError] = useState(false);
   const [locationError, setLocationError] = useState(false);
   const [textErr, setText] = useState("");
@@ -65,18 +65,19 @@ const PetDetails2 = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setNameError(!formData.petName);
+    setLocationError(!formData.location)
+    setGenderError(!formData.petGender)
+
     if (!formData.petName || !formData.location || !formData.petGender) {
       if (!formData.petName) {
         setText("אוי, נראה ששכחת להזין שם חיה")
-        setNameErr(true)
       }
       else if (!formData.location) {
         setText("אוי, נראה ששכחת להזין מיקום")
-        setLocationError(true)
       }
       else if (!formData.petGender) {
         setText("אוי, נראה ששכחת להזין את מין החיה")
-        setGenderError(true)
       }
       setFlag(true)
       return
@@ -140,7 +141,7 @@ const PetDetails2 = (props) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });  
+    });
     setFormErrors([]);
     setFormSuccess("");
   };
@@ -185,7 +186,7 @@ const PetDetails2 = (props) => {
                     fontSize: "0.7rem",
                   },
                 }}
-                error={nameErr}
+                error={nameError}
                 margin="normal"
                 required
                 fullWidth
@@ -220,7 +221,7 @@ const PetDetails2 = (props) => {
               <br></br>
               <FormControl required>
                 <FormLabel id="petGender">מין החיה</FormLabel>
-                <RadioGroup aria-labelledby="petGender" name="petGender">
+                <RadioGroup aria-labelledby="petGender" name="petGender" error={genderError}>
                   <FormControlLabel
                     value="M"
                     control={<Radio />}
@@ -272,6 +273,7 @@ const PetDetails2 = (props) => {
                     fontSize: "0.7rem",
                   },
                 }}
+                error={locationError}
                 margin="normal"
                 required
                 fullWidth
@@ -281,7 +283,6 @@ const PetDetails2 = (props) => {
                 }
                 name="location"
                 autoComplete="location"
-                autoFocus
                 value={formData.location}
                 onChange={handleChange}
               />
@@ -304,7 +305,6 @@ const PetDetails2 = (props) => {
                 label="הערות"
                 name="note"
                 autoComplete="note"
-                autoFocus
                 value={formData.note}
                 onChange={handleChange}
               />
