@@ -104,16 +104,15 @@ const MyRouter = () => {
                 handleClose();
         };
 
-        const settings = [
+        const settings = user.isLoggedIn ? [
                 { key: 'UserAccount', value: 'אזור אישי' },
+                { key: 'UserStatus', value: 'צא לדרך' },
                 {
                         key: '',
                         value: 'התנתקות',
                         onClick: handleOpen,
-                },
-                { key: 'UserStatus', value: 'צא לדרך' },
-
-        ];
+                }
+        ] : [{ key: 'SignIn', value: 'התחברות' }];
 
         return (
                 <>
@@ -156,7 +155,7 @@ const MyRouter = () => {
                                                                         }}> {user.first_name + ' ' + user.last_name}</Typography> */}
                                                                 </div>
 
-                                                                {user.isLoggedIn && <Menu
+                                                                <Menu
                                                                         sx={{ mt: "45px" }}
                                                                         id="menu-appbar"
                                                                         anchorEl={user1}
@@ -171,6 +170,7 @@ const MyRouter = () => {
                                                                         }}
                                                                         open={Boolean(user1)}
                                                                         onClose={handleCloseUserMenu}
+
                                                                 >
                                                                         {settings.map((setting) => (
                                                                                 <MenuItem key={setting.key} onClick={setting.onClick}>
@@ -193,7 +193,7 @@ const MyRouter = () => {
                                                                                         <Button onClick={handleLogout}>כן</Button>
                                                                                 </DialogActions>
                                                                         </Dialog>
-                                                                </Menu>}
+                                                                </Menu>
                                                         </Toolbar>
                                                 </Container>
                                         </AppBar>
