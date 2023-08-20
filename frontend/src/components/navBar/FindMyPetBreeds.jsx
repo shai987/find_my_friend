@@ -11,8 +11,8 @@ const FindMyPetBreeds = () => {
         const [dragActive, setDragActive] = useState(false);
         const [image, setImage] = useState({ preview: '', data: '' });
         const [response, setResponse] = useState("");
-        const [dragText, setDragText] = useState("Drag and drop your file here or");
-        const [uploadText, setUploadText] = useState("Upload a file");
+        const [dragText, setDragText] = useState("אפשר לגרור את התמונה לפה\n\n או");
+        const [uploadText, setUploadText] = useState("להעלות קובץ בלחיצה");
         const [errMassage, setErrMassage] = useState("");
 
         // ref
