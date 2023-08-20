@@ -6,7 +6,6 @@ import PetDetails2 from "./PetDetails2";
 import Button from '@mui/material/Button';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
-
 // drag drop file component
 const ImageForm = () => {
 
@@ -14,8 +13,8 @@ const ImageForm = () => {
         const [dragActive, setDragActive] = useState(false);
         const [image, setImage] = useState({ preview: '', data: '' });
         const [response, setResponse] = useState("");
-        const [dragText, setDragText] = useState("Drag and drop your file here or");
-        const [uploadText, setUploadText] = useState("Upload a file");
+        const [dragText, setDragText] = useState("אפשר לגרור את התמונה לפה\n\n או");
+        const [uploadText, setUploadText] = useState("להעלות קובץ בלחיצה");
 
         // ref
         const inputRef = useRef(null);
