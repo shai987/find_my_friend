@@ -91,7 +91,6 @@ const SignIn = () => {
 
                 try {
                         // Send POST request
-                        // await axios.post(`/userSignIn?email=${formData.email}&user_password=${formData.user_password}`).then((response) => {
                         await axios.post('/userSignIn', formData).then((response) => {
                                 console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
                                 if (response.data.message === "User not found") {
@@ -105,27 +104,13 @@ const SignIn = () => {
                                 else {
                                         console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         setFormData(response.data);
-                                        /*user.first_name = response.data.first_name;
-                                        user.last_name = response.data.last_name;
-                                        user.email = response.data.email;
-                                        user.user_password = response.data.user_password;
-                                        setUser(user)*/
 
-                                        login(response.data.first_name, response.data.last_name, response.data.email, response.data.phone_number/* , response.data.user_password */)
-
-                                        /*setUser({
-                                                first_name: response.data.first_name,
-                                                last_name: response.data.last_name,
-                                                email: response.data.email
-                                        });*/
+                                        login(response.data.first_name, response.data.last_name, response.data.email, response.data.phone_number)
                                         console.log(user);
-                                        // setFormSuccess(`User found, name: ${ response.data.first_name } ${ response.data.last_name } `);
                                         return navigate("/RequestStatus");
                                 }
                         });
 
-                        // Reset form data
-                        // setFormData(initialFormData);
                 } catch (err) {
                         handleErrors(err);
                         console.log(err.message);

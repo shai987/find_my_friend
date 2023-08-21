@@ -143,7 +143,7 @@ const UserAccount = () => {
                     key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell align="center">{request.petType}</TableCell>
+                    <TableCell align="center">{request.petType === 'cat' ? 'חתול' : 'כלב'}</TableCell>
                     <TableCell align="center">{request.petName}</TableCell>
                     {console.log(request.img)}
                     <TableCell align="center"><img

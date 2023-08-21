@@ -5,7 +5,7 @@ import { handlePetImage, handlePetDetails } from '../controllers/pet.controller.
 import { handleSignUp, handleSignIn, handleDeleteAllUser, handleGetAllUsers, handleContactUser, handleUserInfo, handleDeleteUser } from '../controllers/user.controller.js';
 import { validate } from "../middlewares/validator.middleware.js";
 
-router.post("/uploadImage", validate('handlePetImage'), handlePetImage);
+router.post("/uploadImage"/* , validate('handlePetImage') */, handlePetImage);
 
 router.post("/petDetails", validate('handlePetDetails'), handlePetDetails);
 

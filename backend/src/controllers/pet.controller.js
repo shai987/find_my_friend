@@ -7,13 +7,14 @@ import * as fsExtra from "fs-extra";
 import mime from "mime-types";
 import { pet_details_schema } from "../models/pet_details.js";
 import { validationResult } from "express-validator";
-import {} from "dotenv/config";
+import { } from "dotenv/config";
 import { ObjectID } from "bson";
 
 const localhost = process.env.LOCAL_HOST;
 const flask_port = process.env.FLASK_PORT || 5000;
 
 const newPet_model = mongoose.model("newPet", pet_details_schema);
+const maxSize = 1 * 1024 * 1024; //1MB
 
 const storage = multer.diskStorage({
   destination: "pets",
@@ -23,54 +24,64 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
+  console.log(file ? "file" : "no file");
   const ext = path.extname(file.originalname);
+  console.log(file);
   if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
-    cb(null, false);
+    console.log("rej");
+    // Reject the file
+    cb(new Error("Invalid file type. Please upload a JPEG or PNG image."));
   } else {
+    // Accept the file
+    console.log("Accept");
     cb(null, true);
   }
 };
 
-const uploadFile = multer({ storage: storage, fileFilter: fileFilter }).single(
-  "file"
-);
+const limits = { fileSize: maxSize };
+
+const uploadFile = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: limits,
+}).single("file");
 
 export const handlePetImage = async (req, res) => {
   fsExtra.emptyDirSync("pets");
-  /*  const errors = validationResult(req);
-         if (!errors.isEmpty()) {
-                 // Validation errors
-                 console.log("ops")
-                 return res.status(400).json({ errors: errors.array() });
-         } */
   try {
     uploadFile(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
-        if (!err.message) {
-          err.message = err.code;
-        }
-        res.send("User not saved, file upload failed" + err.message);
+        // some multer error occured
+        console.log({ error: "File upload failed." });
+        return res.send({ error: "File upload failed." });
       } else if (err) {
-        res.send("User not saved, file upload failed");
-      } else {
-        try {
-          axios
-            .get(
-              `http://${localhost}${flask_port}/flask/pets_details?name=${req.file.originalname}`,
-              {
-                responseType: "json",
-              }
-            )
-            .then((response) => {
-              console.log(response.data);
-              res.json(response.data);
-            });
-        } catch (err) {
-          res.json(err.message);
-        }
+        // err contains something, it is not 'undefined', so some unknown
+        // (non multer) error occurred when uploading            
+        console.log({ error: "Internal server error." });
+        return res.send({ error: "Internal server error." });
+      }
+
+      if (!req.file) {
+        // No file was uploaded
+        console.log({ error: "No file was uploaded." });
+        return res.send({ error: "No file was uploaded." });
+      }
+
+      try {
+        const response = await axios.get(
+          `http://${localhost}${flask_port}/flask/pets_details?name=${req.file.originalname}`,
+          {
+            responseType: "json",
+          }
+        );
+        console.log(response.data);
+        res.json(response.data);
+      } catch (err) {
+        res.json(err.message);
       }
     });
-  } catch {
+  } catch (err) {
+    console.log(err);
     res.sendStatus(500);
   }
 };

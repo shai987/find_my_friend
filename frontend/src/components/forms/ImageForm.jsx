@@ -1,12 +1,10 @@
 import "../../assets/css/ImageForm.css";
-import { useState, useRef, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useRef } from "react";
 import axios from 'axios';
 import Loader from '../Loader';
 import PetDetails2 from "./PetDetails2";
-import { UserRequestContext } from '../../context/UserRequestContext';
+import Button from '@mui/material/Button';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
-
 
 // drag drop file component
 const ImageForm = () => {
@@ -15,8 +13,9 @@ const ImageForm = () => {
         const [dragActive, setDragActive] = useState(false);
         const [image, setImage] = useState({ preview: '', data: '' });
         const [response, setResponse] = useState("");
-        const [dragText, setDragText] = useState("Drag and drop your file here or");
-        const [uploadText, setUploadText] = useState("Upload a file");
+        const [dragText, setDragText] = useState("אפשר לגרור את התמונה לפה\n\n או");
+        const [uploadText, setUploadText] = useState("להעלות קובץ בלחיצה");
+
         // ref
         const inputRef = useRef(null);
         const [loading, setLoading] = useState(false);
@@ -24,10 +23,7 @@ const ImageForm = () => {
         const [pet_type, setPetType] = useState("");
         const [pet_breeds, setPetBreeds] = useState("");
 
-        const { updateStatus } = useContext(UserRequestContext);
-        const location = useLocation();
-        const [status] = useState(location.state.status);
-        updateStatus(status);
+        const [errMassage, setErrMassage] = useState("");
 
         // handle drag events
         const handleDrag = (e) => {
@@ -83,12 +79,27 @@ const ImageForm = () => {
                 try {
                         setLoading(true);
                         const res = await axios.post('/uploadImage', formData);
-                        setPetType(res.data.pet_type);
-                        setPetBreeds(res.data.breeds);
-                        setResponse(res.data);
-                        setLoading(false);
+                        if (res.data.error === "No file was uploaded.") {
+                                setLoading(false);
+                                setErrMassage(`אופס! נראה ששכחת להעלות תמונה`);
+                        }
+                        else if (res.data.error === "Internal server error.") {
+                                setLoading(false);
+                                setErrMassage(`.אופס! נראה שהעלת סוג קובץ לא נכון\n .jpg, jpeg, png :יש לעלות קבצים מסוג`);
+                        }
+                        else if (res.data.error === "File upload failed.") {
+                                setLoading(false);
+                                setErrMassage(`1 MB אופס! יש לעלות קובץ עד`);
+                        }
+                        else {
+                                setPetType(res.data.pet_type);
+                                setPetBreeds(res.data.breeds);
+                                setResponse(res.data);
+                                setLoading(false);
+                        }
                 } catch (err) {
                         setLoading(false);
+                        setErrMassage(err.message);
                         console.log(err);
                 }
         };
@@ -97,7 +108,7 @@ const ImageForm = () => {
                 <>
                         {loading ? <Loader /> :
                                 (!response ? <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
-                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
+                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
                                                         {image.preview && <img src={image.preview} width='300' height='300' />}
@@ -106,9 +117,12 @@ const ImageForm = () => {
                                                 </div>
                                         </label>
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
-                                        <button type='submit' onClick={handleSubmit}>שלח</button>
-                                        <div>{response}</div>
-                                </form> : <PetDetails2 pet_type={pet_type} pet_breeds={pet_breeds} />)
+                                        <br></br>
+                                        <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
+                                        <br></br>
+                                        <p>{errMassage}</p>
+                                </form>
+                                        : <PetDetails2 pet_type={pet_type} pet_breeds={pet_breeds} />)
                         }
                 </>
         );

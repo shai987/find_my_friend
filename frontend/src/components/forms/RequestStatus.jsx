@@ -9,24 +9,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useEffect } from "react";
 import { Button, Container, Grid } from '@mui/material';
+import { UserRequestContext } from '../../context/UserRequestContext';
 
 const RequestStatus = () => {
 
         const { user } = useContext(AuthContext);
+        const { updateStatus, request } = useContext(UserRequestContext);
+        console.log(request)
         const navigate = useNavigate();
+
 
         useEffect(() => {
                 if (!user.isLoggedIn) {
-                        user.isRender = false;
                         navigate('/UserStatus');
-                }
-
-                else {
-                        window.location.pathname = '/RequestStatus';
-                        if (user.isRender) {
-                                user.isRender = false;
-                                window.history.pushState({}, "", "/#/RequestStatus");
-                        }
                 }
         }, [user, navigate]);
 
@@ -44,9 +39,9 @@ const RequestStatus = () => {
                                                                 backgroundColor: "hsl(113, 34%, 42%)",
                                                                 fontSize: "25px",
                                                         }}
+                                                        onClick={() => updateStatus("lost")}
                                                         component={Link}
                                                         to="/ImageForm"
-                                                        state={{ status: "lost" }}
                                                 >
                                                         איבדתי
                                                 </Button>
@@ -60,9 +55,9 @@ const RequestStatus = () => {
                                                                 backgroundColor: "hsl(213, 34%, 52%)",
                                                                 fontSize: "25px",
                                                         }}
+                                                        onClick={() => updateStatus("found")}
                                                         component={Link}
                                                         to="/ImageForm"
-                                                        state={{ status: "found" }}
                                                 >
                                                         מצאתי
                                                 </Button>
