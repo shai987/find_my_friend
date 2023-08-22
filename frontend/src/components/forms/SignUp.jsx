@@ -259,7 +259,6 @@ const SignUp = () => {
                                                                                 },
                                                                         }}
                                                                         dir='ltr'
-                                                                        required
                                                                         fullWidth
                                                                         id="phone_number"
                                                                         label="מספר טלפון"
