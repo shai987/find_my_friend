@@ -9,6 +9,8 @@ router.post("/uploadImage"/* , validate('handlePetImage') */, handlePetImage);
 
 router.post("/petDetails", validate('handlePetDetails'), handlePetDetails);
 
+router.post("/petDetailsFound", validate('handlePetDetailsFound'), handlePetDetails);
+
 router.post("/userSignUp", validate('handleSignUp'), handleSignUp);
 
 router.post("/userSignIn", validate('handleSignIn'), handleSignIn);
