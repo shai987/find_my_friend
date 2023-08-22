@@ -3,9 +3,10 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart
 import '../../assets/css/Statistics.css';
 
 const Statistics = () => {
-    return ( 
+    return (
         <div>
-            <h2 layout="horizontal" /* verticalAlign="top" */ align="center">הנתונים מדברים בעד עצמם</h2>
+            <h2 layout="horizontal" align="center">הנתונים מדברים בעד עצמם</h2>
+            <p align="center" className="statMsg">*הנתונים המוצגים סטטיים</p>
             <div className="wrapper">
                 <LineChart width={500} height={300} data={chartData} className="first" >
                     <CartesianGrid strokeDasharray="3 3" />
