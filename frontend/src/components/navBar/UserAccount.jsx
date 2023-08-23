@@ -19,7 +19,8 @@ import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
 import { AuthContext } from '../../context/AuthContext';
 // import our images
-import cat_dog_hug from '../../assets/images/cat_dog_hug.jpg';
+import dog_with_cat from '../../assets/images/dog_with_cat.jpg';
+
 // import css
 import '../../assets/css/UserAccount.css';
 import { Buffer } from "buffer";
@@ -106,7 +107,7 @@ const UserAccount = () => {
         <div className="userHeading">
           <section className="userText">
             <h1>ברוך הבא {user.first_name}</h1>
-            <img alt="hugcatdog" src={cat_dog_hug} />
+            <img alt="hugcatdog" src={dog_with_cat} />
             <br></br>
             {user.email && <Link to='/RequestStatus'>
               <Button variant="contained">להוספת פנייה</Button>
