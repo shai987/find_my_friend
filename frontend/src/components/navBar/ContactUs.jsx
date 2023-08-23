@@ -1,6 +1,6 @@
 import { useState } from "react";
 import '../../assets/css/ContactUs.css';
-import dog_phone from '../../assets/images/dog_phone.jpg';
+import dog_computer from '../../assets/images/dog_computer.jpg';
 
 const ContactForm = () => {
   const [formStatus, setFormStatus] = useState('שלח טופס');
@@ -21,7 +21,7 @@ const ContactForm = () => {
       <div className="line"></div>
       <p>מוזמנים לפנות אלינו כדי לשתף, לחוות דעה, להעלות בעיות או בכל עניין אחר</p>
       <section className="contact_wrapper">
-        <div className="form_contact"> 
+        <div className="form_contact">
           <form onSubmit={onSubmit}>
             <input type="text" id="name" placeholder="שם" required />
             <select value="">
@@ -38,9 +38,9 @@ const ContactForm = () => {
           </form>
         </div>
         <div className="dog_image">
-          <img width="500" height="300" src={dog_phone} alt="dog_phone" />
+          <img width="500" height="300" src={dog_computer} alt="dog_phone" />
         </div>
-      </section> 
+      </section>
     </div>
   )
 }
