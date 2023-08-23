@@ -14,8 +14,8 @@
 
 .banner {
   width: 100%;
-  background-image: url(../images/cat_dogs_about.jpeg);
-  height: 550px;
+  background-image: url(../images/cat_dog_about.jpg);
+  height: 650px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -42,20 +42,17 @@
 }
 
 .text img {
-  height: 220px;
+  height: 240px;
   width: 300px;
   float: left;
   margin: 0px 150px 15px -200px;
 }
 
-.img3 {
-  margin: 120px -200px 200px 400px;
-  text-align: center;
-}
-
-.img3 img {
-  height: 300px;
-  width: 400px;
+.tr1 img {
+  height: 220px;
+  width: 280px;
+  float: left;
+  margin: 0px 150px 15px -200px;
 }
 
 .icon:hover {
