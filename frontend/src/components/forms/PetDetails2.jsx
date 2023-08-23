@@ -70,32 +70,10 @@ const PetDetails2 = (props) => {
 
     // if (request.status === "lost") {
     if (!formData.petName || !formData.location || !formData.petGender) {
-      if (!formData.petName) {
-        setText("אוי, נראה ששכחת להזין שם חיה")
-      }
-      else if (!formData.location) {
-        setText("אוי, נראה ששכחת להזין מיקום")
-      }
-      else if (!formData.petGender) {
-        setText("אוי, נראה ששכחת להזין את מין החיה")
-      }
+      setText("אוי! נראה שחלק מהשדות ריקים")
       setFlag(true)
       return
     }
-    // }
-
-    // else if (request.status === "found") {
-    //   if (!formData.location || !formData.petGender) {
-    //     if (!formData.location) {
-    //       setText("אוי, נראה ששכחת להזין מיקום")
-    //     }
-    //     else if (!formData.petGender) {
-    //       setText("אוי, נראה ששכחת להזין את מין החיה")
-    //     }
-    //     setFlag(true)
-    //     return
-    //   }
-    // }
 
     try {
       setLoading(true);
@@ -132,21 +110,53 @@ const PetDetails2 = (props) => {
   };
 
   const handleErrors = (err) => {
+    setFlag(true)
     if (err.response.data && err.response.data.errors) {
       // Handle validation errors
-      const { errors } = err.response.data;
+      const errors = err.response.data.errors
+      console.log(errors);
 
-      let errorMsg = [];
-      for (let error of errors) {
-        const { msg } = error;
-
-        errorMsg.push(msg);
+      let errMsg = "";
+      
+      if(errors.length>1){
+              for (let error of errors) {
+                      // const { msg } = error;
+                      const errorMsg = error.msg
+                      console.log(error.param)
+                      if(error.param === "petName"){
+                              setNameError(true);
+                              errMsg +=`${errorMsg}\n`
+                      }
+                      else if(error.param === "petGender"){
+                              setGenderError(true);
+                              errMsg +=`${errorMsg}\n`
+                      }
+                      //location
+                      else{
+                              setLocationError(true);
+                              errMsg +=`${errorMsg}\n`
+                      }
+              }
+              
+              
       }
-
-      setFormErrors(errorMsg);
+      else{
+              if(errors[0].param === "petName"){
+                setNameError(true);
+              }
+              else if(errors[0].param === "petGender"){
+                setGenderError(true);
+              }
+              //location
+              else{
+                    setLocationError(true);
+              }
+              errMsg=errors[0].msg
+      }
+      setText(errMsg)
     } else {
       // Handle generic error
-      setFormErrors(["Oops, there was an error!"]);
+      setText(["אופס! משהו השתבש"]);
     }
   };
 
@@ -179,7 +189,9 @@ const PetDetails2 = (props) => {
                 <Typography component="h1" variant="h5">
                   מילוי פרטים מזהים
                 </Typography>
-                {flag && <div><br></br><br></br> <Alert severity="error">{textErr}</Alert></div>}
+                {flag && <div><br></br><br></br> <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>
+                                        {textErr}
+                                        </Alert></div>}
 
 
                 <Box

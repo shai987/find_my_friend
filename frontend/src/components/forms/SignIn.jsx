@@ -22,6 +22,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
 // import our components
 import { AlertError } from "../views/AlertError";
 import { AlertSuccess } from "../views/AlertSuccess";
@@ -48,6 +49,10 @@ const SignIn = () => {
         const [showPassword, setShowPassword] = useState(false);
         const navigate = useNavigate();
         const { user, login } = useContext(AuthContext);
+        const [emailError, setEmailError] = useState(false);
+        const [passwordError, setPasswordError] = useState(false);
+        const [textErr, setText] = useState("");
+        const [flag, setFlag] = useState(false);
 
         const handleChange = (e) => {
                 setFormData({
@@ -68,38 +73,74 @@ const SignIn = () => {
         };
 
         const handleErrors = (err) => {
+                setFlag(true)
                 if (err.response.data && err.response.data.errors) {
                         // Handle validation errors
-                        const { errors } = err.response.data;
+                        const errors = err.response.data.errors
 
-                        let errorMsg = [];
-                        for (let error of errors) {
-                                const { msg } = error;
+                        // const { errors } = err.response.data;
 
-                                errorMsg.push(msg);
+                        let errMsg = "";
+                        if(errors.length>1){
+                                for (let error of errors) {
+                                        // const { msg } = error;
+                                        const errorMsg = error.msg
+                                        console.log(error.param)
+                                        if(error.param === "email"){
+                                                setEmailError(true);
+                                                errMsg +=`${errorMsg}\n`
+                                        }
+                                        else{
+                                                setPasswordError(true);
+                                                errMsg +=`${errorMsg}\n`
+                                        }
+                                }
+                                
+                                
                         }
+                        else{
+                                if(errors[0].param === "email"){
+                                        setEmailError(true);
+                                }
+                                else{
+                                        setPasswordError(true);
+                                }
+                                errMsg=errors[0].msg
+                        }
+                        setText(errMsg)
 
-                        setFormErrors(errorMsg);
+                        
+
+                        // setFormErrors(errorMsg);
                 } else {
                         // Handle generic error
-                        setFormErrors(["Oops, there was an error!"]);
+                        setText(["אופס! משהו השתבש"]);
                 }
         };
 
         const handleSubmit = async (e) => {
                 e.preventDefault();
+                setPasswordError(!formData.user_password);
+                setEmailError(!formData.email);
 
+                if (!formData.user_password || !formData.email) {
+                        setText("אוי! נראה שחלק מהשדות ריקים")
+                        setFlag(true)
+                        return
+                      }
                 try {
                         // Send POST request
                         await axios.post('/userSignIn', formData).then((response) => {
                                 console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
                                 if (response.data.message === "User not found") {
-                                        console.log(formData.user_password);
-                                        console.log("User not found");
-                                        setFormSuccess("User not found");
+                                        setFlag(true)
+                                        setEmailError(true);
+                                        setText("אוי! נראה שהמשתמש לא קיים במערכת");
                                 }
                                 else if (response.data.message === "Password is not the same") {
-                                        setFormSuccess("Password is not the same");
+                                        setFlag(true)
+                                        setPasswordError(true)
+                                        setText("אוי! נראה שהסיסמה שהוזנה לא תואמת למה ששמור במערכת")
                                 }
                                 else {
                                         console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
@@ -121,6 +162,7 @@ const SignIn = () => {
                 <ThemeProvider theme={theme}>
                         <Container component="main" maxWidth="xs">
                                 <CssBaseline />
+                                
                                 <Box
                                         sx={{
                                                 marginTop: 8,
@@ -136,8 +178,12 @@ const SignIn = () => {
                                                 כניסה
                                         </Typography>
 
-                                        <AlertSuccess success={formSuccess} />
-                                        <AlertError errors={formErrors} />
+                                        {/* <AlertSuccess success={formSuccess} /> */}
+                                        {/* <AlertError errors={formErrors} /> */}
+
+                                        {flag && <div><br></br><br></br> <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>
+                                        {textErr}
+                                        </Alert></div>}
 
                                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                                                 <TextField
@@ -161,6 +207,7 @@ const SignIn = () => {
                                                         autoComplete="email"
                                                         autoFocus
                                                         value={formData.email}
+                                                        error={emailError}
                                                         onChange={handleChange}
                                                 />
                                                 <br /> <br />
@@ -183,6 +230,7 @@ const SignIn = () => {
                                                                 margin="dense"
                                                                 required
                                                                 fullWidth
+                                                                error={passwordError}
                                                                 name="user_password"
                                                                 label="סיסמא"
                                                                 autoComplete="current-password"
