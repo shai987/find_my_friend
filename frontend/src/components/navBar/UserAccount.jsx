@@ -112,7 +112,7 @@ const UserAccount = () => {
             {user.email && <Link to='/RequestStatus'>
               <Button variant="contained">להוספת פנייה</Button>
             </Link>}
-            <br /><br />
+            &nbsp; &nbsp;
             <Button onClick={handleDelete} variant="contained">מחיקת המשתמש</Button>
           </section>
         </div>
