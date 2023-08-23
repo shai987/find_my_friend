@@ -34,7 +34,8 @@ const PetDetails2 = (props) => {
 
   const initialFormData = {
     userEmail: user.email,
-    petName: "",
+    petName: request.status === "lost" ? "" : "שם החיה לא ידוע",
+    // petName: "",
     petType: pet_type,
     petGender: "",
     petBreeds: pet_breeds,
@@ -52,8 +53,6 @@ const PetDetails2 = (props) => {
   const [genderError, setGenderError] = useState(false);
   const [locationError, setLocationError] = useState(false);
   const [textErr, setText] = useState("");
-  //const [similarPets, setSimilarPets] = useState([]);
-  //const [message, setMessage] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,9 +65,10 @@ const PetDetails2 = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setNameError(!formData.petName);
-    setLocationError(!formData.location)
-    setGenderError(!formData.petGender)
+    setLocationError(!formData.location);
+    setGenderError(!formData.petGender);
 
+    // if (request.status === "lost") {
     if (!formData.petName || !formData.location || !formData.petGender) {
       if (!formData.petName) {
         setText("אוי, נראה ששכחת להזין שם חיה")
@@ -82,24 +82,37 @@ const PetDetails2 = (props) => {
       setFlag(true)
       return
     }
+    // }
 
-    setLoading(true);
-    if (loading) {
-      <Loader />;
-    }
+    // else if (request.status === "found") {
+    //   if (!formData.location || !formData.petGender) {
+    //     if (!formData.location) {
+    //       setText("אוי, נראה ששכחת להזין מיקום")
+    //     }
+    //     else if (!formData.petGender) {
+    //       setText("אוי, נראה ששכחת להזין את מין החיה")
+    //     }
+    //     setFlag(true)
+    //     return
+    //   }
+    // }
 
     try {
+      setLoading(true);
       // Send POST request
       const res = await axios.post("/petDetails", formData);
+      // const res = await axios.post(request.status === "found" ? "/petDetails1" : "/petDetails", formData);
+
       // HTTP req successful
       setFormSuccess("Data received correctly");
 
       // Reset form data
       setFormData(initialFormData);
+      // setLoading(false);
       if (res.data.length !== 0) {
         //setSimilarPets(res.data);
         //setMessage("V")
-        console.log(res.data);
+        // console.log(res.data);
         navigate("/SimillarityResult2", {
           state: {
             similarPets: res.data,
@@ -147,181 +160,185 @@ const PetDetails2 = (props) => {
   };
 
   return (
-    <article dir="rtl">
-      <ThemeProvider theme={theme}>
-        <Container maxWidth="xs">
-          <Box
-            sx={{
-              marginTop: 20,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <PetsIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              מילוי פרטים מזהים
-            </Typography>
-            {flag && <div><br></br><br></br> <Alert severity="error">{textErr}</Alert></div>}
-
-
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              noValidate
-              sx={{ mt: 1 }}
-            >
-
-              <TextField
+    <>
+      {loading ? <Loader /> :
+        <article dir="rtl">
+          <ThemeProvider theme={theme}>
+            <Container maxWidth="xs">
+              <Box
                 sx={{
-                  "& label": {
-                    left: "unset",
-                    right: "1.75rem",
-                    transformOrigin: "right",
-                  },
-                  "& legend": {
-                    textAlign: "right",
-                    fontSize: "0.7rem",
-                  },
+                  marginTop: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
-                error={nameError}
-                margin="normal"
-                required
-                fullWidth
-                id="petName"
-                label="שם החיה"
-                name="petName"
-                autoComplete="petName"
-                autoFocus
-                value={formData.petName}
-                onChange={handleChange}
-              />
+              >
+                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <PetsIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  מילוי פרטים מזהים
+                </Typography>
+                {flag && <div><br></br><br></br> <Alert severity="error">{textErr}</Alert></div>}
 
-              <FormControl required>
-                <FormLabel id="petType">סוג החיה</FormLabel>
-                <RadioGroup aria-labelledby="petType" name="petType">
-                  <FormControlLabel
-                    value="cat"
-                    control={<Radio />}
-                    checked={formData.petType === "cat"}
-                    onChange={handleChange}
-                    label="חתול"
-                  />
-                  <FormControlLabel
-                    value="dog"
-                    control={<Radio />}
-                    checked={formData.petType === "dog"}
-                    onChange={handleChange}
-                    label="כלב"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <br></br>
-              <FormControl required>
-                <FormLabel id="petGender">מין החיה</FormLabel>
-                <RadioGroup aria-labelledby="petGender" name="petGender" error={genderError}>
-                  <FormControlLabel
-                    value="M"
-                    control={<Radio />}
-                    label="זכר"
+
+                <Box
+                  component="form"
+                  onSubmit={handleSubmit}
+                  noValidate
+                  sx={{ mt: 1 }}
+                >
+
+                  <TextField
+                    sx={{
+                      "& label": {
+                        left: "unset",
+                        right: "1.75rem",
+                        transformOrigin: "right",
+                      },
+                      "& legend": {
+                        textAlign: "right",
+                        fontSize: "0.7rem",
+                      },
+                    }}
+                    error={nameError}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="petName"
+                    label="שם החיה"
+                    name="petName"
+                    autoComplete="petName"
+                    autoFocus
+                    value={formData.petName}
                     onChange={handleChange}
                   />
-                  <FormControlLabel
-                    value="F"
-                    control={<Radio />}
-                    label="נקבה"
+
+                  <FormControl required>
+                    <FormLabel id="petType">סוג החיה</FormLabel>
+                    <RadioGroup aria-labelledby="petType" name="petType">
+                      <FormControlLabel
+                        value="cat"
+                        control={<Radio />}
+                        checked={formData.petType === "cat"}
+                        onChange={handleChange}
+                        label="חתול"
+                      />
+                      <FormControlLabel
+                        value="dog"
+                        control={<Radio />}
+                        checked={formData.petType === "dog"}
+                        onChange={handleChange}
+                        label="כלב"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                  <br></br>
+                  <FormControl required>
+                    <FormLabel id="petGender">מין החיה</FormLabel>
+                    <RadioGroup aria-labelledby="petGender" name="petGender" error={genderError}>
+                      <FormControlLabel
+                        value="M"
+                        control={<Radio />}
+                        label="זכר"
+                        onChange={handleChange}
+                      />
+                      <FormControlLabel
+                        value="F"
+                        control={<Radio />}
+                        label="נקבה"
+                        onChange={handleChange}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+
+                  <TextField
+                    sx={{
+                      "& label": {
+                        left: "unset",
+                        right: "1.75rem",
+                        transformOrigin: "right",
+                      },
+                      "& legend": {
+                        textAlign: "right",
+                        fontSize: "0.7rem",
+                      },
+                    }}
+                    variant="outlined"
+                    multiline
+                    rows={3}
+                    maxRows={8}
+                    fullWidth
+                    label="גזע החיה"
+                    required
+                    value={formData.petBreeds}
+                    onChange={handleChange}
+                    aria-readonly
+                  />
+
+                  <TextField
+                    sx={{
+                      "& label": {
+                        left: "unset",
+                        right: "1.75rem",
+                        transformOrigin: "right",
+                      },
+                      "& legend": {
+                        textAlign: "right",
+                        fontSize: "0.7rem",
+                      },
+                    }}
+                    error={locationError}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="location"
+                    label={
+                      request.status === "lost" ? "המקום בו אבד" : "המקום בו נמצא"
+                    }
+                    name="location"
+                    autoComplete="location"
+                    value={formData.location}
                     onChange={handleChange}
                   />
-                </RadioGroup>
-              </FormControl>
 
-              <TextField
-                sx={{
-                  "& label": {
-                    left: "unset",
-                    right: "1.75rem",
-                    transformOrigin: "right",
-                  },
-                  "& legend": {
-                    textAlign: "right",
-                    fontSize: "0.7rem",
-                  },
-                }}
-                variant="outlined"
-                multiline
-                rows={3}
-                maxRows={8}
-                fullWidth
-                label="גזע החיה"
-                required
-                value={formData.petBreeds}
-                onChange={handleChange}
-                aria-readonly
-              />
-
-              <TextField
-                sx={{
-                  "& label": {
-                    left: "unset",
-                    right: "1.75rem",
-                    transformOrigin: "right",
-                  },
-                  "& legend": {
-                    textAlign: "right",
-                    fontSize: "0.7rem",
-                  },
-                }}
-                error={locationError}
-                margin="normal"
-                required
-                fullWidth
-                id="location"
-                label={
-                  request.status === "lost" ? "המקום בו אבד" : "המקום בו נמצא"
-                }
-                name="location"
-                autoComplete="location"
-                value={formData.location}
-                onChange={handleChange}
-              />
-
-              <TextField
-                sx={{
-                  "& label": {
-                    left: "unset",
-                    right: "1.75rem",
-                    transformOrigin: "right",
-                  },
-                  "& legend": {
-                    textAlign: "right",
-                    fontSize: "0.65rem",
-                  },
-                }}
-                margin="normal"
-                fullWidth
-                id="note"
-                label="הערות"
-                name="note"
-                autoComplete="note"
-                value={formData.note}
-                onChange={handleChange}
-              />
-              <br></br> <br></br>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{ mt: 3, mb: 2, display: "block", margin: "0 auto", backgroundColor: "hsl(113, 34%, 42%)" }}>
-                {request.status === "lost"
-                  ? "תמצא לי את הילד"
-                  : "חפש את ההורים"}
-              </Button>
-            </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
-    </article>
+                  <TextField
+                    sx={{
+                      "& label": {
+                        left: "unset",
+                        right: "1.75rem",
+                        transformOrigin: "right",
+                      },
+                      "& legend": {
+                        textAlign: "right",
+                        fontSize: "0.65rem",
+                      },
+                    }}
+                    margin="normal"
+                    fullWidth
+                    id="note"
+                    label="הערות"
+                    name="note"
+                    autoComplete="note"
+                    value={formData.note}
+                    onChange={handleChange}
+                  />
+                  <br></br> <br></br>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, display: "block", margin: "0 auto", backgroundColor: "hsl(113, 34%, 42%)" }}>
+                    {request.status === "lost"
+                      ? "תמצא לי את הילד"
+                      : "חפש את ההורים"}
+                  </Button>
+                </Box>
+              </Box>
+            </Container>
+          </ThemeProvider>
+        </article>
+      }
+    </>
   );
 };
 export default PetDetails2;
