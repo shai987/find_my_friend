@@ -74,7 +74,7 @@ const SignIn = () => {
 
         const handleErrors = (err) => {
                 setFlag(true)
-                if (err.response.data && err.response.data.errors) {
+                if (err.response?.data && err.response?.data.errors) {
                         // Handle validation errors
                         const errors = err.response.data.errors
 

@@ -110,8 +110,9 @@ const PetDetails2 = (props) => {
   };
 
   const handleErrors = (err) => {
+    console.log("hi2")
     setFlag(true)
-    if (err.response.data && err.response.data.errors) {
+    if (err.response?.data && err.response?.data.errors) {
       // Handle validation errors
       const errors = err.response.data.errors
       console.log(errors);

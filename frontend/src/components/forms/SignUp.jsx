@@ -82,7 +82,7 @@ const SignUp = () => {
                 setEmailError(false)
                 setPasswordError(false)
                 setPhoneError(false)
-                if (err.response.data && err.response.data.errors) {
+                if (err.response?.data && err.response?.data.errors) {
                         // Handle validation errors
                         const errors = err.response.data.errors
 

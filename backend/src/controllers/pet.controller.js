@@ -93,6 +93,8 @@ export const handlePetDetails = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
+  console.log(req.body);
+
   const {
     userEmail,
     petName,
