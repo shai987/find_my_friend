@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader";
@@ -23,10 +23,6 @@ axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails2 = (props) => {
   const theme = createTheme();
-  /*const onSubmit = (e) => {
-      e.preventDefault()
-      const { name, email, message, radio } = e.target.elements
-    }*/
 
   const { user } = useContext(AuthContext);
   const { request } = useContext(UserRequestContext);
@@ -35,7 +31,6 @@ const PetDetails2 = (props) => {
   const initialFormData = {
     userEmail: user.email,
     petName: request.status === "lost" ? "" : "שם החיה לא ידוע",
-    // petName: "",
     petType: pet_type,
     petGender: "",
     petBreeds: pet_breeds,
@@ -68,7 +63,6 @@ const PetDetails2 = (props) => {
     setLocationError(!formData.location);
     setGenderError(!formData.petGender);
 
-    // if (request.status === "lost") {
     if (!formData.petName || !formData.location || !formData.petGender) {
       setText("אוי! נראה שחלק מהשדות ריקים")
       setFlag(true)
@@ -79,7 +73,6 @@ const PetDetails2 = (props) => {
       setLoading(true);
       // Send POST request
       const res = await axios.post("/petDetails", formData);
-      // const res = await axios.post(request.status === "found" ? "/petDetails1" : "/petDetails", formData);
 
       // HTTP req successful
       setFormSuccess("Data received correctly");
@@ -118,41 +111,41 @@ const PetDetails2 = (props) => {
       console.log(errors);
 
       let errMsg = "";
-      
-      if(errors.length>1){
-              for (let error of errors) {
-                      // const { msg } = error;
-                      const errorMsg = error.msg
-                      console.log(error.param)
-                      if(error.param === "petName"){
-                              setNameError(true);
-                              errMsg +=`${errorMsg}\n`
-                      }
-                      else if(error.param === "petGender"){
-                              setGenderError(true);
-                              errMsg +=`${errorMsg}\n`
-                      }
-                      //location
-                      else{
-                              setLocationError(true);
-                              errMsg +=`${errorMsg}\n`
-                      }
-              }
-              
-              
+
+      if (errors.length > 1) {
+        for (let error of errors) {
+          // const { msg } = error;
+          const errorMsg = error.msg
+          console.log(error.param)
+          if (error.param === "petName") {
+            setNameError(true);
+            errMsg += `${errorMsg}\n`
+          }
+          else if (error.param === "petGender") {
+            setGenderError(true);
+            errMsg += `${errorMsg}\n`
+          }
+          //location
+          else {
+            setLocationError(true);
+            errMsg += `${errorMsg}\n`
+          }
+        }
+
+
       }
-      else{
-              if(errors[0].param === "petName"){
-                setNameError(true);
-              }
-              else if(errors[0].param === "petGender"){
-                setGenderError(true);
-              }
-              //location
-              else{
-                    setLocationError(true);
-              }
-              errMsg=errors[0].msg
+      else {
+        if (errors[0].param === "petName") {
+          setNameError(true);
+        }
+        else if (errors[0].param === "petGender") {
+          setGenderError(true);
+        }
+        //location
+        else {
+          setLocationError(true);
+        }
+        errMsg = errors[0].msg
       }
       setText(errMsg)
     } else {
@@ -191,8 +184,8 @@ const PetDetails2 = (props) => {
                   מילוי פרטים מזהים
                 </Typography>
                 {flag && <div><br></br><br></br> <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>
-                                        {textErr}
-                                        </Alert></div>}
+                  {textErr}
+                </Alert></div>}
 
 
                 <Box
