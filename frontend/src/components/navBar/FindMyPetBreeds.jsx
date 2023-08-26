@@ -10,10 +10,12 @@ const FindMyPetBreeds = () => {
         // drag state
         const [dragActive, setDragActive] = useState(false);
         const [image, setImage] = useState({ preview: '', data: '' });
-        const [response, setResponse] = useState("");
+        const [response, setResponse] = useState(null);
         const [dragText, setDragText] = useState("אפשר לגרור את התמונה לפה\n\n או");
         const [uploadText, setUploadText] = useState("להעלות קובץ בלחיצה");
-        const [errMassage, setErrMassage] = useState("");
+        const [errMassage, setErrMassage] = useState(null);
+
+        console.log(response)
 
         // ref
         const inputRef = useRef(null);
@@ -73,6 +75,7 @@ const FindMyPetBreeds = () => {
                 try {
                         setLoading(true);
                         const res = await axios.post('/uploadImage', formData);
+                        window.scrollBy(0, 1);
                         if (res.data.error === "No file was uploaded.") {
                                 setErrMassage(`אופס! נראה ששכחת להעלות תמונה`);
                                 setLoading(false);
@@ -87,32 +90,23 @@ const FindMyPetBreeds = () => {
                         }
                         else {
                                 setErrMassage('');
-                                setResponse(`סוג החיה: ${res.data.pet_type == "dog" ? "כלב" : "חתול"},\nגזע: ${res.data.breeds}`);
+                                const petType = res.data.pet_type == "dog" ? "כלב" : "חתול"
+                                setResponse({pet_type:petType,breeds: res.data.breeds})
                                 setLoading(false);
                         }
-                        // setResponse(res);
-                        // console.log(res);
-                        // if (res.data.length !== 0) {
-                        //         setResponse(`סוג החיה: ${res.data.pet_type == "dog" ? "כלב" : "חתול"},\nגזע: ${res.data.breeds}`);
-                        // }
-                        // setLoading(false);
+                        
                 } catch (err) {
                         setLoading(false);
                         console.log(err);
                         setErrMassage(err.message);
-                        /*if (error.response) {
-                                setResponse(error.response.data)
-                        }
-                        else{
-                                setResponse('An error occurred during file upload.');
-                        } */
                 }
         };
 
         return (
                 <>
                         {loading ? <Loader /> :
-                                (<form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
+                        <article className="article-container">
+                                <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
                                         <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
@@ -125,11 +119,17 @@ const FindMyPetBreeds = () => {
                                         <br></br>
                                         <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
                                         <br></br><br></br>
-                                        <p>{errMassage}</p>
+                                        {errMassage&&<div className="err-response">{errMassage}</div>}
 
-                                        <div dir="rtl">{response}</div>
-
-                                </form>)
+                                </form>
+                                {response && <div dir="rtl" className="response">
+                                        <p><b>סוג החיה: </b>{response.pet_type}</p>
+                                        <pre><b>גזע: </b>{response.breeds}</pre>
+                                </div>
+                                }
+                                
+                        </article>
+                                
                         }
                 </>
         );

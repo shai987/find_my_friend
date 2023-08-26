@@ -54,3 +54,14 @@
   bottom: 0px;
   left: 0px;
 }
+
+/* Style for the response div */
+.response {
+  margin-top: 2%; 
+  text-align: center;
+  padding: 15px; 
+  border: 2px solid red;
+  border-radius: 8px;
+  background-color: #f8f8f8; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

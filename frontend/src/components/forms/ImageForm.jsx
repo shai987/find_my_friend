@@ -79,6 +79,7 @@ const ImageForm = () => {
                 try {
                         setLoading(true);
                         const res = await axios.post('/uploadImage', formData);
+                        window.scrollBy(0, 10);
                         if (res.data.error === "No file was uploaded.") {
                                 setLoading(false);
                                 setErrMassage(`אופס! נראה ששכחת להעלות תמונה`);
@@ -120,7 +121,7 @@ const ImageForm = () => {
                                         <br></br>
                                         <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
                                         <br></br>
-                                        <p>{errMassage}</p>
+                                        <p className="response">{errMassage}</p>
                                 </form>
                                         : <PetDetails pet_type={pet_type} pet_breeds={pet_breeds} />)
                         }
