@@ -12,6 +12,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import Loader from '../Loader';
+
 // import axios
 import axios from 'axios';
 // import our components
@@ -38,25 +43,44 @@ const formatDate = (dateString) => {
   return formattedDate;
 }
 
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
 const UserAccount = () => {
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
   const [requests, setRequests] = useState([]);
   const [formErrors, setFormErrors] = useState([]);
-  const [formSuccess, setFormSuccess] = useState("");
+  const [formSuccess, setFormSuccess] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
+    setLoading(true);
     axios.get('/userInfo', {
       params: {
         email: user.email
       }
     })
-      .then(response => setRequests(response.data))
-      .catch(error => console.error(error));
+      .then(response => {
+        setRequests(response.data)
+        setLoading(false);
+        
+      })
+      .catch(error => {
+        console.error(error)
+        setLoading(false);
+      });
   }, []);
 
-  console.log(requests.length);
-
+ 
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate('/');
@@ -68,11 +92,14 @@ const UserAccount = () => {
     if (confirmed) {
       try {
         const response = await axios.post('/deleteUser', { email: user.email });
-        if (response.data.message) {
-          setFormSuccess("problem");
-        } else {
+        console.log(response);
+        if (response.status==200) {
+          setFormSuccess("Success")
           logout();
-          navigate("/UserStatus");
+          setOpen(true);
+          setTimeout(()=>{
+            navigate("/");
+          }, 5000);
         }
       } catch (error) {
         handleErrors(error);
@@ -101,7 +128,16 @@ const UserAccount = () => {
   };
   return (
     <>
-      <AlertSuccess success={formSuccess} />
+     {formSuccess==="Success"&&<BootstrapDialog
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            איזה יופי! המשתמש נמחק בהצלחה!
+          </Typography>
+        </DialogContent>
+        </BootstrapDialog>}
       <AlertError errors={formErrors} />
       <div className="userWrapper">
         <div className="userHeading">
@@ -116,7 +152,8 @@ const UserAccount = () => {
             <Button onClick={handleDelete} variant="contained">מחיקת המשתמש</Button>
           </section>
         </div>
-        {requests.length > 0 &&
+        
+        {loading ? <Loader /> : requests.length > 0 &&
           <TableContainer className="tableWrapper" component={Paper}>
             <Typography
               sx={{ flex: '1 1 100%' }}
@@ -146,7 +183,6 @@ const UserAccount = () => {
                   >
                     <TableCell align="center">{request.petType === 'cat' ? 'חתול' : 'כלב'}</TableCell>
                     <TableCell align="center">{request.petName}</TableCell>
-                    {console.log(request.img)}
                     <TableCell align="center"><img
                       src={`data:${request.img.contentType};base64,${Buffer.from(request.img.data.data).toString('base64')}`}
                       title={request.petName}
@@ -154,6 +190,7 @@ const UserAccount = () => {
                       className="person-img"
                       width="30"
                     /></TableCell>
+                    {console.log(request.petBreeds)}
                     <TableCell align="center">{request.petBreeds}</TableCell>
                     <TableCell align="center">{request.status == "lost" ? "איבדתי" : "מצאתי"}</TableCell>
                     <TableCell align="center">{formatDate(request.date)}</TableCell>

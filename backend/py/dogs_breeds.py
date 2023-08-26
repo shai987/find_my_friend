@@ -21,12 +21,12 @@ for i, v in enumerate(dogs_breeds_names):
 class dogs_breeds :
     def dogs_breeds_classifier(test_image):
         probs = dogs_breeds_model.predict(np.expand_dims(test_image, axis=0))
-        breeds = []
+        breeds = ""
         for idx in probs.argsort()[0][::-1][:5]:
             # print("{:.2f}%".format(probs[0][idx]*100), "\t", label_maps_rev_dogs[idx].split("-")[-1])
             percent = probs[0][idx]*100
             if(percent > 2):
-                breeds.append(f'{label_maps_rev_dogs[idx].split("-")[-1]} ({"{:.2f}%".format(probs[0][idx]*100)})')
+                breeds+=f'{label_maps_rev_dogs[idx].split("-")[-1]} ({"{:.2f}%".format(probs[0][idx]*100)})\n'
         # plt.show()    
         return breeds
 

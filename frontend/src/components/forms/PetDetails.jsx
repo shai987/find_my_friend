@@ -1,28 +1,36 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AlertError } from "../views/AlertError";
-import { AlertSuccess } from "../views/AlertSuccess";
 import Loader from "../Loader";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import PetsIcon from "@mui/icons-material/Pets";
+import Avatar from "@mui/material/Avatar";
 import { AuthContext } from "../../context/AuthContext";
 import { UserRequestContext } from "../../context/UserRequestContext";
-import '../../assets/css/petDetails.css';
-
-
-/*import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';*/
+import Alert from '@mui/material/Alert';
 
 axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
-  // להוסיף useEffect שמטרתו לשאול את המשתמש אם הוא בטוח שברצונו לצאת מהדף מבלי לשלוח את הטופס. אם כן למחוק את המסמך מהמונגו.
+  const theme = createTheme();
+
   const { user } = useContext(AuthContext);
   const { request } = useContext(UserRequestContext);
   const { pet_type, pet_breeds } = props;
 
   const initialFormData = {
     userEmail: user.email,
-    petName: "",
+    petName: request.status === "lost" ? "" : "שם החיה לא ידוע",
     petType: pet_type,
     petGender: "",
     petBreeds: pet_breeds,
@@ -35,29 +43,49 @@ const PetDetails = (props) => {
   const [formSuccess, setFormSuccess] = useState("");
   const [formErrors, setFormErrors] = useState([]);
   const [loading, setLoading] = useState(false);
-  //const [similarPets, setSimilarPets] = useState([]);
-  //const [message, setMessage] = useState([]);
+  const [flag, setFlag] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [genderError, setGenderError] = useState(false);
+  const [locationError, setLocationError] = useState(false);
+  const [textErr, setText] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate('/UserStatus');
+    }
+  }, [user, navigate]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    if (loading) {
-      <Loader />;
+    setNameError(!formData.petName);
+    setLocationError(!formData.location);
+    setGenderError(!formData.petGender);
+
+    if (!formData.petName || !formData.location || !formData.petGender) {
+      setText("אוי! נראה שחלק מהשדות ריקים")
+      setFlag(true)
+      return
     }
+
     try {
+      setLoading(true);
       // Send POST request
+      console.log(formData)
       const res = await axios.post("/petDetails", formData);
+
       // HTTP req successful
       setFormSuccess("Data received correctly");
 
       // Reset form data
       setFormData(initialFormData);
+      // setLoading(false);
       if (res.data.length !== 0) {
         //setSimilarPets(res.data);
         //setMessage("V")
-        console.log(res.data)
-        navigate("/SimillarityResult2", {
+        // console.log(res.data);
+        navigate("/SimillarityResults", {
           state: {
             similarPets: res.data,
           },
@@ -68,7 +96,7 @@ const PetDetails = (props) => {
             petType: pet_type,
           },
         });
-      }p
+      }
     } catch (err) {
       setLoading(false);
       handleErrors(err);
@@ -76,21 +104,54 @@ const PetDetails = (props) => {
   };
 
   const handleErrors = (err) => {
-    if (err.response.data && err.response.data.errors) {
+    console.log("hi2")
+    setFlag(true)
+    if (err.response?.data && err.response?.data.errors) {
       // Handle validation errors
-      const { errors } = err.response.data;
+      const errors = err.response.data.errors
+      console.log(errors);
 
-      let errorMsg = [];
-      for (let error of errors) {
-        const { msg } = error;
+      let errMsg = "";
 
-        errorMsg.push(msg);
+      if (errors.length > 1) {
+        for (let error of errors) {
+          // const { msg } = error;
+          const errorMsg = error.msg
+          console.log(error.param)
+          if (error.param === "petName") {
+            setNameError(true);
+            errMsg += `${errorMsg}\n`
+          }
+          else if (error.param === "petGender") {
+            setGenderError(true);
+            errMsg += `${errorMsg}\n`
+          }
+          //location
+          else {
+            setLocationError(true);
+            errMsg += `${errorMsg}\n`
+          }
+        }
+
+
       }
-
-      setFormErrors(errorMsg);
+      else {
+        if (errors[0].param === "petName") {
+          setNameError(true);
+        }
+        else if (errors[0].param === "petGender") {
+          setGenderError(true);
+        }
+        //location
+        else {
+          setLocationError(true);
+        }
+        errMsg = errors[0].msg
+      }
+      setText(errMsg)
     } else {
       // Handle generic error
-      setFormErrors(["Oops, there was an error!"]);
+      setText(["אופס! משהו השתבש"]);
     }
   };
 
@@ -105,106 +166,189 @@ const PetDetails = (props) => {
 
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit} className="form">
-          <h1>טופס מילוי פרטים</h1>
-          <AlertSuccess success={formSuccess} />
-          <AlertError errors={formErrors} />
-          <div>
-            {/*אם found אז שם חיה לא חובה*/}
-            <input
-              type="text"
-              placeholder="שם החיה"
-              name="petName"
-              value={formData.petName}
-              onInput={handleChange}
-            />
-          </div>
-          <div>
-            <p>סוג החיה</p>
-            
-                <label htmlFor="">חתול</label>
-                <input
-                  type="radio"
-                  name="petType"
-                  value="cat"
-                  checked={formData.petType === "cat"}
-                  onChange={handleChange}
-                />
-             
-                <label htmlFor="">כלב</label>
-                <input
-                  type="radio"
-                  name="petType"
-                  value="dog"                
-                  checked={formData.petType === "dog"}
-                  onChange={handleChange}
-                />
-          </div>
-          <div>
-            <p>מין החיה</p>
-            <label htmlFor="">נקבה</label>
-            <input
-              type="radio"
-              name="petGender"
-              value="F"
-              onChange={handleChange}
-            />
-            <label htmlFor="">זכר</label>
-            <input
-              type="radio"
-              name="petGender"
-              className="input"
-              value="M"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="">גזע החיה</label>
-            <textarea
-              disabled
-              cols="20"
-              rows="10"
-              name="petBreeds"
-              value={formData.petBreeds}
-              onInput={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="">
-              {request.status === "lost" ? "המקום בו אבד" : "המקום בו נמצא"}
-            </label>
-            <input
-              type="text"
-              name="location"
-              className="input"
-              value={formData.location}
-              onInput={handleChange}
-            />
-            <div>
-              <label htmlFor="">הערות</label>
-              <textarea
-                cols="20"
-                rows="10"
-                name="note"
-                value={formData.note}
-                onInput={handleChange}
-              />
-            </div>
-          </div>
-          <input
-            type="submit"
-            className="button"
-            value={
-              request.status === "lost" ? "תמצא לי את הילד" : "חפש את ההורים"
-            }
-          />
-        </form>
-      </div>
+      {loading ? <Loader /> :
+        
+        <article className="petDetailsForm" dir="rtl">
+          <ThemeProvider theme={theme}>
+            <Container maxWidth="xs" >
+              <Box
+                sx={{
+                  marginTop: 5,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <PetsIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  מילוי פרטים מזהים
+                </Typography>
+                {flag && <div><br></br><br></br> <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>
+                  {textErr}
+                </Alert></div>}
+
+
+                <Box
+                  component="form"
+                  onSubmit={handleSubmit}
+                  noValidate
+                  sx={{ mt: 1 }}
+                >
+
+                  <TextField
+                    sx={{
+                      "& label": {
+                        left: "unset",
+                        right: "1.75rem",
+                        transformOrigin: "right",
+                      },
+                      "& legend": {
+                        textAlign: "right",
+                        fontSize: "0.7rem",
+                      },
+                    }}
+                    error={nameError}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="petName"
+                    label="שם החיה"
+                    name="petName"
+                    autoComplete="petName"
+                    autoFocus
+                    value={formData.petName}
+                    onChange={handleChange}
+                  />
+
+                  <FormControl required>
+                    <FormLabel id="petType">סוג החיה</FormLabel>
+                    <RadioGroup aria-labelledby="petType" name="petType">
+                      <FormControlLabel
+                        value="cat"
+                        control={<Radio />}
+                        checked={formData.petType === "cat"}
+                        onChange={handleChange}
+                        label="חתול"
+                      />
+                      <FormControlLabel
+                        value="dog"
+                        control={<Radio />}
+                        checked={formData.petType === "dog"}
+                        onChange={handleChange}
+                        label="כלב"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                  <br></br>
+                  <FormControl required>
+                    <FormLabel id="petGender">מין החיה</FormLabel>
+                    <RadioGroup aria-labelledby="petGender" name="petGender" error={genderError}>
+                      <FormControlLabel
+                        value="M"
+                        control={<Radio />}
+                        checked={formData.petGender === "M"}
+                        label="זכר"
+                        onChange={handleChange}
+                      />
+                      <FormControlLabel
+                        value="F"
+                        control={<Radio />}
+                        checked={formData.petGender === "F"}
+                        label="נקבה"
+                        onChange={handleChange}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+
+                  <TextField
+                    sx={{
+                      "& label": {
+                        left: "unset",
+                        right: "1.75rem",
+                        transformOrigin: "right",
+                      },
+                      "& legend": {
+                        textAlign: "right",
+                        fontSize: "0.7rem",
+                      },
+                    }}
+                    variant="outlined"
+                    multiline
+                    rows={3}
+                    maxRows={8}
+                    fullWidth
+                    label="גזע החיה"
+                    required
+                    value={formData.petBreeds}
+                    onChange={handleChange}
+                    aria-readonly
+                  />
+
+                  <TextField
+                    sx={{
+                      "& label": {
+                        left: "unset",
+                        right: "1.75rem",
+                        transformOrigin: "right",
+                      },
+                      "& legend": {
+                        textAlign: "right",
+                        fontSize: "0.7rem",
+                      },
+                    }}
+                    error={locationError}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="location"
+                    label={
+                      request.status === "lost" ? "המקום בו אבד" : "המקום בו נמצא"
+                    }
+                    name="location"
+                    autoComplete="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                  />
+
+                  <TextField
+                    sx={{
+                      "& label": {
+                        left: "unset",
+                        right: "1.75rem",
+                        transformOrigin: "right",
+                      },
+                      "& legend": {
+                        textAlign: "right",
+                        fontSize: "0.65rem",
+                      },
+                    }}
+                    margin="normal"
+                    fullWidth
+                    id="note"
+                    label="הערות"
+                    name="note"
+                    autoComplete="note"
+                    value={formData.note}
+                    onChange={handleChange}
+                  />
+                  <br></br> <br></br>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, display: "block", margin: "0 auto", backgroundColor: "hsl(113, 34%, 42%)" }}>
+                    {request.status === "lost"
+                      ? "תמצא לי את הילד"
+                      : "חפש את ההורים"}
+                  </Button>
+                </Box>
+              </Box>
+            </Container>
+          </ThemeProvider>
+        </article>
+      }
     </>
   );
 };
-
 export default PetDetails;
-
-

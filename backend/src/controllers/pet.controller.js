@@ -9,6 +9,8 @@ import { pet_details_schema } from "../models/pet_details.js";
 import { validationResult } from "express-validator";
 import { } from "dotenv/config";
 import { ObjectID } from "bson";
+import he from "he"
+
 
 const localhost = process.env.LOCAL_HOST;
 const flask_port = process.env.FLASK_PORT || 5000;
@@ -74,7 +76,6 @@ export const handlePetImage = async (req, res) => {
             responseType: "json",
           }
         );
-        console.log(response.data);
         res.json(response.data);
       } catch (err) {
         res.json(err.message);
@@ -93,18 +94,19 @@ export const handlePetDetails = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  console.log(req.body);
-
+  const petBreeds = he.decode(req.body.petBreeds);
   const {
     userEmail,
     petName,
     petType,
     petGender,
-    petBreeds,
     location,
     status,
     note,
-  } = req.body;
+  } = req.body
+
+
+  console.log(petBreeds);
 
   // get photo file name
   const directoryPath = "pets";
@@ -135,6 +137,8 @@ export const handlePetDetails = async (req, res) => {
     userEmail: userEmail,
     note: note,
   };
+
+  console.log(obj);
 
   const newPet = new newPet_model(obj);
   let result = await newPet.save();

@@ -17,13 +17,14 @@ const Transition = forwardRef((props, ref) => {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const SimillarityResult2 = () => {
+const SimillarityResults = () => {
   const location = useLocation();
   const [userDetails, setUser] = useState({
     email: "",
     first_name: "",
     last_name: "",
   });
+  const [fail,setFail] = useState(false);
 
   const [sliders] = useState(location.state.similarPets);
   console.log(sliders);
@@ -62,7 +63,12 @@ const SimillarityResult2 = () => {
       console.log(sliders[currentIndex].userEmail);
       const res = await axios.post('/conactParents', { email: sliders[currentIndex].userEmail });
       console.log(res.data);
-      setUser(res.data);
+      if(res.data === "user not found"){
+        setFail(true);
+      }
+      else{
+        setUser(res.data);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -94,15 +100,23 @@ const SimillarityResult2 = () => {
               <h2>{sliders[currentIndex].petName}</h2>
               <p>סוג החיה: {sliders[currentIndex].petType == "dog" ? "כלב" : "חתול"}</p>
               <p >מין: {sliders[currentIndex].petGender == "M" ? "זכר" : "נקבה"}</p>
-              <p >גזע: {sliders[currentIndex].petBreeds}</p>
+              <pre>גזע: {sliders[currentIndex].petBreeds}</pre>
               <p> מיקום: {sliders[currentIndex].location} </p>
-              {console.log(sliders[currentIndex].img)}
               {sliders[currentIndex].note && <p >{sliders[currentIndex].note}</p>}
               <div>
                 <Button onClick={handleClick}>
                   צור קשר
                 </Button>
+                {fail? 
                 <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description">
+                  <DialogTitle>פרטי המשתמש לא נמצאו</DialogTitle>
+                  </Dialog> :
+                  <Dialog
                   open={open}
                   TransitionComponent={Transition}
                   keepMounted
@@ -119,6 +133,8 @@ const SimillarityResult2 = () => {
                     </DialogTitle>
                   }
                 </Dialog>
+                  }
+                
               </div>
             </div>
           )}
@@ -144,4 +160,4 @@ const SimillarityResult2 = () => {
 
 };
 
-export default SimillarityResult2;
+export default SimillarityResults;

@@ -2,7 +2,7 @@ import "../../assets/css/ImageForm.css";
 import { useState, useRef } from "react";
 import axios from 'axios';
 import Loader from '../Loader';
-import PetDetails2 from "./PetDetails2";
+import PetDetails from "./PetDetails";
 import Button from '@mui/material/Button';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
@@ -122,7 +122,7 @@ const ImageForm = () => {
                                         <br></br>
                                         <p>{errMassage}</p>
                                 </form>
-                                        : <PetDetails2 pet_type={pet_type} pet_breeds={pet_breeds} />)
+                                        : <PetDetails pet_type={pet_type} pet_breeds={pet_breeds} />)
                         }
                 </>
         );

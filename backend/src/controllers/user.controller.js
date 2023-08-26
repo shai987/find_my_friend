@@ -112,13 +112,21 @@ export const handleDeleteAllUser = async (req, res) => {
 // Delete user
 export const handleDeleteUser = async (req, res) => {
         const { email } = req.body;
-        db_user_details.query("DELETE FROM users WHERE email = ?", [email], (err, result) => {
+        db_user_details.query("DELETE FROM users WHERE email = ?", [email], async (err, result) => {
                 if (err) {
                         res.send(err.message);
                         console.log(err.message);
                 }
                 else {
-                        res.send(result);
+                        try{
+                                let result = await newPet_model.deleteMany({userEmail:email})
+                                console.log(result);
+                                res.status(200).json(result);
+                        }
+                        catch(err){
+                                res.send(err.message);
+                        }
+                        
                 }
         });
 }
@@ -145,10 +153,13 @@ export const handleContactUser = async (req, res) => {
         try {
                 db_user_details.query('SELECT email, first_name, last_name, phone_number FROM users WHERE email = ?', [email], (err, result) => {
                         if (err) {
+                                console.log("err: "+err.message);
                                 res.send(err.message);
-                                console.log(err.message);
                         }
-                        console.log(result[0])
+                        else if (result[0] == undefined){
+                                res.send("user not found");
+                        }
+                        console.log("s: "+ result[0])
                         res.send(result[0]);
                 });
         }

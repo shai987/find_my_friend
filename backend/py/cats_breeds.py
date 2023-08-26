@@ -22,11 +22,11 @@ class cats_breeds :
     
     def cats_breeds_classifier(test_image):
         probs = cats_breeds_model.predict(np.expand_dims(test_image, axis=0))
-        breeds = []
+        breeds = ""
         for idx in probs.argsort()[0][::-1][:5]:
             # print("{:.2f}%".format(probs[0][idx]*100), "\t", label_maps_rev_cats[idx].split("-")[-1])
             percent = probs[0][idx]*100
             if(percent > 2):
-                breeds.append(f'{label_maps_rev_cats[idx].split("-")[-1]} ({"{:.2f}%".format(probs[0][idx]*100)})')
+                breeds+=f'{label_maps_rev_cats[idx].split("-")[-1]} ({"{:.2f}%".format(probs[0][idx]*100)})\n'
         # plt.show()    
         return breeds
