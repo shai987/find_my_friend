@@ -121,7 +121,7 @@ const ImageForm = () => {
                                         <br></br>
                                         <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
                                         <br></br>
-                                        <p className="response">{errMassage}</p>
+                                        {errMassage && <p className="response">{errMassage}</p>}
                                 </form>
                                         : <PetDetails pet_type={pet_type} pet_breeds={pet_breeds} />)
                         }
