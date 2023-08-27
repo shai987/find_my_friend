@@ -81,21 +81,48 @@ export const validate = (method) => {
 
                 case "handleSignIn": {
                         return [
-                                body("email")
-                                        .not()
-                                        .isEmpty()
-                                        .withMessage("אוי, נראה ששכחת להזין כתובת אימייל")
-                                        .isEmail()
-                                        .withMessage("אוי, כתובת האימייל שהזנת לא תקינה")
-                                        .normalizeEmail(),
-                                body("user_password")
-                                        .not()
-                                        .isEmpty()
-                                        .withMessage("אוי, נראה ששכחת לזין סיסמא")
-                                        .trim()
-                                        .escape()
-                                        .isLength({ min: 4, max: 26 })
-                                        .withMessage("סיסמה צריכה להכיל בין 4 ל-26 תווים"),
+                          body("email")
+                            .not()
+                            .isEmpty()
+                            .withMessage("אוי, נראה ששכחת להזין כתובת אימייל")
+                            .isEmail()
+                            .withMessage("אוי, כתובת האימייל שהזנת לא תקינה")
+                            .normalizeEmail(),
+                          body("user_password")
+                            .not()
+                            .isEmpty()
+                            .withMessage("אוי, נראה ששכחת לזין סיסמא")
+                            .trim()
+                            .escape()
+                            .isLength({ min: 4, max: 26 })
+                            .withMessage("סיסמה צריכה להכיל בין 4 ל-26 תווים"),
+                        ];
+                }
+                case "handleContactUs": {
+                        return [
+                          body("userName")
+                            .not()
+                            .isEmpty()
+                            .trim()
+                            .withMessage("אוי, נראה ששכחת להזין שם")
+                            .isLength({ min: 2, max: 26 })
+                            .withMessage("שם צריך להכיל בין 2 ל-26 תווים")
+                            .escape(),
+                          body("userEmail")
+                            .not()
+                            .isEmpty()
+                            .withMessage("אוי, נראה ששכחת להזין כתובת אימייל")
+                            .isEmail()
+                            .withMessage("אוי, כתובת האימייל שהזנת לא תקינה")
+                            .normalizeEmail(),
+                          body("message")
+                            .not()
+                            .isEmpty()
+                            .withMessage("אוי, נראה ששכחת לזין סיסמא")
+                            .trim()
+                            .escape()
+                            .isLength({ min: 2 })
+                            .withMessage("על הודעה להכיל יותר משני תווים"),
                         ];
                 }
         }

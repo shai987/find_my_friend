@@ -4,11 +4,33 @@ import db_user_details from "../sql/sqlConnection.js";
 
 import mongoose from "mongoose";
 
+import nodemailer from "nodemailer";
+
+
 import { pet_details_schema } from "../models/pet_details.js";
 
 import bcrypt from "bcrypt";
 
 const newPet_model = mongoose.model("newPet", pet_details_schema);
+
+const conMail = "findmyfriend10@gmail.com"
+const conPas = "tdqzckwkymiqilcd"
+
+const contactEmail = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: conMail,
+          pass: conPas,
+        },
+      });
+      
+contactEmail.verify((error) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Ready to Send");
+        }
+});
 
 // SignUp
 export const handleSignUp = async (req, res) => {
@@ -184,4 +206,32 @@ export const handleUserInfo = async (req, res) => {
                 console.log(err.message);
         }
 }
+
+export const handleContactUs = (req, res) => {
+        console.log(req.body);
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+                // Validation errors
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const name = req.body.userName;
+        const email = req.body.userEmail;
+        const message = req.body.message; 
+        const mail = {
+          from: name,
+          to: conMail,
+          subject: `יש לך פנייה חדשה מ${name}`,
+          html: `<p>שם: ${name}</p>
+                 <p>אימייל: ${email}</p>
+                 <p>תוכן ההודעה: ${message}</p>`,
+        };
+
+        contactEmail.sendMail(mail, (error) => {
+          if (error) {
+            res.json({ status: "ERROR" });
+          } else {
+            res.json({ status: "Message Sent" });
+          }
+        });
+      }
 
