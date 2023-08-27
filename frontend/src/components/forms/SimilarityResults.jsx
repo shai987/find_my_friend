@@ -11,8 +11,6 @@ import "../../assets/css/Similarity2.css";
 import { AuthContext } from '../../context/AuthContext';
 import { Buffer } from "buffer";
 
-
-
 const Transition = forwardRef((props, ref) => {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -24,7 +22,7 @@ const SimillarityResults = () => {
     first_name: "",
     last_name: "",
   });
-  const [fail,setFail] = useState(false);
+  const [fail, setFail] = useState(false);
 
   const [sliders] = useState(location.state.similarPets);
   console.log(sliders);
@@ -63,10 +61,10 @@ const SimillarityResults = () => {
       console.log(sliders[currentIndex].userEmail);
       const res = await axios.post('/conactParents', { email: sliders[currentIndex].userEmail });
       console.log(res.data);
-      if(res.data === "user not found"){
+      if (res.data === "user not found") {
         setFail(true);
       }
-      else{
+      else {
         setUser(res.data);
       }
     } catch (err) {
@@ -91,12 +89,12 @@ const SimillarityResults = () => {
           {sliders.length > 0 && (
             <div>
               <img
-                      src={`data:${sliders[currentIndex].img.contentType};base64,${Buffer.from(sliders[currentIndex].img.data.data).toString('base64')}`}
-                      title={sliders[currentIndex].petName}
-                      alt={sliders[currentIndex].petName}
-                      className="person-img"
-                      width="30"
-        />
+                src={`data:${sliders[currentIndex].img.contentType};base64,${Buffer.from(sliders[currentIndex].img.data.data).toString('base64')}`}
+                title={sliders[currentIndex].petName}
+                alt={sliders[currentIndex].petName}
+                className="person-img"
+                width="30"
+              />
               <h2>{sliders[currentIndex].petName}</h2>
               <p>סוג החיה: {sliders[currentIndex].petType == "dog" ? "כלב" : "חתול"}</p>
               <p >מין: {sliders[currentIndex].petGender == "M" ? "זכר" : "נקבה"}</p>
@@ -107,34 +105,34 @@ const SimillarityResults = () => {
                 <Button onClick={handleClick}>
                   צור קשר
                 </Button>
-                {fail? 
-                <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description">
-                  <DialogTitle>פרטי המשתמש לא נמצאו</DialogTitle>
+                {fail ?
+                  <Dialog
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description">
+                    <DialogTitle>פרטי המשתמש לא נמצאו</DialogTitle>
                   </Dialog> :
                   <Dialog
-                  open={open}
-                  TransitionComponent={Transition}
-                  keepMounted
-                  onClose={handleClose}
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogTitle>{`שם: ${userDetails.first_name} ${userDetails.last_name}`}</DialogTitle>
-                  <DialogTitle>{`דוא"ל: `}
-                    <a href={`mailto:${userDetails.email}`}>{userDetails.email}</a>
-                  </DialogTitle>
-                  {userDetails.phone_number &&
-                    <DialogTitle>{`טלפון: `}
-                      <a href={`tel:${userDetails.phone_number}`}>{userDetails.phone_number}</a>
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description"
+                  >
+                    <DialogTitle>{`שם: ${userDetails.first_name} ${userDetails.last_name}`}</DialogTitle>
+                    <DialogTitle>{`דוא"ל: `}
+                      <a href={`mailto:${userDetails.email}`}>{userDetails.email}</a>
                     </DialogTitle>
-                  }
-                </Dialog>
-                  }
-                
+                    {userDetails.phone_number &&
+                      <DialogTitle>{`טלפון: `}
+                        <a href={`tel:${userDetails.phone_number}`}>{userDetails.phone_number}</a>
+                      </DialogTitle>
+                    }
+                  </Dialog>
+                }
+
               </div>
             </div>
           )}
