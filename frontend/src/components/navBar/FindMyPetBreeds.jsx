@@ -91,10 +91,10 @@ const FindMyPetBreeds = () => {
                         else {
                                 setErrMassage('');
                                 const petType = res.data.pet_type == "dog" ? "כלב" : "חתול"
-                                setResponse({pet_type:petType,breeds: res.data.breeds})
+                                setResponse({ pet_type: petType, breeds: res.data.breeds })
                                 setLoading(false);
                         }
-                        
+
                 } catch (err) {
                         setLoading(false);
                         console.log(err);
@@ -105,31 +105,30 @@ const FindMyPetBreeds = () => {
         return (
                 <>
                         {loading ? <Loader /> :
-                        <article className="article-container">
-                                <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
-                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
-                                        <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
-                                                <div>
-                                                        {image.preview && <img src={image.preview} width='300' height='300' />}
-                                                        <p>{dragText}</p>
-                                                        <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
-                                                </div>
-                                        </label>
-                                        {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
-                                        <br></br>
-                                        <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
-                                        <br></br><br></br>
-                                        {errMassage&&<div className="err-response">{errMassage}</div>}
+                                <article className="article-container">
+                                        <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
+                                                <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
+                                                <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
+                                                        <div>
+                                                                {image.preview && <img src={image.preview} width='300' height='300' />}
+                                                                <p>{dragText}</p>
+                                                                <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
+                                                        </div>
+                                                </label>
+                                                {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
+                                                <br></br>
+                                                <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
+                                                <br></br><br></br>
+                                                {errMassage && <div className="response err">{errMassage}</div>}
+                                        </form>
+                                        {response && <div dir="rtl" className="response">
+                                                <p><b>סוג החיה: </b>{response.pet_type}</p>
+                                                <pre><b>גזע: </b>{response.breeds}</pre>
+                                        </div>
+                                        }
 
-                                </form>
-                                {response && <div dir="rtl" className="response">
-                                        <p><b>סוג החיה: </b>{response.pet_type}</p>
-                                        <pre><b>גזע: </b>{response.breeds}</pre>
-                                </div>
-                                }
-                                
-                        </article>
-                                
+                                </article>
+
                         }
                 </>
         );
