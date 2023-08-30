@@ -1,16 +1,15 @@
 import { useState } from "react";
 import '../../assets/css/ContactUs.css';
 import dog_computer from '../../assets/images/dog_computer.jpg';
-import axios from  'axios';
+import axios from 'axios';
 import Alert from '@mui/material/Alert';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
-
-
 
 const ContactForm = () => {
 
   const initialFormData = {
-    userName: "",
+    userFirstName: "",
+    userLastName: "",
     userEmail: "",
     message: ""
   };
@@ -20,21 +19,30 @@ const ContactForm = () => {
   const [textErr, setText] = useState("");
   const [flag, setFlag] = useState(false);
   const [alertType, setAlertType] = useState("")
-  
+  const [firstNameErr, setFirstNameErr] = useState(false)
+  const [lastNameErr, setLastNameErr] = useState(false)
+  const [emailErr, setEmailErr] = useState(false)
+  const [msgErr, setMsgErr] = useState(false)
+
 
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setFormStatus('שולח...');
+    setFirstNameErr(false);
+    setLastNameErr(false)
+    setEmailErr(false)
+    setMsgErr(false)
 
-    if(!formData.userName || !formData.userEmail || !formData.message){
+    if (!formData.userFirstName || !formData.userLastName || !formData.userEmail || !formData.message) {
       setFlag(true);
       setAlertType("error");
       setText("אוי! אחד מהשדות ריקים")
       return
     }
     const details = {
-      userName: formData.userName,
+      userFirstName: formData.userFirstName,
+      userLastName: formData.userLastName,
       userEmail: formData.userEmail,
       message: formData.message
     };
@@ -48,10 +56,13 @@ const ContactForm = () => {
 
       setFormStatus('שלח טופס'); // Reset the button text
       const result = response.data;
-      setFlag(true);
-      setAlertType("success");
-      setText("איזה כיף! המייל נשלח בהצלחה!")
-      setFormData(initialFormData)
+      if (result.status === "Message Sent") {
+        setFlag(true);
+        setAlertType("success");
+        setText("איזה כיף! המייל נשלח בהצלחה!")
+        setFormData(initialFormData)
+      }
+
     } catch (error) {
       // Handle error here
       setAlertType("error");
@@ -64,7 +75,7 @@ const ContactForm = () => {
     if (err.response?.data && err.response?.data.errors) {
       // Handle validation errors
       const errors = err.response.data.errors
-      
+      console.log(errors)
       let errMsg = "";
 
       if (errors.length > 1) {
@@ -72,17 +83,21 @@ const ContactForm = () => {
           // const { msg } = error;
           const errorMsg = error.msg
           console.log(error.param)
-          if (error.param === "userName") {
-            // setNameError(true);
+          if (error.param === "userFirstName") {
+            setFirstNameErr(true)
+            errMsg += `${errorMsg}\n`
+          }
+          else if (error.param === "userLastName") {
+            setLastNameErr(true)
             errMsg += `${errorMsg}\n`
           }
           else if (error.param === "userEmail") {
-            // setGenderError(true);
+            setEmailErr(true)
             errMsg += `${errorMsg}\n`;
           }
           //message
           else {
-            //setLocationError(true);
+            setMsgErr(true)
             errMsg += `${errorMsg}\n`;
           }
         }
@@ -90,14 +105,18 @@ const ContactForm = () => {
 
       }
       else {
-        if (errors[0].param === "userName") {
-          // setNameError(true);
-        } else if (errors[0].param === "userEmail") {
-          // setGenderError(true);
+        if (errors[0].param === "userFirstName") {
+          setFirstNameErr(true)
+        }
+        else if (errors[0].param === "userLastName") {
+          setLastNameErr(true)
+        }
+        else if (errors[0].param === "userEmail") {
+          setEmailErr(true)
         }
         //message
         else {
-          // setLocationError(true);
+          setMsgErr(true)
         }
         errMsg = errors[0].msg
       }
@@ -130,7 +149,7 @@ const ContactForm = () => {
               <div>
                 <br></br>
                 <br></br>{" "}
-                <Alert severity={alertType} sx={{ whiteSpace: "pre-line" }}>
+                <Alert severity={alertType} sx={{ whiteSpace: "pre-line", width: "70%" }}>
                   {textErr}
                 </Alert>
                 <br></br>
@@ -139,12 +158,23 @@ const ContactForm = () => {
             )}
             <input
               type="text"
-              id="userName"
-              name="userName"
-              placeholder="שם"
+              id="userFirstName"
+              name="userFirstName"
+              placeholder="שם פרטי"
               required
-              value={formData.userName}
+              value={formData.userFirstName}
               onChange={handleChange}
+              className={firstNameErr ? "errorMsg" : ""}
+            />
+            <input
+              type="text"
+              id="userLastName"
+              name="userLastName"
+              placeholder="שם משפחה"
+              required
+              value={formData.userLastName}
+              onChange={handleChange}
+              className={lastNameErr ? "errorMsg" : ""}
             />
             <input
               type="email"
@@ -154,6 +184,7 @@ const ContactForm = () => {
               required
               value={formData.userEmail}
               onChange={handleChange}
+              className={emailErr ? "errorMsg" : ""}
             />
             <textarea
               cols="30"
@@ -164,6 +195,7 @@ const ContactForm = () => {
               required
               value={formData.message}
               onChange={handleChange}
+              className={msgErr ? "errorMsg" : ""}
             />
             <button type="submit">{formStatus}</button>
           </form>
