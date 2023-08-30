@@ -1,34 +1,28 @@
 import { validationResult } from "express-validator";
-
 import db_user_details from "../sql/sqlConnection.js";
-
 import mongoose from "mongoose";
-
 import nodemailer from "nodemailer";
-
-
 import { pet_details_schema } from "../models/pet_details.js";
-
 import bcrypt from "bcrypt";
 
 const newPet_model = mongoose.model("newPet", pet_details_schema);
 
-const conMail = "findmyfriend10@gmail.com"
-const conPas = "tdqzckwkymiqilcd"
+const conMail = process.env.CON_MAIL;
+const conPas = process.env.CON_PAS;
 
 const contactEmail = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: conMail,
-          pass: conPas,
+                user: conMail,
+                pass: conPas,
         },
-      });
-      
+});
+
 contactEmail.verify((error) => {
         if (error) {
-          console.log(error);
+                console.log(error);
         } else {
-          console.log("Ready to Send");
+                console.log("Ready to Send");
         }
 });
 
@@ -140,15 +134,15 @@ export const handleDeleteUser = async (req, res) => {
                         console.log(err.message);
                 }
                 else {
-                        try{
-                                let result = await newPet_model.deleteMany({userEmail:email})
+                        try {
+                                let result = await newPet_model.deleteMany({ userEmail: email })
                                 console.log(result);
                                 res.status(200).json(result);
                         }
-                        catch(err){
+                        catch (err) {
                                 res.send(err.message);
                         }
-                        
+
                 }
         });
 }
@@ -175,13 +169,13 @@ export const handleContactUser = async (req, res) => {
         try {
                 db_user_details.query('SELECT email, first_name, last_name, phone_number FROM users WHERE email = ?', [email], (err, result) => {
                         if (err) {
-                                console.log("err: "+err.message);
+                                console.log("err: " + err.message);
                                 res.send(err.message);
                         }
-                        else if (result[0] == undefined){
+                        else if (result[0] == undefined) {
                                 res.send("user not found");
                         }
-                        console.log("s: "+ result[0])
+                        console.log("s: " + result[0])
                         res.send(result[0]);
                 });
         }
@@ -212,26 +206,27 @@ export const handleContactUs = (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
                 // Validation errors
-            return res.status(400).json({ errors: errors.array() });
+                return res.status(400).json({ errors: errors.array() });
         }
-        const name = req.body.userName;
+        const firstName = req.body.userFirstName;
+        const lastName = req.body.userLastName;
         const email = req.body.userEmail;
-        const message = req.body.message; 
+        const message = req.body.message;
         const mail = {
-          from: name,
-          to: conMail,
-          subject: `יש לך פנייה חדשה מ${name}`,
-          html: `<p>שם: ${name}</p>
+                from: `${firstName} ${lastName}`,
+                to: conMail,
+                subject: `יש לך פנייה חדשה מ-${firstName} ${lastName}`,
+                html: `<p>שם: ${firstName} ${lastName}</p>
                  <p>אימייל: ${email}</p>
                  <p>תוכן ההודעה: ${message}</p>`,
         };
 
         contactEmail.sendMail(mail, (error) => {
-          if (error) {
-            res.json({ status: "ERROR" });
-          } else {
-            res.json({ status: "Message Sent" });
-          }
+                if (error) {
+                        res.json({ status: "ERROR" });
+                } else {
+                        res.json({ status: "Message Sent" });
+                }
         });
-      }
+}
 
