@@ -72,7 +72,7 @@ const MyRouter = () => {
         }
 
         const { user, logout } = useContext(AuthContext);
-        const [nav, setNav] = useState(null);
+        const [setNav] = useState(null); //! ok?
         const [user1, setUser1] = useState(null);
         const [open, setOpen] = useState(false);
 
@@ -137,7 +137,7 @@ const MyRouter = () => {
                                                                         </MenuItem>
                                                                 ))}
 
-                                                                {/*מכאן זה אייקון של משתמש והתפריט שלו */}
+                                                                {/*From here it's the user icon and his menu */}
                                                                 <div id='iconPosition'>
                                                                         <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
                                                                                 <IconButton onClick={handleOpenUserMenu} sx={{
@@ -147,11 +147,6 @@ const MyRouter = () => {
                                                                                         {user.isLoggedIn && !user.first_time_Logged_in ? < Avatar alt={`${user.first_name}`} title={`${user.first_name} ${user.last_name}`} sx={{ width: '65px', height: '65px', my: -1.5, backgroundColor: '#FF8A00', border: '2px solid #fff', }} src={`https://anonymous-animals.azurewebsites.net/avatar/:${user.email}`} /> : < Avatar alt="no one" title="no one" />}
                                                                                 </IconButton>
                                                                         </Tooltip>
-
-                                                                        {/* <Typography sx={{
-                                                                                direction: 'ltr', ml: '-70px', my: '7px', fontSize: '13px'
-
-                                                                        }}> {user.first_name + ' ' + user.last_name}</Typography> */}
                                                                 </div>
 
                                                                 <Menu
