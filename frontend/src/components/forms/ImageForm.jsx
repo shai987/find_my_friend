@@ -80,15 +80,15 @@ const ImageForm = () => {
                         setLoading(true);
                         const res = await axios.post('/uploadImage', formData);
                         window.scrollBy(0, 10);
-                        if (res.data.error === "No file was uploaded.") {
+                        if (res.data?.error === "No file was uploaded.") {
                                 setLoading(false);
                                 setErrMassage(`אופס! נראה ששכחת להעלות תמונה`);
                         }
-                        else if (res.data.error === "Internal server error.") {
+                        else if (res.data?.error === "Internal server error.") {
                                 setLoading(false);
                                 setErrMassage(`.אופס! נראה שהעלת סוג קובץ לא נכון\n .jpg, jpeg, png :יש לעלות קבצים מסוג`);
                         }
-                        else if (res.data.error === "File upload failed.") {
+                        else if (res.data?.error === "File upload failed.") {
                                 setLoading(false);
                                 setErrMassage(`1 MB אופס! יש לעלות קובץ עד`);
                         }
