@@ -24,8 +24,6 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 // import our components
-import { AlertError } from "../views/AlertError";
-import { AlertSuccess } from "../views/AlertSuccess";
 import { AuthContext } from '../../context/AuthContext';
 // import axios
 import axios from 'axios';
@@ -44,11 +42,9 @@ const SignIn = () => {
         };
 
         const [formData, setFormData] = useState(initialFormData);
-        const [formSuccess, setFormSuccess] = useState("");
-        const [formErrors, setFormErrors] = useState([]);
         const [showPassword, setShowPassword] = useState(false);
         const navigate = useNavigate();
-        const { user, login } = useContext(AuthContext);
+        const { login } = useContext(AuthContext);
         const [emailError, setEmailError] = useState(false);
         const [passwordError, setPasswordError] = useState(false);
         const [textErr, setText] = useState("");
@@ -58,10 +54,7 @@ const SignIn = () => {
                 setFormData({
                         ...formData,
                         [e.target.name]: e.target.value,
-
                 });
-                setFormErrors([]);
-                setFormSuccess("");
         };
 
         const handleClickShowPassword = () => {
@@ -78,40 +71,31 @@ const SignIn = () => {
                         // Handle validation errors
                         const errors = err.response.data.errors
 
-                        // const { errors } = err.response.data;
-
                         let errMsg = "";
-                        if(errors.length>1){
+                        if (errors.length > 1) {
                                 for (let error of errors) {
-                                        // const { msg } = error;
                                         const errorMsg = error.msg
                                         console.log(error.param)
-                                        if(error.param === "email"){
+                                        if (error.param === "email") {
                                                 setEmailError(true);
-                                                errMsg +=`${errorMsg}\n`
+                                                errMsg += `${errorMsg}\n`
                                         }
-                                        else{
+                                        else {
                                                 setPasswordError(true);
-                                                errMsg +=`${errorMsg}\n`
+                                                errMsg += `${errorMsg}\n`
                                         }
                                 }
-                                
-                                
                         }
-                        else{
-                                if(errors[0].param === "email"){
+                        else {
+                                if (errors[0].param === "email") {
                                         setEmailError(true);
                                 }
-                                else{
+                                else {
                                         setPasswordError(true);
                                 }
-                                errMsg=errors[0].msg
+                                errMsg = errors[0].msg
                         }
                         setText(errMsg)
-
-                        
-
-                        // setFormErrors(errorMsg);
                 } else {
                         // Handle generic error
                         setText(["אופס! משהו השתבש"]);
@@ -127,11 +111,10 @@ const SignIn = () => {
                         setText("אוי! נראה שחלק מהשדות ריקים")
                         setFlag(true)
                         return
-                      }
+                }
                 try {
                         // Send POST request
                         await axios.post('/userSignIn', formData).then((response) => {
-                                console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
                                 if (response.data.message === "User not found") {
                                         setFlag(true)
                                         setEmailError(true);
@@ -143,11 +126,8 @@ const SignIn = () => {
                                         setText("אוי! נראה שהסיסמה שהוזנה לא תואמת למה ששמור במערכת")
                                 }
                                 else {
-                                        console.log(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
                                         setFormData(response.data);
-
                                         login(response.data.first_name, response.data.last_name, response.data.email, response.data.phone_number)
-                                        console.log(user);
                                         return navigate("/RequestStatus");
                                 }
                         });
@@ -162,7 +142,7 @@ const SignIn = () => {
                 <ThemeProvider theme={theme}>
                         <Container component="main" maxWidth="xs">
                                 <CssBaseline />
-                                
+
                                 <Box
                                         sx={{
                                                 marginTop: 8,
@@ -178,11 +158,8 @@ const SignIn = () => {
                                                 כניסה
                                         </Typography>
 
-                                        {/* <AlertSuccess success={formSuccess} /> */}
-                                        {/* <AlertError errors={formErrors} /> */}
-
                                         {flag && <div><br></br><br></br> <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>
-                                        {textErr}
+                                                {textErr}
                                         </Alert></div>}
 
                                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -252,29 +229,6 @@ const SignIn = () => {
                                                                 }
                                                         />
                                                 </FormControl>
-                                                {/* <TextField
-                                                        sx={{
-                                                                "& label": {
-                                                                        left: "unset",
-                                                                        right: "1.75rem",
-                                                                        transformOrigin: "right",
-                                                                },
-                                                                "& legend": {
-                                                                        textAlign: "right",
-                                                                        fontSize: "0.6rem",
-                                                                },
-                                                        }}
-                                                        margin="normal"
-                                                        required
-                                                        fullWidth
-                                                        name="user_password"
-                                                        label="סיסמא"
-                                                        type="password"
-                                                        id="password"
-                                                        autoComplete="current-password"
-                                                        value={formData.user_password}
-                                                        onChange={handleChange}
-                                                /> */}
                                                 <br />
                                                 <FormControlLabel
                                                         control={<Checkbox value="remember" color="primary" />}
