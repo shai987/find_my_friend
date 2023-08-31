@@ -76,12 +76,11 @@ export const handlePetImage = async (req, res) => {
         );
         res.json(response.data);
       } catch (err) {
-        res.json(err.message);
+        res.sendStatus(500).json(err.message);
       }
     });
   } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
+    res.sendStatus(500).json(err.message);
   }
 };
 

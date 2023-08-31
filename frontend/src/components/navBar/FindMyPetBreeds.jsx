@@ -15,8 +15,6 @@ const FindMyPetBreeds = () => {
         const [uploadText, setUploadText] = useState("להעלות קובץ בלחיצה");
         const [errMassage, setErrMassage] = useState(null);
 
-        console.log(response)
-
         // ref
         const inputRef = useRef(null);
         const [loading, setLoading] = useState(false);
@@ -75,7 +73,7 @@ const FindMyPetBreeds = () => {
                 try {
                         setLoading(true);
                         const res = await axios.post('/uploadImage', formData);
-                        window.scrollBy(0, 1);
+                        window.scrollBy(0, 100);
                         if (res.data.error === "No file was uploaded.") {
                                 setErrMassage(`אופס! נראה ששכחת להעלות תמונה`);
                                 setLoading(false);
@@ -97,8 +95,7 @@ const FindMyPetBreeds = () => {
 
                 } catch (err) {
                         setLoading(false);
-                        console.log(err);
-                        setErrMassage(err.message);
+                        setErrMassage("אופס! משהו השתבש");
                 }
         };
 
@@ -106,6 +103,8 @@ const FindMyPetBreeds = () => {
                 <>
                         {loading ? <Loader /> :
                                 <article className="article-container">
+                                        <h1>מזהה הגזעים</h1>
+                                        <p id="p_breeds">תמיד רציתם לדעת מה הגזע של חיית המחמד שלכם? איזה כיף! עכשיו אתם יכולים!</p>
                                         <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
                                                 <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
                                                 <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
@@ -117,7 +116,7 @@ const FindMyPetBreeds = () => {
                                                 </label>
                                                 {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
                                                 <br></br>
-                                                <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
+                                                <Button variant="contained" type='submit' onClick={handleSubmit}>?שנגלה את הגזע</Button>
                                                 <br></br><br></br>
                                                 {errMassage && <div className="response err">{errMassage}</div>}
                                         </form>

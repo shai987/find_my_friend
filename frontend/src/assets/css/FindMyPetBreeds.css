@@ -1,7 +1,7 @@
 #form-file-upload {
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10%;
+  margin-bottom: 4%;
   height: 32rem;
   width: 44rem;
   max-width: 100%;
@@ -75,4 +75,8 @@
 
 .response.err {
   border: 2px solid red;
+}
+
+#p_breeds{
+  font-size: 20px;
 }

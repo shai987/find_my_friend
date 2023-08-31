@@ -51,7 +51,7 @@ const MyRouter = () => {
         const pages = [
                 { key: 'About', value: 'אודות' },
                 { key: 'ContactUs', value: 'צור קשר' },
-                { key: 'FindMyPetBreeds', value: 'אזור משחקים' },
+                { key: 'FindMyPetBreeds', value: 'מזהה הגזעים' },
                 { key: 'UserStatus', value: 'צא לדרך' },
         ];
 
