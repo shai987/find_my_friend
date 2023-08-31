@@ -133,7 +133,6 @@ export const handlePetDetails = async (req, res) => {
     note: note,
     status: status,
     userEmail: userEmail,
-    note: note,
   };
 
   console.log(obj);
@@ -194,17 +193,22 @@ export const handleMostFoundPets = async (req, res) => {
       {
         $limit: 1,
       },
+      {
+        $project: {
+          userEmail: "$_id",
+          foundPetsCount: 1,
+          _id: 0
+        }
+      }
     ];
 
     const result = await newPet_model.aggregate(filter);
-
     if (result.length > 0) {
       res.json(result[0]);
     } else {
       res.json({ message: "אף משתשמש לא מצא חיות" });
     }
   } catch (err) {
-    res.json(err.message);;
+    res.json(err.message);
   }
-
 };
