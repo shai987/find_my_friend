@@ -28,14 +28,14 @@ db_user_details.connect((err) => {
                 // Create users_details database if it doesn't exist
                 else {
                         const user_details_database = 'CREATE DATABASE IF NOT EXISTS users_details';
-                        db_user_details.query(user_details_database, (err, result) => {
+                        db_user_details.query(user_details_database, (err) => {
                                 if (err) throw err;
                                 console.log("Database created");
                         });
                 }
 
                 // Use the database
-                db_user_details.query(`USE ${database_name}`, (err, result) => {
+                db_user_details.query(`USE ${database_name}`, (err) => {
                         if (err) throw err;
 
                         // Query to get list of all the tables of the user
@@ -53,7 +53,7 @@ db_user_details.connect((err) => {
                                 // Create user_table if it doesn't exist
                                 else {
                                         const user_table = 'CREATE TABLE users (email VARCHAR(40) PRIMARY KEY, first_name VARCHAR(20) NOT NULL, last_name VARCHAR(20) NOT NULL, phone_number VARCHAR(10), user_password VARCHAR(255) NOT NULL)';
-                                        db_user_details.query(user_table, (err, result) => {
+                                        db_user_details.query(user_table, (err) => {
                                                 if (err) throw err;
                                                 console.log("Table created");
                                         });
