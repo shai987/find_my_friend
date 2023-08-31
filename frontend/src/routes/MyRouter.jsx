@@ -72,7 +72,7 @@ const MyRouter = () => {
         }
 
         const { user, logout } = useContext(AuthContext);
-        const [setNav] = useState(null); //! ok?
+        const [nav, setNav] = useState(null);
         const [user1, setUser1] = useState(null);
         const [open, setOpen] = useState(false);
 
