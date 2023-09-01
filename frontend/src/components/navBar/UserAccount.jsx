@@ -15,21 +15,18 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import Loader from '../Loader';
-
-// import axios
-import axios from 'axios';
+// import Buffer
+import { Buffer } from "buffer";
 // import our components
 import { AlertError } from "../views/AlertError";
-import { AlertSuccess } from "../views/AlertSuccess";
 import { AuthContext } from '../../context/AuthContext';
+import Loader from '../Loader';
 // import our images
 import dog_with_cat from '../../assets/images/dog_with_cat.jpg';
-
 // import css
 import '../../assets/css/UserAccount.css';
-import { Buffer } from "buffer";
-
+// import axios
+import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 const formatDate = (dateString) => {
@@ -61,7 +58,6 @@ const UserAccount = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     setLoading(true);
     axios.get('/userInfo', {
@@ -72,7 +68,7 @@ const UserAccount = () => {
       .then(response => {
         setRequests(response.data)
         setLoading(false);
-        
+
       })
       .catch(error => {
         console.error(error)
@@ -80,7 +76,7 @@ const UserAccount = () => {
       });
   }, []);
 
- 
+
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate('/');
@@ -93,11 +89,11 @@ const UserAccount = () => {
       try {
         const response = await axios.post('/deleteUser', { email: user.email });
         console.log(response);
-        if (response.status==200) {
+        if (response.status === 200) {
           setFormSuccess("Success")
           logout();
           setOpen(true);
-          setTimeout(()=>{
+          setTimeout(() => {
             navigate("/");
           }, 5000);
         }
@@ -126,9 +122,10 @@ const UserAccount = () => {
       setFormErrors(["Oops, there was an error!"]);
     }
   };
+
   return (
     <>
-     {formSuccess==="Success"&&<BootstrapDialog
+      {formSuccess === "Success" && <BootstrapDialog
         aria-labelledby="customized-dialog-title"
         open={open}
       >
@@ -137,7 +134,7 @@ const UserAccount = () => {
             איזה יופי! המשתמש נמחק בהצלחה!
           </Typography>
         </DialogContent>
-        </BootstrapDialog>}
+      </BootstrapDialog>}
       <AlertError errors={formErrors} />
       <div className="userWrapper">
         <div className="userHeading">
@@ -152,7 +149,7 @@ const UserAccount = () => {
             <Button onClick={handleDelete} variant="contained">מחיקת המשתמש</Button>
           </section>
         </div>
-        
+
         {loading ? <Loader /> : requests.length > 0 &&
           <TableContainer className="tableWrapper" component={Paper}>
             <Typography
@@ -192,7 +189,7 @@ const UserAccount = () => {
                     /></TableCell>
                     {console.log(request.petBreeds)}
                     <TableCell align="center">{request.petBreeds}</TableCell>
-                    <TableCell align="center">{request.status == "lost" ? "איבדתי" : "מצאתי"}</TableCell>
+                    <TableCell align="center">{request.status === "lost" ? "איבדתי" : "מצאתי"}</TableCell>
                     <TableCell align="center">{formatDate(request.date)}</TableCell>
                     <TableCell align="center">{request.location}</TableCell>
                   </TableRow>
@@ -204,4 +201,5 @@ const UserAccount = () => {
     </>
   );
 }
+
 export default UserAccount; 
