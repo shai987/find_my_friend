@@ -1,12 +1,4 @@
-.h2Class {
+.h2Class,
+article {
         text-align: center;
-}
-
-#imgFinderOfTheMonth {
-        clip-path: circle(39%);
-        width: 400px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 80px;
 }

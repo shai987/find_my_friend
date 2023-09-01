@@ -1,9 +1,14 @@
-import "../../assets/css/ImageForm.css";
+// import libraries from react
 import { useState, useRef } from "react";
-import axios from 'axios';
-import Loader from '../Loader';
-import PetDetails2 from "./PetDetails2";
+// import libraries from material-ui
 import Button from '@mui/material/Button';
+// import our components
+import Loader from '../Loader';
+import PetDetails from "./PetDetails";
+// import css
+import "../../assets/css/ImageForm.css";
+// import axios 
+import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 // drag drop file component
@@ -79,15 +84,16 @@ const ImageForm = () => {
                 try {
                         setLoading(true);
                         const res = await axios.post('/uploadImage', formData);
-                        if (res.data.error === "No file was uploaded.") {
+                        window.scrollBy(0, 10);
+                        if (res.data?.error === "No file was uploaded.") {
                                 setLoading(false);
                                 setErrMassage(`אופס! נראה ששכחת להעלות תמונה`);
                         }
-                        else if (res.data.error === "Internal server error.") {
+                        else if (res.data?.error === "Internal server error.") {
                                 setLoading(false);
                                 setErrMassage(`.אופס! נראה שהעלת סוג קובץ לא נכון\n .jpg, jpeg, png :יש לעלות קבצים מסוג`);
                         }
-                        else if (res.data.error === "File upload failed.") {
+                        else if (res.data?.error === "File upload failed.") {
                                 setLoading(false);
                                 setErrMassage(`1 MB אופס! יש לעלות קובץ עד`);
                         }
@@ -111,7 +117,7 @@ const ImageForm = () => {
                                         <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
-                                                        {image.preview && <img src={image.preview} width='300' height='300' />}
+                                                        {image.preview && <img src={image.preview} alt='UploadImage' width='300' height='300' />}
                                                         <p>{dragText}</p>
                                                         <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
                                                 </div>
@@ -120,9 +126,9 @@ const ImageForm = () => {
                                         <br></br>
                                         <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
                                         <br></br>
-                                        <p>{errMassage}</p>
+                                        {errMassage && <p className="response err">{errMassage}</p>}
                                 </form>
-                                        : <PetDetails2 pet_type={pet_type} pet_breeds={pet_breeds} />)
+                                        : <PetDetails pet_type={pet_type} pet_breeds={pet_breeds} />)
                         }
                 </>
         );

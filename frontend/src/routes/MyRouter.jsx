@@ -1,3 +1,5 @@
+// import libraries from react
+import { useState, useContext, forwardRef } from "react";
 // import react-router-dom
 import {
         HashRouter as Router,
@@ -7,8 +9,6 @@ import {
         Route,
         Link,
 } from 'react-router-dom';
-// import libraries from react
-import { useState, useContext, forwardRef } from "react";
 // import libraries from material-ui
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -36,8 +36,7 @@ import SignUp from '../components/forms/SignUp';
 import ImageForm from '../components/forms/ImageForm';
 import RequestStatus from '../components/forms/RequestStatus';
 import ScrollToTop from '../components/ScrollToTop';
-import SimillarityResult from '../components/forms/SimillarityResult';
-import SimillarityResult2 from '../components/forms/SimilarityResults2';
+import SimillarityResults from '../components/forms/SimilarityResults';
 import NoResults from '../components/forms/NoResults';
 import { AuthContext } from '../context/AuthContext';
 // import css
@@ -52,7 +51,7 @@ const MyRouter = () => {
         const pages = [
                 { key: 'About', value: 'אודות' },
                 { key: 'ContactUs', value: 'צור קשר' },
-                { key: 'FindMyPetBreeds', value: 'אזור משחקים' },
+                { key: 'FindMyPetBreeds', value: 'מזהה הגזעים' },
                 { key: 'UserStatus', value: 'צא לדרך' },
         ];
 
@@ -104,7 +103,7 @@ const MyRouter = () => {
                 handleClose();
         };
 
-        const settings = user.isLoggedIn ? [
+        const settings = user.isLoggedIn && !user.first_time_Logged_in ? [
                 { key: 'UserAccount', value: 'אזור אישי' },
                 { key: 'UserStatus', value: 'צא לדרך' },
                 {
@@ -138,21 +137,16 @@ const MyRouter = () => {
                                                                         </MenuItem>
                                                                 ))}
 
-                                                                {/*מכאן זה אייקון של משתמש והתפריט שלו */}
+                                                                {/*From here it's the user icon and his menu */}
                                                                 <div id='iconPosition'>
                                                                         <Tooltip title="הגדרות" sx={{ position: 'relative' }}>
                                                                                 <IconButton onClick={handleOpenUserMenu} sx={{
                                                                                         p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
                                                                                 }}>
                                                                                         {/* pets icons - https://github.com/Ivanmtta/anonymous-animals-api */}
-                                                                                        {user.isLoggedIn ? < Avatar alt={`${user.first_name}`} title={`${user.first_name} ${user.last_name}`} sx={{ width: '65px', height: '65px', my: -1.5, backgroundColor: '#FF8A00', border: '2px solid #fff', }} src={`https://anonymous-animals.azurewebsites.net/avatar/:${user.email}`} /> : < Avatar alt="no one" />}
+                                                                                        {user.isLoggedIn && !user.first_time_Logged_in ? < Avatar alt={`${user.first_name}`} title={`${user.first_name} ${user.last_name}`} sx={{ width: '65px', height: '65px', my: -1.5, backgroundColor: '#FF8A00', border: '2px solid #fff', }} src={`https://anonymous-animals.azurewebsites.net/avatar/:${user.email}`} /> : < Avatar alt="no one" title="no one" />}
                                                                                 </IconButton>
                                                                         </Tooltip>
-
-                                                                        {/* <Typography sx={{
-                                                                                direction: 'ltr', ml: '-70px', my: '7px', fontSize: '13px'
-
-                                                                        }}> {user.first_name + ' ' + user.last_name}</Typography> */}
                                                                 </div>
 
                                                                 <Menu
@@ -208,8 +202,7 @@ const MyRouter = () => {
                                                 <Route path='/SignUp' element={<SignUp />}></Route>
                                                 <Route path='/ImageForm' element={<ImageForm />}></Route>
                                                 <Route path='/RequestStatus' element={<RequestStatus />}></Route>
-                                                <Route path='/SimillarityResult' element={<SimillarityResult />}></Route>
-                                                <Route path='/SimillarityResult2' element={<SimillarityResult2 />}></Route>
+                                                <Route path='/SimillarityResults' element={<SimillarityResults />}></Route>
                                                 <Route path='/NoResults' element={<NoResults />}></Route>
                                                 {/* If the user go to not exsist path it would take him back to "/" */}
                                                 <Route path="*" element={<Navigate to="#" />}></Route>

@@ -1,10 +1,9 @@
+// import libraries from react
 import { useState, useEffect } from "react";
+// import libraries from react-icons
 import { FaAngleDoubleUp } from "react-icons/fa";
+// import css
 import '../../assets/css/ScrollToTop.css';
-
-// if someone want to see how to do it
-// https://www.youtube.com/watch?v=oszUqCqTGHo
-// https://github.com/iAthman83/use-react-to-scroll-to-sections
 
 const ScrollToTop = () => {
         const [showScrollTopButton, setShowScrollTopButton] = useState(false);

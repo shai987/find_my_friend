@@ -6,8 +6,8 @@
 
 .baner {
   width: 100%;
-  background-image: url(../images/contact.jpg);
-  height: 400px;
+  background-image: url(../images/contact_us.jpg);
+  height: 60vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -16,54 +16,62 @@
 
 .contactUs h1 {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 5vh;
 }
 
 .contactUs p {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 3vh;
 }
 
 .line {
   width: 200px;
   height: 3px;
   background: #F3C577;
-  margin: 20px auto;
+  margin: 2vh auto;
 }
 
 .contact_wrapper {
-  padding: 40px 15%;
+  margin-bottom: 5vh;
+  padding: 2vh 10%;
   display: flex;
   justify-content: space-around;
-  align-self: baseline;
+  align-items: flex-start;
 }
 
 .form_contact {
-  height: 100%;
-  width: 100%;
-  min-height: 100vh; 
+  height: auto;
+  width: 70%;
+  min-height: 100vh;
   display: grid;
-  grid-template-columns: repeat(2, 2fr); 
+  grid-template-columns: repeat(1, 1fr);
   align-items: center;
-  grid-gap: 96px; 
+  grid-gap: 5vh;
+  margin-top: -5vh;
 }
 
 .form_contact form {
   position: relative;
   margin-right: 20px;
-  margin-left: -140px;   
+  margin-left: 0;
+  margin-top: 0;
 }
 
 .form_contact form input,
 .form_contact form textarea,
 .form_contact select,
 .form_contact button {
-  width: 100%;
-  padding: 17px;
+  width: 70%;
+  padding: 3vh;
   font-size: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 2vh;
+  font-family: Arial;
 }
 
 .dog_image img {
-  margin: 120px -80px 0 -80px;
-  }
+  margin: 8vh -80px 0 -80px;
+}
+
+.errorMsg {
+  border-color: red;
+}

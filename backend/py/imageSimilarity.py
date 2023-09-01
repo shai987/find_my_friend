@@ -51,7 +51,7 @@ class imageSimilarityClass :
                 dir_list = os.listdir("../pets")
                 test_image_address = f"../pets/{dir_list[0]}"
                 test_image = self.imagePreprocessing(test_image_address)
-                print(petType)
+                print(status)
                 if(status == "found"):
                         status = "lost"
                 else: 
@@ -60,6 +60,7 @@ class imageSimilarityClass :
                 filter = {'petType': petType, "status": status}
                 # get a cursor to iterate over the documents in the collection
                 documents = list(collection.find(filter))
+                print(len(documents))
                 #cursor = collection.find(filter)
                 matching_docs_ids = []
                 # iterate over the documents and process one image at a time
@@ -70,7 +71,7 @@ class imageSimilarityClass :
                         image_buffer = doc['img']['data']
                         matching_image = self.imagePreprocessing(BytesIO(image_buffer))
                         dc = distance.cdist([test_image], [matching_image], metric)[0]
-                        result = dc[0]
+                        result = dc[0]      
                         if(result < 0.4): 
                                 matching_docs_ids.append(str(doc["_id"])) 
                                 print(doc["_id"])

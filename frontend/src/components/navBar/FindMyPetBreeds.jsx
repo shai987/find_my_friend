@@ -1,8 +1,13 @@
-import "../../assets/css/FindMyPetBreeds.css";
+// import libraries from react
 import { useState, useRef } from "react";
-import axios from 'axios';
-import Loader from '../Loader';
+// import libraries from material-ui
 import Button from '@mui/material/Button';
+// import our components
+import Loader from '../Loader';
+// import css
+import "../../assets/css/FindMyPetBreeds.css";
+// import axios 
+import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 // drag drop file component
@@ -10,10 +15,10 @@ const FindMyPetBreeds = () => {
         // drag state
         const [dragActive, setDragActive] = useState(false);
         const [image, setImage] = useState({ preview: '', data: '' });
-        const [response, setResponse] = useState("");
+        const [response, setResponse] = useState(null);
         const [dragText, setDragText] = useState("אפשר לגרור את התמונה לפה\n\n או");
         const [uploadText, setUploadText] = useState("להעלות קובץ בלחיצה");
-        const [errMassage, setErrMassage] = useState("");
+        const [errMassage, setErrMassage] = useState(null);
 
         // ref
         const inputRef = useRef(null);
@@ -40,7 +45,7 @@ const FindMyPetBreeds = () => {
                                 preview: URL.createObjectURL(e.dataTransfer.files[0]),
                                 data: e.dataTransfer.files[0]
                         }
-                        setImage(img)
+                        setImage(img);
                 }
         };
 
@@ -52,9 +57,9 @@ const FindMyPetBreeds = () => {
                                 preview: URL.createObjectURL(e.target.files[0]),
                                 data: e.target.files[0],
                         }
-                        setImage(img)
-                        setDragText("")
-                        setUploadText("")
+                        setImage(img);
+                        setDragText("");
+                        setUploadText("");
                 }
         };
 
@@ -65,14 +70,13 @@ const FindMyPetBreeds = () => {
 
         const handleSubmit = async (e) => {
                 e.preventDefault();
-                //setDragText("");
-                //setUploadText("");
                 let formData = new FormData();
                 formData.append('file', image.data);
 
                 try {
                         setLoading(true);
                         const res = await axios.post('/uploadImage', formData);
+                        window.scrollBy(0, 100);
                         if (res.data.error === "No file was uploaded.") {
                                 setErrMassage(`אופס! נראה ששכחת להעלות תמונה`);
                                 setLoading(false);
@@ -87,49 +91,44 @@ const FindMyPetBreeds = () => {
                         }
                         else {
                                 setErrMassage('');
-                                setResponse(`סוג החיה: ${res.data.pet_type == "dog" ? "כלב" : "חתול"},\nגזע: ${res.data.breeds}`);
+                                const petType = res.data.pet_type === "dog" ? "כלב" : "חתול"
+                                setResponse({ pet_type: petType, breeds: res.data.breeds })
                                 setLoading(false);
                         }
-                        // setResponse(res);
-                        // console.log(res);
-                        // if (res.data.length !== 0) {
-                        //         setResponse(`סוג החיה: ${res.data.pet_type == "dog" ? "כלב" : "חתול"},\nגזע: ${res.data.breeds}`);
-                        // }
-                        // setLoading(false);
+
                 } catch (err) {
                         setLoading(false);
-                        console.log(err);
-                        setErrMassage(err.message);
-                        /*if (error.response) {
-                                setResponse(error.response.data)
-                        }
-                        else{
-                                setResponse('An error occurred during file upload.');
-                        } */
+                        setErrMassage("אופס! משהו השתבש");
                 }
         };
 
         return (
                 <>
                         {loading ? <Loader /> :
-                                (<form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
-                                        <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
-                                        <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
-                                                <div>
-                                                        {image.preview && <img src={image.preview} width='300' height='300' />}
-                                                        <p>{dragText}</p>
-                                                        <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
-                                                </div>
-                                        </label>
-                                        {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
-                                        <br></br>
-                                        <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
-                                        <br></br><br></br>
-                                        <p>{errMassage}</p>
-
-                                        <div dir="rtl">{response}</div>
-
-                                </form>)
+                                <article className="article-container">
+                                        <h1>מזהה הגזעים</h1>
+                                        <p id="p_breeds">תמיד רציתם לדעת מה הגזע של חיית המחמד שלכם? איזה כיף! עכשיו אתם יכולים!</p>
+                                        <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
+                                                <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
+                                                <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
+                                                        <div>
+                                                                {image.preview && <img src={image.preview} alt='UploadImage' width='300' height='300' />}
+                                                                <p>{dragText}</p>
+                                                                <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
+                                                        </div>
+                                                </label>
+                                                {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
+                                                <br></br>
+                                                <Button variant="contained" type='submit' onClick={handleSubmit}>?שנגלה את הגזע</Button>
+                                                <br></br><br></br>
+                                                {errMassage && <div className="response err">{errMassage}</div>}
+                                        </form>
+                                        {response && <div dir="rtl" className="response">
+                                                <p><b>סוג החיה: </b>{response.pet_type}</p>
+                                                <pre><b>גזע: </b>{response.breeds}</pre>
+                                        </div>
+                                        }
+                                </article>
                         }
                 </>
         );
