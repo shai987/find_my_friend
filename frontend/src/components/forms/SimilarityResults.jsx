@@ -1,15 +1,22 @@
+// import libraries from react
 import { forwardRef, useState, useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+// import react-router-dom
+import { useLocation, Link } from "react-router-dom";
+// import libraries from material-ui
+import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
-import { Link } from 'react-router-dom';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import Box from '@mui/material/Box';
-import axios from "axios";
-import "../../assets/css/Similarity2.css";
-import { AuthContext } from '../../context/AuthContext';
+// import Buffer
 import { Buffer } from "buffer";
+// import our components
+import { AuthContext } from '../../context/AuthContext';
+// import css
+import "../../assets/css/Similarity2.css";
+// import axios 
+import axios from "axios";
+axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const Transition = forwardRef((props, ref) => {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -58,7 +65,6 @@ const SimillarityResults = () => {
     setOpen(true);
     try {
       // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
-      console.log(sliders[currentIndex].userEmail);
       const res = await axios.post('/conactParents', { email: sliders[currentIndex].userEmail });
       console.log(res.data);
       if (res.data === "user not found") {
@@ -96,8 +102,8 @@ const SimillarityResults = () => {
                 width="30"
               />
               <h2>{sliders[currentIndex].petName}</h2>
-              <p>סוג החיה: {sliders[currentIndex].petType == "dog" ? "כלב" : "חתול"}</p>
-              <p >מין: {sliders[currentIndex].petGender == "M" ? "זכר" : "נקבה"}</p>
+              <p>סוג החיה: {sliders[currentIndex].petType === "dog" ? "כלב" : "חתול"}</p>
+              <p >מין: {sliders[currentIndex].petGender === "M" ? "זכר" : "נקבה"}</p>
               <pre>גזע: {sliders[currentIndex].petBreeds}</pre>
               <p> מיקום: {sliders[currentIndex].location} </p>
               {sliders[currentIndex].note && <p >{sliders[currentIndex].note}</p>}
