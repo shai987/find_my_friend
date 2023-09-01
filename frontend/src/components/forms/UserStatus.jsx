@@ -1,12 +1,14 @@
+// import libraries from react
+import { useContext, useEffect } from "react";
 // import react-router-dom
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useContext, useEffect } from "react";
+// import libraries from material-ui
 import { Button, Container, Grid } from '@mui/material';
-// import css
-import '../../assets/css/basic.css';
-import '../../assets/css/UserStatus.css';
+// import our components
 import { AuthContext } from '../../context/AuthContext';
-
+// import css
+import '../../assets/css/UserStatus.css';
+import '../../assets/css/basic.css';
 
 const UserStatus = () => {
 
