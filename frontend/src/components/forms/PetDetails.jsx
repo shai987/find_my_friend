@@ -80,11 +80,7 @@ const PetDetails = (props) => {
 
       // Reset form data
       setFormData(initialFormData);
-      // setLoading(false);
       if (res.data.length !== 0) {
-        //setSimilarPets(res.data);
-        //setMessage("V")
-        // console.log(res.data);
         navigate("/SimillarityResults", {
           state: {
             similarPets: res.data,
@@ -115,7 +111,6 @@ const PetDetails = (props) => {
 
       if (errors.length > 1) {
         for (let error of errors) {
-          // const { msg } = error;
           const errorMsg = error.msg
           console.log(error.param)
           if (error.param === "petName") {
@@ -132,7 +127,6 @@ const PetDetails = (props) => {
             errMsg += `${errorMsg}\n`
           }
         }
-
 
       }
       else {
@@ -167,7 +161,7 @@ const PetDetails = (props) => {
   return (
     <>
       {loading ? <Loader /> :
-        
+
         <article className="petDetailsForm" dir="rtl">
           <ThemeProvider theme={theme}>
             <Container maxWidth="xs" >
@@ -188,7 +182,6 @@ const PetDetails = (props) => {
                 {flag && <div><br></br><br></br> <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>
                   {textErr}
                 </Alert></div>}
-
 
                 <Box
                   component="form"
