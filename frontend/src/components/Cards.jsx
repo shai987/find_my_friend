@@ -4,12 +4,13 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import { Link } from '@mui/material';
+// import libraries from react-icons
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+// import prop-types
+import PropTypes from 'prop-types';
 
 const Cards = (props) => {
-
         return (
                 <>
                         <Card sx={{ maxWidth: 245 }}>
@@ -46,6 +47,16 @@ const Cards = (props) => {
                         &nbsp; &nbsp;
                 </>
         );
+}
+
+Cards.propTypes = {
+        imageSrc: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        alt: PropTypes.string.isRequired,
+        studentName: PropTypes.string.isRequired,
+        studentDescription: PropTypes.string.isRequired,
+        githubLink: PropTypes.string.isRequired,
+        linkedinLink: PropTypes.string.isRequired,
 }
 
 export default Cards; 
