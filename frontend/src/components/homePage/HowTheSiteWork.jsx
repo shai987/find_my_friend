@@ -1,7 +1,10 @@
+// import react-router-dom
+import { Link } from 'react-router-dom';
+// import libraries from material-ui
 import { Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-
+// import css
 import '../../assets/css/HowTheSiteWork.css'
+
 const HowTheSiteWork = () => {
         return (
                 <>
@@ -50,26 +53,4 @@ const HowTheSiteWork = () => {
         );
 }
 
-
-
-// import '../../assets/css/HowTheSiteWork.css'
-
-// const HowTheSiteWork = () => {
-//         const image = {
-//                 src: require('../../assets/images/petFind.png'),
-//                 alt: "dog_image",
-//                 title: ""
-//         }
-
-//         return (
-//                 <>
-//                         <div className="DivSiteWork">
-//                                 <p>איבדתם את החבר הכי טוב שלכם? אל דאגה!</p>
-//                                 <p>אנחנו נעשה הכל כדי לאתר אותו במהירות!</p>
-//                                 <p>האתר שלנו מכיל מאגר של כלבים וחתולים שהלכו לאיבוד.</p>
-//                                 <p>הכניסו תמונה של בעל החיים ותנו למערכת שלנו לעשות עבורכם את החיפוש.</p>
-//                         </div>
-//                 </>
-//         );
-// }
 export default HowTheSiteWork;
