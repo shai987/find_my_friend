@@ -1,9 +1,14 @@
-import "../../assets/css/ImageForm.css";
+// import libraries from react
 import { useState, useRef } from "react";
-import axios from 'axios';
+// import libraries from material-ui
+import Button from '@mui/material/Button';
+// import our components
 import Loader from '../Loader';
 import PetDetails from "./PetDetails";
-import Button from '@mui/material/Button';
+// import css
+import "../../assets/css/ImageForm.css";
+// import axios 
+import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 // drag drop file component
