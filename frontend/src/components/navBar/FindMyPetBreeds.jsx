@@ -1,8 +1,13 @@
-import "../../assets/css/FindMyPetBreeds.css";
+// import libraries from react
 import { useState, useRef } from "react";
-import axios from 'axios';
-import Loader from '../Loader';
+// import libraries from material-ui
 import Button from '@mui/material/Button';
+// import our components
+import Loader from '../Loader';
+// import css
+import "../../assets/css/FindMyPetBreeds.css";
+// import axios 
+import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 // drag drop file component
@@ -40,7 +45,7 @@ const FindMyPetBreeds = () => {
                                 preview: URL.createObjectURL(e.dataTransfer.files[0]),
                                 data: e.dataTransfer.files[0]
                         }
-                        setImage(img)
+                        setImage(img);
                 }
         };
 
@@ -52,9 +57,9 @@ const FindMyPetBreeds = () => {
                                 preview: URL.createObjectURL(e.target.files[0]),
                                 data: e.target.files[0],
                         }
-                        setImage(img)
-                        setDragText("")
-                        setUploadText("")
+                        setImage(img);
+                        setDragText("");
+                        setUploadText("");
                 }
         };
 
@@ -65,8 +70,6 @@ const FindMyPetBreeds = () => {
 
         const handleSubmit = async (e) => {
                 e.preventDefault();
-                //setDragText("");
-                //setUploadText("");
                 let formData = new FormData();
                 formData.append('file', image.data);
 
@@ -88,7 +91,7 @@ const FindMyPetBreeds = () => {
                         }
                         else {
                                 setErrMassage('');
-                                const petType = res.data.pet_type == "dog" ? "כלב" : "חתול"
+                                const petType = res.data.pet_type === "dog" ? "כלב" : "חתול"
                                 setResponse({ pet_type: petType, breeds: res.data.breeds })
                                 setLoading(false);
                         }
@@ -109,7 +112,7 @@ const FindMyPetBreeds = () => {
                                                 <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
                                                 <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                         <div>
-                                                                {image.preview && <img src={image.preview} width='300' height='300' />}
+                                                                {image.preview && <img src={image.preview} alt='UploadImage' width='300' height='300' />}
                                                                 <p>{dragText}</p>
                                                                 <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
                                                         </div>
@@ -125,9 +128,7 @@ const FindMyPetBreeds = () => {
                                                 <pre><b>גזע: </b>{response.breeds}</pre>
                                         </div>
                                         }
-
                                 </article>
-
                         }
                 </>
         );
