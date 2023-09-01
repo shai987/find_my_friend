@@ -1,24 +1,28 @@
+// import libraries from react
 import { useState, useContext, useEffect } from "react";
-import axios from "axios";
+// import react-router-dom
 import { useNavigate } from "react-router-dom";
-import Loader from "../Loader";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+// import libraries from material-ui
+import Alert from '@mui/material/Alert';
+import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
 import PetsIcon from "@mui/icons-material/Pets";
-import Avatar from "@mui/material/Avatar";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+// import our components
+import Loader from "../Loader";
 import { AuthContext } from "../../context/AuthContext";
 import { UserRequestContext } from "../../context/UserRequestContext";
-import Alert from '@mui/material/Alert';
-
+// import axios 
+import axios from "axios";
 axios.defaults.baseURL = "http://127.0.0.1:8080/route";
 
 const PetDetails = (props) => {
