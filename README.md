@@ -1,5 +1,11 @@
-# find_my_friend
-..........
+<h1 align="center">Welcome to find_my_friend 👋</h1>
+<p>
+  <a href="https://github.com/shai987/find_my_friend/blob/main/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  </a>
+</p>
+
+> This project represents variety of food groups and calculate for you the amount of portions for each category by using React JS.
 
 ## Installation
 
@@ -62,3 +68,36 @@ pip install -r requirements.txt
   ```bash
   python flask_server.py
   ```
+
+## Author
+
+👤 **Shai Geffen**
+
+* Github: [@shai987](https://github.com/shai987)
+* LinkedIn: [@Shai Geffen](https://linkedin.com/in/shai-geffen-24373721a)
+
+👤 **Ron Eli**
+
+* Github: [@roneli23](https://github.com/roneli23)
+* LinkedIn: [@Ron Eli](https://linkedin.com/in/ron-eli-ba47a9226)
+
+👤 **Adi Liel Maimon**
+
+* Github: [@adi-liel](https://github.com/adi-liel)
+* LinkedIn: [@Adi Liel Maimon](https://www.linkedin.com/in/adi-liel-maimon/)
+
+👤 **Almog Cohen**
+
+* Github: [@almogc95](https://github.com/almogc95)
+* LinkedIn: [@Almog Cohen](https://www.linkedin.com/in/almog-cohen14)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/shai987/find_my_friend/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
