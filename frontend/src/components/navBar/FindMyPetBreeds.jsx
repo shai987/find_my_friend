@@ -46,6 +46,8 @@ const FindMyPetBreeds = () => {
                                 data: e.dataTransfer.files[0]
                         }
                         setImage(img);
+                        setDragText("")
+                        setUploadText("")
                 }
         };
 
