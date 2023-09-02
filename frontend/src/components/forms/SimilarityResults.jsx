@@ -13,7 +13,7 @@ import { Buffer } from "buffer";
 // import our components
 import { AuthContext } from '../../context/AuthContext';
 // import css
-import "../../assets/css/Similarity2.css";
+import "../../assets/css/Similarity.css";
 // import axios 
 import axios from "axios";
 axios.defaults.baseURL = "http://127.0.0.1:8080/route";
@@ -30,7 +30,6 @@ const SimillarityResults = () => {
     last_name: "",
   });
   const [fail, setFail] = useState(false);
-
   const [sliders] = useState(location.state.similarPets);
   console.log(sliders);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -47,24 +46,21 @@ const SimillarityResults = () => {
   }, []);
   // whenever there's a change in the length of the results the setinterval is executed
 
+  // % for returning to the beginning when it reaches the end of the array
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % sliders.length);
   };
-  // % for returning to the beginning when it reaches the end of the array
 
+  // if the first item is presented move to the last item of the array
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? sliders.length - 1 : prevIndex - 1
     );
   };
-  // if the first item is presented move to the last item of the array
-  const handleClick = async (e) => {
-    //e.preventDefault();
-    //let formData = new FormData();
-    //formData.append('file', image.data);
+
+  const handleClick = async () => {
     setOpen(true);
     try {
-      // const res = await axios.post('http://127.0.0.1:8080/route/add', formData);
       const res = await axios.post('/conactParents', { email: sliders[currentIndex].userEmail });
       console.log(res.data);
       if (res.data === "user not found") {
@@ -86,7 +82,6 @@ const SimillarityResults = () => {
     <>
       <article className="con">
         <div>
-
           {sliders.length > 1 && (
             <button onClick={nextSlide} className="right-button"><i className="fa fa-angle-double-right" /></button>
           )}
@@ -138,7 +133,6 @@ const SimillarityResults = () => {
                     }
                   </Dialog>
                 }
-
               </div>
             </div>
           )}
@@ -161,7 +155,6 @@ const SimillarityResults = () => {
       </Box >
     </>
   )
-
 };
 
 export default SimillarityResults;
