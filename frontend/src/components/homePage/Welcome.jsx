@@ -1,4 +1,4 @@
-// import '../../assets/css/Welcome.css';
+// import our components
 import Image from '../Image';
 
 const Welcome = () => {
@@ -11,11 +11,8 @@ const Welcome = () => {
                 }
         }
         return (
-
                 <div>
-                        {/* <img src={require('../assets/images/dog_cat.jpeg')} alt="dog&cat_image"></img> */}
                         <Image img={image} />
-
                 </div>
         );
 }
