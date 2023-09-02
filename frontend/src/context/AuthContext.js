@@ -1,4 +1,6 @@
+// import libraries from react
 import { createContext, useState, useEffect } from "react";
+// import js-cookie
 import Cookies from 'js-cookie';
 
 const initUesr = {
@@ -12,20 +14,17 @@ const initUesr = {
 
 const getInitialState = () => {
     const user = Cookies.get("user");
-    console.log(user);
     return user ? JSON.parse(user) : initUesr;
 }
 
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
     const [user, setUser] = useState(getInitialState);
-    console.log(user);
 
     useEffect(() => {
         Cookies.set("user", JSON.stringify(user));
     }, [user]);
-
 
     const login = (first_name, last_name, email, phone_number) => {
         const updatedUser = {
