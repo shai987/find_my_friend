@@ -1,12 +1,15 @@
+// import libraries from material-ui
+import { Grid } from '@mui/material';
+// import our components
 import Almog from '../../assets/images/Almog.jpg';
 import Ron from '../../assets/images/Ron.jpg';
 import Shaika from '../../assets/images/Shaika.jpg';
 import AdiLiel2 from '../../assets/images/AdiLiel2.png';
 import cat_dog from '../../assets/images/cat_dog.jpg';
 import data_dog from '../../assets/images/data_dog.jpg';
-import '../../assets/css/About.css';
 import Cards from '../Cards';
-import { Grid } from '@mui/material';
+// import css
+import '../../assets/css/About.css';
 
 const About = () => {
         return (
@@ -63,7 +66,6 @@ const About = () => {
                                                 linkedinLink="https://www.linkedin.com/in/shai-geffen-24373721a/"
 
                                         />
-
                                         <Cards
                                                 imageSrc={AdiLiel2}
                                                 title="עדי ליאל"
