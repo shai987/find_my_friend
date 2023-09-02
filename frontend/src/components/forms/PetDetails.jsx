@@ -30,6 +30,7 @@ const PetDetails = (props) => {
 
   const { user } = useContext(AuthContext);
   const { request } = useContext(UserRequestContext);
+
   const { pet_type, pet_breeds } = props;
 
   const initialFormData = {
@@ -60,7 +61,6 @@ const PetDetails = (props) => {
     }
   }, [user, navigate]);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setNameError(!formData.petName);
@@ -68,15 +68,14 @@ const PetDetails = (props) => {
     setGenderError(!formData.petGender);
 
     if (!formData.petName || !formData.location || !formData.petGender) {
-      setText("אוי! נראה שחלק מהשדות ריקים")
-      setFlag(true)
+      setText("אוי! נראה שחלק מהשדות ריקים");
+      setFlag(true);
       return
     }
 
     try {
       setLoading(true);
       // Send POST request
-      console.log(formData)
       const res = await axios.post("/petDetails", formData);
 
       // HTTP req successful
@@ -108,30 +107,29 @@ const PetDetails = (props) => {
     setFlag(true)
     if (err.response?.data && err.response?.data.errors) {
       // Handle validation errors
-      const errors = err.response.data.errors
+      const errors = err.response.data.errors;
       console.log(errors);
 
       let errMsg = "";
 
       if (errors.length > 1) {
         for (let error of errors) {
-          const errorMsg = error.msg
-          console.log(error.param)
+          const errorMsg = error.msg;
+          console.log(error.param);
           if (error.param === "petName") {
             setNameError(true);
-            errMsg += `${errorMsg}\n`
+            errMsg += `${errorMsg}\n`;
           }
           else if (error.param === "petGender") {
             setGenderError(true);
-            errMsg += `${errorMsg}\n`
+            errMsg += `${errorMsg}\n`;
           }
           //location
           else {
             setLocationError(true);
-            errMsg += `${errorMsg}\n`
+            errMsg += `${errorMsg}\n`;
           }
         }
-
       }
       else {
         if (errors[0].param === "petName") {
@@ -144,9 +142,9 @@ const PetDetails = (props) => {
         else {
           setLocationError(true);
         }
-        errMsg = errors[0].msg
+        errMsg = errors[0].msg;
       }
-      setText(errMsg)
+      setText(errMsg);
     } else {
       // Handle generic error
       setText(["אופס! משהו השתבש"]);
@@ -165,7 +163,6 @@ const PetDetails = (props) => {
   return (
     <>
       {loading ? <Loader /> :
-
         <article className="petDetailsForm" dir="rtl">
           <ThemeProvider theme={theme}>
             <Container maxWidth="xs" >
@@ -219,7 +216,7 @@ const PetDetails = (props) => {
                     onChange={handleChange}
                   />
 
-                  <FormControl required sx={{width: "100%", textAlign:"right"}}>
+                  <FormControl required sx={{ width: "100%", textAlign: "right" }}>
                     <FormLabel id="petType">סוג החיה</FormLabel>
                     <RadioGroup aria-labelledby="petType" name="petType">
                       <FormControlLabel
@@ -239,7 +236,7 @@ const PetDetails = (props) => {
                     </RadioGroup>
                   </FormControl>
                   <br></br>
-                  <FormControl required sx={{width: "100%", textAlign:"right", marginBottom:"2%"}}>
+                  <FormControl required sx={{ width: "100%", textAlign: "right", marginBottom: "2%" }}>
                     <FormLabel id="petGender">מין החיה</FormLabel>
                     <RadioGroup aria-labelledby="petGender" name="petGender" error={genderError}>
                       <FormControlLabel
