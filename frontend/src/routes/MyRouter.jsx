@@ -205,7 +205,7 @@ const MyRouter = () => {
                                                 <Route path='/SimillarityResults' element={<SimillarityResults />}></Route>
                                                 <Route path='/NoResults' element={<NoResults />}></Route>
                                                 {/* If the user go to not exsist path it would take him back to "/" */}
-                                                <Route path="*" element={<Navigate to="#" />}></Route>
+                                                <Route path="*" element={<Navigate to="/" />}></Route>
                                         </Routes>
                                         <Footer />
                                 </ScrollToTop>
