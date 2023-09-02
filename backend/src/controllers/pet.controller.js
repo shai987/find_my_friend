@@ -141,7 +141,6 @@ export const handlePetDetails = async (req, res) => {
         responseType: "json",
       }
     );
-    console.log("length is" + response.data.length);
     // We got an array of docs IDs, so we need to retreive each one.
     // In order to achieve that, the most efficient way is by using the Promise.all func (because retreiving a doc returns a promise)
     // the method returns a single promise
