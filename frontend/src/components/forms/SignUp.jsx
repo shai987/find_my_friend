@@ -20,17 +20,16 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { AuthContext } from '../../context/AuthContext';
 import Alert from '@mui/material/Alert';
-
-// import libraries
+// import our components
+import { AuthContext } from '../../context/AuthContext';
+// import axios
 import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 const theme = createTheme();
 
 const SignUp = () => {
-
   const initialFormData = {
     first_name: "",
     last_name: "",
@@ -69,35 +68,34 @@ const SignUp = () => {
   };
 
   const handleErrors = (err) => {
-    setFlag(true)
-    setFirstNameError(false)
-    setLastNameError(false)
-    setEmailError(false)
-    setPasswordError(false)
-    setPhoneError(false)
+    setFlag(true);
+    setFirstNameError(false);
+    setLastNameError(false);
+    setEmailError(false);
+    setPasswordError(false);
+    setPhoneError(false);
     if (err.response?.data && err.response?.data.errors) {
       // Handle validation errors
-      const errors = err.response.data.errors
+      const errors = err.response.data.errors;
 
       let errMsg = "";
 
       if (errors.length > 1) {
         for (let error of errors) {
-          // const { msg } = error;
-          const errorMsg = error.msg
-          console.log(error.param)
+          const errorMsg = error.msg;
+          console.log(error.param);
           if (error.param === "first_name") {
             setFirstNameError(true);
-            errMsg += `${errorMsg}\n`
+            errMsg += `${errorMsg}\n`;
           }
           else if (error.param === "last_name") {
             setLastNameError(true);
-            errMsg += `${errorMsg}\n`
+            errMsg += `${errorMsg}\n`;
 
           }
           else if (error.param === "email") {
             setEmailError(true);
-            errMsg += `${errorMsg}\n`
+            errMsg += `${errorMsg}\n`;
           }
           else if (error.param === "user_password") {
             setPasswordError(true);
@@ -106,10 +104,9 @@ const SignUp = () => {
           //phone number
           else {
             setPhoneError(true);
-            errMsg += `${errorMsg}\n`
+            errMsg += `${errorMsg}\n`;
           }
         }
-
       }
       else {
         if (errors[0].param === "first_name") {
@@ -128,44 +125,37 @@ const SignUp = () => {
         else {
           setPhoneError(true);
         }
-        errMsg = errors[0].msg
+        errMsg = errors[0].msg;
       }
-      setText(errMsg)
+      setText(errMsg);
     } else {
       // Handle generic error
       setText(["אופס! משהו השתבש"]);
-
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setFirstNameError(!formData.first_name);
     setLastNameError(!formData.last_name);
     setPasswordError(!formData.user_password);
     setEmailError(!formData.email);
 
     if (!formData.first_name || !formData.last_name || !formData.user_password || !formData.email) {
-      setText("אוי! נראה שחלק מהשדות ריקים")
-      setFlag(true)
-      return
+      setText("אוי! נראה שחלק מהשדות ריקים");
+      setFlag(true);
+      return;
     }
 
     try {
-      // Send POST request
-      await axios.post("/userSignUp", formData).then((response) => {
-        if (response.data.message === "User already exists") {
-          setFlag(true)
-          return setText("אוי! נראה שהמשתמש כבר קיים במערכת");
-
-        } else {
-          signUp(formData.first_name, formData.last_name, formData.email, formData.phone_number, formData.password);
-          console.log(`User found, name: ${formData.first_name} ${formData.last_name} `);
-          //setFormSuccess(`User found, name: ${response.data.first_name} ${response.data.last_name} `);
-          return navigate("/SignIn");
-        }
-      });
+      const res = await axios.post("/userSignUp", formData);
+      if (res.data?.message === "User already exists") {
+        setFlag(true);
+        return setText("אוי! נראה שהמשתמש כבר קיים במערכת");
+      } else {
+        signUp(formData.first_name, formData.last_name, formData.email, formData.phone_number, formData.password);
+        return navigate("/SignIn");
+      }
     } catch (err) {
       handleErrors(err);
     }
