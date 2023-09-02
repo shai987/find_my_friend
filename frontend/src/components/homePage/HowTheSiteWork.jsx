@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // import libraries from material-ui
 import { Button } from '@mui/material';
 // import css
-import '../../assets/css/HowTheSiteWork.css'
+import '../../assets/css/HowTheSiteWork.css';
 
 const HowTheSiteWork = () => {
         return (
@@ -48,7 +48,6 @@ const HowTheSiteWork = () => {
                                         to="/UserStatus"><b>צא לדרך!</b>
                                 </Button>
                         </div>
-
                 </>
         );
 }
