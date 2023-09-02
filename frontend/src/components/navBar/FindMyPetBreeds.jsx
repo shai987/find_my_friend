@@ -21,7 +21,6 @@ const FindMyPetBreeds = () => {
         const [errMassage, setErrMassage] = useState(null);
         const [tipText, setTipText] = useState("טיפ קטן: לתוצאות מיטביות על התמונה להיות ברורה ככל הניתן ולהכיל את כל גוף החיה ")
 
-
         // ref
         const inputRef = useRef(null);
         const [loading, setLoading] = useState(false);
@@ -48,9 +47,9 @@ const FindMyPetBreeds = () => {
                                 data: e.dataTransfer.files[0]
                         }
                         setImage(img);
-                        setDragText("")
-                        setUploadText("")
-                        setTipText("")
+                        setDragText("");
+                        setUploadText("");
+                        setTipText("");
                 }
         };
 
@@ -65,7 +64,7 @@ const FindMyPetBreeds = () => {
                         setImage(img);
                         setDragText("");
                         setUploadText("");
-                        setTipText("")
+                        setTipText("");
                 }
         };
 
@@ -97,11 +96,10 @@ const FindMyPetBreeds = () => {
                         }
                         else {
                                 setErrMassage('');
-                                const petType = res.data.pet_type === "dog" ? "כלב" : "חתול"
-                                setResponse({ pet_type: petType, breeds: res.data.breeds })
+                                const petType = res.data.pet_type === "dog" ? "כלב" : "חתול";
+                                setResponse({ pet_type: petType, breeds: res.data.breeds });
                                 setLoading(false);
                         }
-
                 } catch (err) {
                         setLoading(false);
                         setErrMassage("אופס! משהו השתבש");
