@@ -1,5 +1,8 @@
+// import libraries from react
 import { useState, useEffect } from "react";
+// import our components
 import sliderData from '../../services/sliderData';
+// import css
 import '../../assets/css/Slider.css';
 
 const Slider = () => {
@@ -30,6 +33,7 @@ const Slider = () => {
     <section className="section">
       <div className="title">
         <h2>חברים מספרים</h2>
+        <p align="center" className="statMsg">*הנתונים המוצגים אינם אמיתיים</p>
       </div>
       <div className="section-center">
         {recommenders.map((item, indexRecommenders) => {
@@ -60,9 +64,7 @@ const Slider = () => {
         </button>
       </div>
     </section>
-
   );
-
 };
 
 export default Slider;
