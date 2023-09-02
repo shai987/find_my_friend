@@ -1,4 +1,6 @@
+// import libraries from react
 import { createContext, useState, useEffect } from "react";
+// import js-cookie
 import Cookies from 'js-cookie';
 
 const initRequest = {
