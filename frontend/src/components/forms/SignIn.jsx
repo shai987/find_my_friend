@@ -32,7 +32,6 @@ axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 const theme = createTheme();
 
 const SignIn = () => {
-
         const initialFormData = {
                 email: "",
                 user_password: "",
@@ -69,20 +68,20 @@ const SignIn = () => {
                 setFlag(true)
                 if (err.response?.data && err.response?.data.errors) {
                         // Handle validation errors
-                        const errors = err.response.data.errors
+                        const errors = err.response.data.errors;
 
                         let errMsg = "";
                         if (errors.length > 1) {
                                 for (let error of errors) {
-                                        const errorMsg = error.msg
-                                        console.log(error.param)
+                                        const errorMsg = error.msg;
+                                        console.log(error.param);
                                         if (error.param === "email") {
                                                 setEmailError(true);
-                                                errMsg += `${errorMsg}\n`
+                                                errMsg += `${errorMsg}\n`;
                                         }
                                         else {
                                                 setPasswordError(true);
-                                                errMsg += `${errorMsg}\n`
+                                                errMsg += `${errorMsg}\n`;
                                         }
                                 }
                         }
@@ -93,9 +92,9 @@ const SignIn = () => {
                                 else {
                                         setPasswordError(true);
                                 }
-                                errMsg = errors[0].msg
+                                errMsg = errors[0].msg;
                         }
-                        setText(errMsg)
+                        setText(errMsg);
                 } else {
                         // Handle generic error
                         setText(["אופס! משהו השתבש"]);
@@ -108,30 +107,27 @@ const SignIn = () => {
                 setEmailError(!formData.email);
 
                 if (!formData.user_password || !formData.email) {
-                        setText("אוי! נראה שחלק מהשדות ריקים")
-                        setFlag(true)
-                        return
+                        setText("אוי! נראה שחלק מהשדות ריקים");
+                        setFlag(true);
+                        return;
                 }
                 try {
-                        // Send POST request
-                        await axios.post('/userSignIn', formData).then((response) => {
-                                if (response.data.message === "User not found") {
-                                        setFlag(true)
-                                        setEmailError(true);
-                                        setText("אוי! נראה שהמשתמש לא קיים במערכת");
-                                }
-                                else if (response.data.message === "Password is not the same") {
-                                        setFlag(true)
-                                        setPasswordError(true)
-                                        setText("אוי! נראה שהסיסמה שהוזנה לא תואמת למה ששמור במערכת")
-                                }
-                                else {
-                                        setFormData(response.data);
-                                        login(response.data.first_name, response.data.last_name, response.data.email, response.data.phone_number)
-                                        return navigate("/RequestStatus");
-                                }
-                        });
-
+                        const res = await axios.post('/userSignIn', formData);
+                        if (res.data?.message === "User not found") {
+                                setFlag(true);
+                                setEmailError(true);
+                                setText("אוי! נראה שהמשתמש לא קיים במערכת");
+                        }
+                        else if (res.data?.message === "Password is not the same") {
+                                setFlag(true);
+                                setPasswordError(true);
+                                setText("אוי! נראה שהסיסמה שהוזנה לא תואמת למה ששמור במערכת");
+                        }
+                        else {
+                                setFormData(res.data);
+                                login(res.data?.first_name, res.data?.last_name, res.data?.email, res.data?.phone_number);
+                                return navigate("/RequestStatus");
+                        }
                 } catch (err) {
                         handleErrors(err);
                         console.log(err.message);
@@ -246,12 +242,6 @@ const SignIn = () => {
                                                         <Grid item xs>
                                                                 <Link to='/SignUp' variant="body2">
                                                                         {"אין לך חשבון? הירשם"}
-                                                                </Link>
-                                                        </Grid>
-
-                                                        <Grid item>
-                                                                <Link href="#" variant="body2">
-                                                                        שכחת סיסמא?
                                                                 </Link>
                                                         </Grid>
                                                 </Grid>
