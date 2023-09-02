@@ -13,7 +13,6 @@ axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 // drag drop file component
 const ImageForm = () => {
-
         // drag state
         const [dragActive, setDragActive] = useState(false);
         const [image, setImage] = useState({ preview: '', data: '' });
@@ -52,10 +51,10 @@ const ImageForm = () => {
                                 preview: URL.createObjectURL(e.dataTransfer.files[0]),
                                 data: e.dataTransfer.files[0]
                         }
-                        setImage(img)
-                        setDragText("")
-                        setUploadText("")
-                        setTipText("")
+                        setImage(img);
+                        setDragText("");
+                        setUploadText("");
+                        setTipText("");
                 }
         };
 
@@ -67,10 +66,10 @@ const ImageForm = () => {
                                 preview: URL.createObjectURL(e.target.files[0]),
                                 data: e.target.files[0],
                         }
-                        setImage(img)
-                        setDragText("")
-                        setUploadText("")
-                        setTipText("")
+                        setImage(img);
+                        setDragText("");
+                        setUploadText("");
+                        setTipText("");
                 }
         };
 
