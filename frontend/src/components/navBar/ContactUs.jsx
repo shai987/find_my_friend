@@ -1,12 +1,16 @@
+// import libraries from react
 import { useState } from "react";
-import '../../assets/css/ContactUs.css';
-import dog_computer from '../../assets/images/dog_computer.jpg';
-import axios from 'axios';
+// import libraries from material-ui
 import Alert from '@mui/material/Alert';
+// import images
+import dog_computer from '../../assets/images/dog_computer.jpg';
+// import css
+import '../../assets/css/ContactUs.css';
+// import axios
+import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8080/route';
 
 const ContactForm = () => {
-
   const initialFormData = {
     userFirstName: "",
     userLastName: "",
@@ -18,28 +22,27 @@ const ContactForm = () => {
   const [formStatus, setFormStatus] = useState('שלח טופס');
   const [textErr, setText] = useState("");
   const [flag, setFlag] = useState(false);
-  const [alertType, setAlertType] = useState("")
-  const [firstNameErr, setFirstNameErr] = useState(false)
-  const [lastNameErr, setLastNameErr] = useState(false)
-  const [emailErr, setEmailErr] = useState(false)
-  const [msgErr, setMsgErr] = useState(false)
-
-
+  const [alertType, setAlertType] = useState("");
+  const [firstNameErr, setFirstNameErr] = useState(false);
+  const [lastNameErr, setLastNameErr] = useState(false);
+  const [emailErr, setEmailErr] = useState(false);
+  const [msgErr, setMsgErr] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setFormStatus('שולח...');
     setFirstNameErr(false);
-    setLastNameErr(false)
-    setEmailErr(false)
-    setMsgErr(false)
+    setLastNameErr(false);
+    setEmailErr(false);
+    setMsgErr(false);
 
     if (!formData.userFirstName || !formData.userLastName || !formData.userEmail || !formData.message) {
       setFlag(true);
       setAlertType("error");
-      setText("אוי! אחד מהשדות ריקים")
-      return
+      setText("אוי! אחד מהשדות ריקים");
+      return;
     }
+
     const details = {
       userFirstName: formData.userFirstName,
       userLastName: formData.userLastName,
@@ -54,13 +57,15 @@ const ContactForm = () => {
         },
       });
 
-      setFormStatus('שלח טופס'); // Reset the button text
+      // Reset the button text
+      setFormStatus('שלח טופס');
       const result = response.data;
+
       if (result.status === "Message Sent") {
         setFlag(true);
         setAlertType("success");
-        setText("איזה כיף! המייל נשלח בהצלחה!")
-        setFormData(initialFormData)
+        setText("איזה כיף! המייל נשלח בהצלחה!");
+        setFormData(initialFormData);
       }
 
     } catch (error) {
@@ -74,53 +79,50 @@ const ContactForm = () => {
     setFlag(true)
     if (err.response?.data && err.response?.data.errors) {
       // Handle validation errors
-      const errors = err.response.data.errors
-      console.log(errors)
+      const errors = err.response.data.errors;
+      console.log(errors);
       let errMsg = "";
 
       if (errors.length > 1) {
         for (let error of errors) {
-          // const { msg } = error;
-          const errorMsg = error.msg
-          console.log(error.param)
+          const errorMsg = error.msg;
+          console.log(error.param);
           if (error.param === "userFirstName") {
-            setFirstNameErr(true)
-            errMsg += `${errorMsg}\n`
+            setFirstNameErr(true);
+            errMsg += `${errorMsg}\n`;
           }
           else if (error.param === "userLastName") {
-            setLastNameErr(true)
-            errMsg += `${errorMsg}\n`
+            setLastNameErr(true);
+            errMsg += `${errorMsg}\n`;
           }
           else if (error.param === "userEmail") {
-            setEmailErr(true)
+            setEmailErr(true);
             errMsg += `${errorMsg}\n`;
           }
           //message
           else {
-            setMsgErr(true)
+            setMsgErr(true);
             errMsg += `${errorMsg}\n`;
           }
         }
-
-
       }
       else {
         if (errors[0].param === "userFirstName") {
-          setFirstNameErr(true)
+          setFirstNameErr(true);
         }
         else if (errors[0].param === "userLastName") {
-          setLastNameErr(true)
+          setLastNameErr(true);
         }
         else if (errors[0].param === "userEmail") {
-          setEmailErr(true)
+          setEmailErr(true);
         }
         //message
         else {
-          setMsgErr(true)
+          setMsgErr(true);
         }
-        errMsg = errors[0].msg
+        errMsg = errors[0].msg;
       }
-      setText(errMsg)
+      setText(errMsg);
     } else {
       // Handle generic error
       setText(["אופס! משהו השתבש"]);
@@ -201,7 +203,7 @@ const ContactForm = () => {
           </form>
         </div>
         <div className="dog_image">
-          <img width="500" height="300" src={dog_computer} alt="dog_phone" />
+          <img src={dog_computer} alt="dog_phone" />
         </div>
       </section>
     </div>
