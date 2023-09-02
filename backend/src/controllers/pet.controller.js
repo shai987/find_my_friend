@@ -24,16 +24,12 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  console.log(file ? "file" : "no file");
   const ext = path.extname(file.originalname);
-  console.log(file);
   if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
-    console.log("rej");
     // Reject the file
     cb(new Error("Invalid file type. Please upload a JPEG or PNG image."));
   } else {
     // Accept the file
-    console.log("Accept");
     cb(null, true);
   }
 };
@@ -102,9 +98,6 @@ export const handlePetDetails = async (req, res) => {
     note,
   } = req.body
 
-
-  console.log(petBreeds);
-
   // get photo file name
   const directoryPath = "pets";
   let filenames = [];
@@ -133,8 +126,6 @@ export const handlePetDetails = async (req, res) => {
     status: status,
     userEmail: userEmail,
   };
-
-  console.log(obj);
 
   const newPet = new newPet_model(obj);
   let result = await newPet.save();
