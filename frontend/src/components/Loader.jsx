@@ -1,8 +1,11 @@
+// import libraries from react
 import { useState, useEffect, useCallback } from 'react';
+// import images
 import running_dog1 from './../assets/images/dog_running_loader1.gif';
 import running_dog2 from './../assets/images/dog_running_loader2.gif';
 import running_cat1 from './../assets/images/cat_running_loader1.gif';
 import running_cat2 from './../assets/images/cat_running_loader2.gif';
+// import css
 import './../assets/css/Loader.css';
 
 const Loader = () => {
