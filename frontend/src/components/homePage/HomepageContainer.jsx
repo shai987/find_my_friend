@@ -1,3 +1,4 @@
+// import our components
 import Welcome from "./Welcome";
 import FinderOfTheMonth from "./FinderOfTheMonth";
 import Slider from "./Slider";
@@ -14,8 +15,8 @@ const HomepageContainer = () => {
                                 <HowTheSiteWork />
                                 <br />
                                 <br />
-                                <Statistics />
                                 <br />
+                                <Statistics />
                                 <Slider />
                                 <FinderOfTheMonth />
                         </>
