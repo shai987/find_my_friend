@@ -70,6 +70,8 @@
 
 .dog_image img {
   margin: 8vh -80px 0 -80px;
+  width: 500px;
+  height: 300;
 }
 
 .errorMsg {
