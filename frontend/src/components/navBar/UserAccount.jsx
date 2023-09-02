@@ -66,16 +66,15 @@ const UserAccount = () => {
       }
     })
       .then(response => {
-        setRequests(response.data)
+        setRequests(response.data);
         setLoading(false);
 
       })
       .catch(error => {
-        console.error(error)
+        console.error(error);
         setLoading(false);
       });
   }, []);
-
 
   useEffect(() => {
     if (!user.isLoggedIn) {
@@ -88,9 +87,8 @@ const UserAccount = () => {
     if (confirmed) {
       try {
         const response = await axios.post('/deleteUser', { email: user.email });
-        console.log(response);
         if (response.status === 200) {
-          setFormSuccess("Success")
+          setFormSuccess("Success");
           logout();
           setOpen(true);
           setTimeout(() => {
@@ -112,7 +110,6 @@ const UserAccount = () => {
       let errorMsg = [];
       for (let error of errors) {
         const { msg } = error;
-
         errorMsg.push(msg);
       }
 
@@ -187,7 +184,6 @@ const UserAccount = () => {
                       className="person-img"
                       width="30"
                     /></TableCell>
-                    {console.log(request.petBreeds)}
                     <TableCell align="center">{request.petBreeds}</TableCell>
                     <TableCell align="center">{request.status === "lost" ? "איבדתי" : "מצאתי"}</TableCell>
                     <TableCell align="center">{formatDate(request.date)}</TableCell>
