@@ -51,16 +51,12 @@ export const handleSignUp = async (req, res) => {
                         else {
                                 // Hash the user's password
                                 const hash = await bcrypt.hash(user_password, 10);
-                                console.log('shai check');
-                                console.log(hash);
-                                console.log(user_password);
                                 db_user_details.query('INSERT INTO users (email, first_name, last_name, phone_number, user_password) VALUES (?,?,?,?,?)', [email, first_name, last_name, phone_number, hash], (err, result) => {
                                         if (err) {
                                                 res.send(err.message);
                                                 console.log(err.message);
                                         }
                                         res.send(result);
-                                        console.log(result);
                                 });
                         }
                 });
@@ -110,7 +106,6 @@ export const handleSignIn = async (req, res) => {
 
 // Delete all users
 export const handleDeleteAllUser = async (req, res) => {
-
         db_user_details.query("DELETE FROM users", (err) => {
                 if (err) {
                         res.send(err.message);
@@ -156,7 +151,6 @@ export const handleGetAllUsers = async (req, res) => {
 }
 
 export const handleContactUser = async (req, res) => {
-        console.log(req.body)
         const { email } = req.body;
         try {
                 db_user_details.query('SELECT email, first_name, last_name, phone_number FROM users WHERE email = ?', [email], (err, result) => {
@@ -167,7 +161,6 @@ export const handleContactUser = async (req, res) => {
                         else if (result[0] == undefined) {
                                 res.send("user not found");
                         }
-                        console.log("s: " + result[0])
                         res.send(result[0]);
                 });
         }
@@ -190,7 +183,6 @@ export const handleUserInfo = async (req, res) => {
 }
 
 export const handleContactUs = (req, res) => {
-        console.log(req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
                 // Validation errors
