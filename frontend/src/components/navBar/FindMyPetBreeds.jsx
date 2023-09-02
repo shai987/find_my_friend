@@ -19,6 +19,8 @@ const FindMyPetBreeds = () => {
         const [dragText, setDragText] = useState("אפשר לגרור את התמונה לפה\n\n או");
         const [uploadText, setUploadText] = useState("להעלות קובץ בלחיצה");
         const [errMassage, setErrMassage] = useState(null);
+        const [tipText, setTipText] = useState("טיפ קטן: לתוצאות מיטביות על התמונה להיות ברורה ככל הניתן ולהכיל את כל גוף החיה ")
+
 
         // ref
         const inputRef = useRef(null);
@@ -48,6 +50,7 @@ const FindMyPetBreeds = () => {
                         setImage(img);
                         setDragText("")
                         setUploadText("")
+                        setTipText("")
                 }
         };
 
@@ -62,6 +65,7 @@ const FindMyPetBreeds = () => {
                         setImage(img);
                         setDragText("");
                         setUploadText("");
+                        setTipText("")
                 }
         };
 
@@ -117,6 +121,8 @@ const FindMyPetBreeds = () => {
                                                                 {image.preview && <img src={image.preview} alt='UploadImage' width='300' height='300' />}
                                                                 <p>{dragText}</p>
                                                                 <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
+                                                                <br></br><br></br>
+                                                                <p>{tipText}</p>
                                                         </div>
                                                 </label>
                                                 {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}

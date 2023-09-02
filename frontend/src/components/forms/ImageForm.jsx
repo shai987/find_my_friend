@@ -20,6 +20,7 @@ const ImageForm = () => {
         const [response, setResponse] = useState("");
         const [dragText, setDragText] = useState("אפשר לגרור את התמונה לפה\n\n או");
         const [uploadText, setUploadText] = useState("להעלות קובץ בלחיצה");
+        const [tipText, setTipText] = useState("טיפ קטן: לתוצאות מיטביות על התמונה להיות ברורה ככל הניתן ולהכיל את כל גוף החיה ")
 
         // ref
         const inputRef = useRef(null);
@@ -54,6 +55,7 @@ const ImageForm = () => {
                         setImage(img)
                         setDragText("")
                         setUploadText("")
+                        setTipText("")
                 }
         };
 
@@ -68,6 +70,7 @@ const ImageForm = () => {
                         setImage(img)
                         setDragText("")
                         setUploadText("")
+                        setTipText("")
                 }
         };
 
@@ -120,6 +123,8 @@ const ImageForm = () => {
                                                         {image.preview && <img src={image.preview} alt='UploadImage' width='300' height='300' />}
                                                         <p>{dragText}</p>
                                                         <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
+                                                        <br></br><br></br>
+                                                        <p>{tipText}</p>
                                                 </div>
                                         </label>
                                         {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
