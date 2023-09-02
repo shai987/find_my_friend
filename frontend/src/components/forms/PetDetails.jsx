@@ -270,7 +270,6 @@ const PetDetails = (props) => {
                     }}
                     variant="outlined"
                     multiline
-                    rows={3}
                     maxRows={8}
                     fullWidth
                     label="גזע החיה"
