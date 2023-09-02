@@ -11,7 +11,6 @@ import '../../assets/css/UserStatus.css';
 import '../../assets/css/basic.css';
 
 const UserStatus = () => {
-
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -58,7 +57,6 @@ const UserStatus = () => {
           </Grid>
         </Grid>
       </Container>
-
     </>
   );
 }
