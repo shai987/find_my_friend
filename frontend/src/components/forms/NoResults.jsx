@@ -14,6 +14,7 @@ const NoResults = () => {
         const [petType] = useState(location.state.petType);
 
         const status = request.status;
+
         const cat = {
                 src: require('../../assets/images/cat-sitting-alone.jpg'),
                 alt: "Sad cat img",
@@ -23,6 +24,7 @@ const NoResults = () => {
                         width: '400px',
                 }
         }
+
         const dog = {
                 src: require('../../assets/images/sad_dog.jpg'),
                 alt: "Sad dog img",
@@ -46,7 +48,6 @@ const NoResults = () => {
                                         <b>למעבר לאזור האישי</b>
                                 </button>
                         </Link>
-
                 </div>
         );
 }
