@@ -2,10 +2,8 @@
 import { useState, useContext, forwardRef } from "react";
 // import react-router-dom
 import {
-        HashRouter as Router,
-        // BrowserRouter as Router,
+        BrowserRouter as Router,
         Routes,
-        Navigate,
         Route,
         Link,
 } from 'react-router-dom';
@@ -38,6 +36,7 @@ import RequestStatus from '../components/forms/RequestStatus';
 import ScrollToTop from '../components/ScrollToTop';
 import SimillarityResults from '../components/forms/SimilarityResults';
 import NoResults from '../components/forms/NoResults';
+import NotFoundPage from '../components/NotFoundPage';
 import { AuthContext } from '../context/AuthContext';
 // import css
 import '../assets/css/MyRouter.css';
@@ -47,7 +46,6 @@ const Transition = forwardRef((props, ref) => {
 });
 
 const MyRouter = () => {
-
         const pages = [
                 { key: 'About', value: 'אודות' },
                 { key: 'ContactUs', value: 'צור קשר' },
@@ -115,7 +113,7 @@ const MyRouter = () => {
 
         return (
                 <>
-                        <Router basename='/'>
+                        <Router>
                                 <ScrollToTop>
                                         {/* sticky position allows the menu to be displayed even when scrolling */}
                                         <AppBar className="appBar" position="sticky" sx={{ backgroundColor: '#333333' }}>
@@ -204,8 +202,7 @@ const MyRouter = () => {
                                                 <Route path='/RequestStatus' element={<RequestStatus />}></Route>
                                                 <Route path='/SimillarityResults' element={<SimillarityResults />}></Route>
                                                 <Route path='/NoResults' element={<NoResults />}></Route>
-                                                {/* If the user go to not exsist path it would take him back to "/" */}
-                                                <Route path="*" element={<Navigate to="/" />}></Route>
+                                                <Route path="*" element={<NotFoundPage />}></Route>
                                         </Routes>
                                         <Footer />
                                 </ScrollToTop>
