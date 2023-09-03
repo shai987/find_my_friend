@@ -53,7 +53,7 @@ pip install -r requirements.txt
 - Run nodejs server:
   1. change directory:
   ```bash
-  cd frontend
+  cd backend
   ```
   2. Run nodejs server:
   ```bash
