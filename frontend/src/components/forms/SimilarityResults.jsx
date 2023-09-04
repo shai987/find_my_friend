@@ -31,7 +31,6 @@ const SimillarityResults = () => {
   });
   const [fail, setFail] = useState(false);
   const [sliders] = useState(location.state.similarPets);
-  console.log(sliders);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
@@ -86,9 +85,10 @@ const SimillarityResults = () => {
             <button onClick={nextSlide} className="right-button"><i className="fa fa-angle-double-right" /></button>
           )}
         </div>
+
         <div>
           {sliders.length > 0 && (
-            <div>
+            <div> 
               <img
                 src={`data:${sliders[currentIndex].img.contentType};base64,${Buffer.from(sliders[currentIndex].img.data.data).toString('base64')}`}
                 title={sliders[currentIndex].petName}
@@ -134,9 +134,11 @@ const SimillarityResults = () => {
                   </Dialog>
                 }
               </div>
-            </div>
+            </div> /*each slide*/
           )}
+
         </div>
+
         <div>
           {sliders.length > 1 && (
             <button onClick={prevSlide} className="left-button"><i className="fa fa-angle-double-left" /></button>

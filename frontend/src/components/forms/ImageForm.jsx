@@ -119,18 +119,18 @@ const ImageForm = () => {
                                         <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} name="file" />
                                         <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                                                 <div>
-                                                        {image.preview && <img src={image.preview} alt='UploadImage' width='300' height='300' />}
+                                                        {image.preview ? <img src={image.preview} alt='UploadImage' width='300' height='300' /> : null}
                                                         <p>{dragText}</p>
                                                         <button className="upload-button" onClick={onButtonClick}>{uploadText}</button>
                                                         <br></br><br></br>
                                                         <p>{tipText}</p>
                                                 </div>
                                         </label>
-                                        {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
+                                        {dragActive ? <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>:null}
                                         <br></br>
                                         <Button variant="contained" type='submit' onClick={handleSubmit}>שלח</Button>
                                         <br></br>
-                                        {errMassage && <p className="response err">{errMassage}</p>}
+                                        {errMassage ? <p className="response err">{errMassage}</p>:null}
                                 </form>
                                         : <PetDetails pet_type={pet_type} pet_breeds={pet_breeds} />)
                         }

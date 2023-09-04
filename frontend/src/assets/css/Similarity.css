@@ -7,13 +7,16 @@
 
 .left-button,
 .right-button {
-  margin: 0 10px;
+  margin: 0 100px;
+  margin-top: 150px;
 }
 
 .left-button {
   float: left;
+  padding-left: 5px;
 }
 
 .right-button {
   float: right;
+  padding-right: 5px;
 }

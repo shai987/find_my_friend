@@ -180,9 +180,13 @@ const PetDetails = (props) => {
                 <Typography component="h1" variant="h5">
                   מילוי פרטים מזהים
                 </Typography>
-                {flag && <div><br></br><br></br> <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>
-                  {textErr}
-                </Alert></div>}
+                {flag ? (
+                <div>
+                  <br /><br />
+                  <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>
+                    {textErr}
+                    </Alert>
+                    </div>) : null}
 
                 <Box
                   component="form"

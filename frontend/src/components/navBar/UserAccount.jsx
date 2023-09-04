@@ -157,6 +157,7 @@ const UserAccount = () => {
               component="div">
               טבלת פניות
             </Typography>
+            <br></br>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead className="requestTableHead">
                 <TableRow>
@@ -184,7 +185,7 @@ const UserAccount = () => {
                       className="person-img"
                       width="30"
                     /></TableCell>
-                    <TableCell align="center">{request.petBreeds}</TableCell>
+                    <TableCell align="center"><pre>{request.petBreeds}</pre></TableCell>
                     <TableCell align="center">{request.status === "lost" ? "איבדתי" : "מצאתי"}</TableCell>
                     <TableCell align="center">{formatDate(request.date)}</TableCell>
                     <TableCell align="center">{request.location}</TableCell>

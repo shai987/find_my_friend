@@ -41,9 +41,12 @@ import { AuthContext } from '../context/AuthContext';
 // import css
 import '../assets/css/MyRouter.css';
 
+const localhost = process.env.LOCAL_HOST;
+
 const Transition = forwardRef((props, ref) => {
         return <Slide direction="up" ref={ref} {...props} />;
 });
+
 
 const MyRouter = () => {
         const pages = [
@@ -97,15 +100,15 @@ const MyRouter = () => {
         const handleLogout = () => {
                 logout();
                 // Redirect the user to the login page
-                window.location.hash = '/UserStatus';
+                window.location.href = "/UserStatus";
                 handleClose();
         };
 
         const settings = user.isLoggedIn && !user.first_time_Logged_in ? [
-                { key: 'UserAccount', value: 'אזור אישי' },
-                { key: 'UserStatus', value: 'צא לדרך' },
+                { key: '/UserAccount', value: 'אזור אישי' },
+                { key: '/UserStatus', value: 'צא לדרך' },
                 {
-                        key: '',
+                        key: window.location.pathname,
                         value: 'התנתקות',
                         onClick: handleOpen,
                 }
@@ -125,15 +128,17 @@ const MyRouter = () => {
 
                                                                 {pages.map((page) => (
                                                                         <MenuItem key={page.key} onClick={handleCloseNavMenu}>
-                                                                                <Link className='link' to={`/${page.key}`}>
+                                                                             
+                                                                                        <Link className='link' to={`/${page.key}`}>
                                                                                         <Button
                                                                                                 sx={{ my: 2, color: "white", display: "block" }}
                                                                                         >
                                                                                                 {page.value}
                                                                                         </Button>
-                                                                                </Link>
+                                                                                </Link> 
                                                                         </MenuItem>
                                                                 ))}
+                                                         
 
                                                                 {/*From here it's the user icon and his menu */}
                                                                 <div id='iconPosition'>
@@ -166,9 +171,11 @@ const MyRouter = () => {
                                                                 >
                                                                         {settings.map((setting) => (
                                                                                 <MenuItem key={setting.key} onClick={setting.onClick}>
-                                                                                        <Link className='link' to={`/${setting.key}`}>
+                                                                                        {setting.value!=="התנתקות"?(
+                                                                                        <Link className='link' to={`${setting.key}`}>
                                                                                                 <Typography sx={{ color: "black" }}> {setting.value}</Typography>
-                                                                                        </Link>
+                                                                                        </Link>):(   
+                                                                                        <Typography sx={{ color: "black" }}> {setting.value}</Typography>)}
                                                                                 </MenuItem>
                                                                         ))}
 
