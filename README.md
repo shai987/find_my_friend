@@ -6,8 +6,7 @@
 </p>
 
 > Welcome to our innovative Lost Pet Finder project, designed to reunite you with your beloved furry friend. With just a simple photo upload, our cutting-edge system conducts a comprehensive photo analysis. This analysis not only classifies the pet as a dog or cat but goes a step further by identifying the specific breed.
-
-But that's not all! Our system performs an extensive database comparison to find potential matches with other uploaded images. If a match is detected, we seamlessly connect you with the rightful owner, ensuring a swift and heartwarming reunion with your lost pet.
+> But that's not all! Our system performs an extensive database comparison to find potential matches with other uploaded images. If a match is detected, we seamlessly connect you with the rightful owner, ensuring a swift and heartwarming reunion with your lost pet.
 
 ## Installation
 
