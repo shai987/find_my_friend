@@ -1,5 +1,5 @@
 // import libraries from react
-import { useState, useContext, forwardRef } from "react";
+import { useState, useContext, forwardRef, useEffect } from "react";
 // import react-router-dom
 import {
         BrowserRouter as Router,
@@ -49,6 +49,7 @@ const Transition = forwardRef((props, ref) => {
 
 
 const MyRouter = () => {
+
         const pages = [
                 { key: 'About', value: 'אודות' },
                 { key: 'ContactUs', value: 'צור קשר' },
@@ -104,7 +105,7 @@ const MyRouter = () => {
                 handleClose();
         };
 
-        const settings = user.isLoggedIn && !user.first_time_Logged_in ? [
+        const settings = user.isLoggedIn /*&& !user.first_time_Logged_in*/ ? [
                 { key: '/UserAccount', value: 'אזור אישי' },
                 { key: '/UserStatus', value: 'צא לדרך' },
                 {
@@ -113,7 +114,7 @@ const MyRouter = () => {
                         onClick: handleOpen,
                 }
         ] : [{ key: 'SignIn', value: 'התחברות' }];
-
+        
         return (
                 <>
                         <Router>
@@ -147,7 +148,7 @@ const MyRouter = () => {
                                                                                         p: 0, mr: 'auto', ml: 'auto', display: "block", position: 'absolute', left: '0px',
                                                                                 }}>
                                                                                         {/* pets icons - https://github.com/Ivanmtta/anonymous-animals-api */}
-                                                                                        {user.isLoggedIn && !user.first_time_Logged_in ? < Avatar alt={`${user.first_name}`} title={`${user.first_name} ${user.last_name}`} sx={{ width: '65px', height: '65px', my: -1.5, backgroundColor: '#FF8A00', border: '2px solid #fff', }} src={`https://anonymous-animals.azurewebsites.net/avatar/:${user.email}`} /> : < Avatar alt="no one" title="no one" />}
+                                                                                        {user.isLoggedIn /*&& !user.first_time_Logged_in*/ ? < Avatar alt={`${user.first_name}`} title={`${user.first_name} ${user.last_name}`} sx={{ width: '65px', height: '65px', my: -1.5, backgroundColor: '#FF8A00', border: '2px solid #fff', }} src={`https://anonymous-animals.azurewebsites.net/avatar/:${user.email}`} /> : < Avatar alt="no one" title="no one" />}
                                                                                 </IconButton>
                                                                         </Tooltip>
                                                                 </div>

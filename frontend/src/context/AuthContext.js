@@ -9,7 +9,7 @@ const initUesr = {
     email: "",
     phone_number: "",
     isLoggedIn: false,
-    first_time_Logged_in: true,
+    //first_time_Logged_in: true,
 }
 
 const getInitialState = () => {
@@ -34,7 +34,7 @@ const AuthContextProvider = (props) => {
             email,
             phone_number,
             isLoggedIn: true,
-            first_time_Logged_in: false,
+            //first_time_Logged_in: false,
         };
         setUser(updatedUser);
         Cookies.set("user", JSON.stringify(user));
@@ -53,8 +53,8 @@ const AuthContextProvider = (props) => {
             last_name,
             email,
             phone_number,
-            isLoggedIn: true,
-            first_time_Logged_in: true,
+            //isLoggedIn: true,
+            //first_time_Logged_in: true,
         };
         setUser(newUser);
         Cookies.set("user", JSON.stringify(user));

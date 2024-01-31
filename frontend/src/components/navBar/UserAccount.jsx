@@ -15,10 +15,10 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
+import Alert from '@mui/material/Alert';
 // import Buffer
 import { Buffer } from "buffer";
 // import our components
-import { AlertError } from "../views/AlertError";
 import { AuthContext } from '../../context/AuthContext';
 import Loader from '../Loader';
 // import our images
@@ -53,10 +53,12 @@ const UserAccount = () => {
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
   const [requests, setRequests] = useState([]);
-  const [formErrors, setFormErrors] = useState([]);
-  const [formSuccess, setFormSuccess] = useState([]);
+  // const [formErrors, setFormErrors] = useState([]);
+  // const [formSuccess, setFormSuccess] = useState([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [flag, setFlag] = useState(false);
+  const [textErr, setText] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -88,10 +90,9 @@ const UserAccount = () => {
       try {
         const response = await axios.post('/deleteUser', { email: user.email });
         if (response.status === 200) {
-          setFormSuccess("Success");
-          logout();
           setOpen(true);
           setTimeout(() => {
+            logout();
             navigate("/");
           }, 5000);
         }
@@ -103,26 +104,34 @@ const UserAccount = () => {
   };
 
   const handleErrors = (err) => {
-    if (err.response.data && err.response.data.errors) {
+    setFlag(true)
+    if (err.response?.data && err.response?.data.errors) {
       // Handle validation errors
-      const { errors } = err.response.data;
+      const errors = err.response.data.errors;
+      console.log(errors);
 
-      let errorMsg = [];
-      for (let error of errors) {
-        const { msg } = error;
-        errorMsg.push(msg);
+      let errMsg = "";
+
+      if (errors.length > 1) {
+        for (let error of errors) {
+          const errorMsg = error.msg;
+          console.log(error.param);
+          errMsg += `${errorMsg}\n`;
+        }
       }
-
-      setFormErrors(errorMsg);
+      else {
+        errMsg = errors[0].msg;
+      }
+      setText(errMsg);
     } else {
       // Handle generic error
-      setFormErrors(["Oops, there was an error!"]);
+      setText(["אופס! משהו השתבש"]);
     }
   };
 
   return (
     <>
-      {formSuccess === "Success" && <BootstrapDialog
+      <BootstrapDialog
         aria-labelledby="customized-dialog-title"
         open={open}
       >
@@ -131,8 +140,8 @@ const UserAccount = () => {
             איזה יופי! המשתמש נמחק בהצלחה!
           </Typography>
         </DialogContent>
-      </BootstrapDialog>}
-      <AlertError errors={formErrors} />
+      </BootstrapDialog>
+
       <div className="userWrapper">
         <div className="userHeading">
           <section className="userText">
@@ -144,6 +153,13 @@ const UserAccount = () => {
             </Link>}
             &nbsp; &nbsp;
             <Button onClick={handleDelete} variant="contained">מחיקת המשתמש</Button>
+            {flag ? (
+                <div>
+                  <br /><br />
+                  <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>
+                    {textErr}
+                    </Alert>
+                    </div>) : null}
           </section>
         </div>
 

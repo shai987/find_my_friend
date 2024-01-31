@@ -45,8 +45,6 @@ const PetDetails = (props) => {
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const [formSuccess, setFormSuccess] = useState("");
-  const [formErrors, setFormErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [flag, setFlag] = useState(false);
   const [nameError, setNameError] = useState(false);
@@ -79,7 +77,7 @@ const PetDetails = (props) => {
       const res = await axios.post("/petDetails", formData);
 
       // HTTP req successful
-      setFormSuccess("Data received correctly");
+  
 
       // Reset form data
       setFormData(initialFormData);
@@ -156,8 +154,6 @@ const PetDetails = (props) => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setFormErrors([]);
-    setFormSuccess("");
   };
 
   return (
